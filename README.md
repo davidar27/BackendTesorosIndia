@@ -35,5 +35,3 @@ Carpeta dedicada a pruebas unitarias y de integración para controladores, servi
 Archivo principal de la aplicación donde se configura Express y se inicializa el servidor.
 
 ---
-
-Este archivo `README.md` proporciona una visión general de la estructura del proyecto y su organización. Puedes personalizarlo según las necesidades específicas de tu equipo o proyecto.
