@@ -12,9 +12,9 @@ const dbConfig = {
     database: process.env.DB_DATABASE,
     connectionLimit: 10,
     queueLimit: 0,
-    /* ssl: {
+    ssl: {
         rejectUnauthorized: true,  // Si deseas validar el certificado del servidor
-    }, */
+    }, 
 };
 
 // Crear el pool de conexiones

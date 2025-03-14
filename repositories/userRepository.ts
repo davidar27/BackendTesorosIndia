@@ -10,7 +10,7 @@ class userRepository{
             const [result] = await db.execute(sql, values);
             return result;
         }catch (error) {
-            console.log('Error al registrar usuario');
+            console.log('Error al registrar usuario',error);
             
         }
     }
