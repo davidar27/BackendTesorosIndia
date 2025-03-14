@@ -1,5 +1,5 @@
-import User from "../models/userRegisterDto";
-import db from "../config/db";
+import User from "../../models/User/userRegisterDto";
+import db from "../../config/db";
 import { log } from "console";
 
 class userRepository{

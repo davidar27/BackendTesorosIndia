@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
-import router from "./routes/User_register"; // Asumiendo que tienes un router configurado
+import router from "./routes/User/User_register"; // Asumiendo que tienes un router configurado
 
 dotenv.config();
 

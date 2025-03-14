@@ -1,6 +1,6 @@
-import GenerateHast from "../helpers/hashGenerator";
-import User from "../models/userRegisterDto";
-import userRepository from "../repositories/userRepository";
+import GenerateHast from "../../helpers/hashGenerator";
+import User from "../../models/User/userRegisterDto";
+import userRepository from "../../repositories/User/userRepository";
 
 class userRegisterService{
     static async register(user: User){

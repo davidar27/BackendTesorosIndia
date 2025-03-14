@@ -1,6 +1,6 @@
 import express from 'express'
-import User_register_validador from '../middleware/User_register_validador';
-import register from '../controllers/User_register_controller';
+import User_register_validador from '../../middleware/User/User_register_validador';
+import register from '../../controllers/User/User_register_controller';
 
 
 const router = express.Router();
