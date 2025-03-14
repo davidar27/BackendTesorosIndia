@@ -6,9 +6,11 @@ let validatorParam = [
     check('Apellidos').isLength({ min: 1, max: 50 }),
     check('Correo Electronico').isLength({ min: 1, max: 100 }),
     check('Numero de telefono').isLength({min:10, max: 10}),
-    check('Contraseña').isLength({ min: 8, max: 32 }),
+    check('Contraseña').isLength({ min: 8, max: 32 })
+    .matches(/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/),
+
     check('Confirmar Contraseña').custom((value, { req }) => {
-        if (value !== req.body.password_hash) {
+        if (value !== req.body.Contraseña) {
             throw new Error('!LA CONTRASEÑA INGRESADA NO COINCIDE CON LA ANTERIOR¡')
         }return true
     })

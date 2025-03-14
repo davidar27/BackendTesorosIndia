@@ -3,7 +3,7 @@ class User {
     private _last_name: string;
     private _email: string;
     private _phone_number: Number;
-    private _password_hash: string;
+    private _password: string;
 
 
     constructor(
@@ -11,13 +11,13 @@ class User {
         last_name: string,
         email: string,
         phone_number: Number,
-        password_hash: string,
+        password: string,
     ){
         this._first_name = first_name;
         this._last_name = last_name;
         this._email = email;
         this._phone_number = phone_number;
-        this._password_hash = password_hash;
+        this._password = password;
     }
 
     get first_name(): string{
@@ -36,8 +36,8 @@ class User {
         return this._phone_number;
     }
 
-    get password_hash(): string{
-        return this._password_hash;
+    get password(): string{
+        return this._password;
     }
 
     set first_name(first_name: string){
@@ -56,8 +56,8 @@ class User {
         this._phone_number = phone_number;
     }
 
-    set password_hash(password_hash: string){
-        this._password_hash = this.password_hash;
+    set password(password: string){
+        this._password = password;
     }
 }
 
