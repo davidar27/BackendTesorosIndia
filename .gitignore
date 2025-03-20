@@ -38,3 +38,8 @@ tsconfig.json
 
 # Archivos de configuración de npm
 package-lock.json
+
+
+
+dist/
+
