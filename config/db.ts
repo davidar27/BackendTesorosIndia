@@ -28,7 +28,6 @@ const checkDbConnection = () => {
     });
 };
 
-// Verificar la conexión
 checkDbConnection();
 
 export default db.promise();

@@ -9,6 +9,8 @@ dotenv.config();
 const app = express().use(bodyParser.json());
 
 app.use('/user', router);
+app.use('/auth', userAuth);
+
 
 const PORT = process.env.PORT || 3000;
 
