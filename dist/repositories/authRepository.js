@@ -39,20 +39,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var authRepository_1 = __importDefault(require("../repositories/authRepository"));
-var authService = /** @class */ (function () {
-    function authService() {
+var bcryptjs_1 = __importDefault(require("bcryptjs"));
+var db_1 = __importDefault(require("../config/db"));
+var authRepository = /** @class */ (function () {
+    function authRepository() {
     }
-    authService.login = function (p0, auth) {
+    authRepository.login = function (user) {
         return __awaiter(this, void 0, void 0, function () {
+            var sql, values, result, passwordValid;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, authRepository_1.default.login(auth)];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 0:
+                        sql = "SELECT id, password from users WHERE email = ?";
+                        values = [user.email];
+                        return [4 /*yield*/, db_1.default.execute(sql, values)];
+                    case 1:
+                        result = _a.sent();
+                        if (!(result[0].length > 0)) return [3 /*break*/, 3];
+                        return [4 /*yield*/, bcryptjs_1.default.compare(user.password, result[0][0].password)];
+                    case 2:
+                        passwordValid = _a.sent();
+                        if (passwordValid) {
+                            return [2 /*return*/, { logged: true, status: "Successful authentication", id: result[0][0].id, role: result[0][0].role }];
+                        }
+                        return [2 /*return*/, { logged: false, status: "Invalid username or password" }];
+                    case 3: return [2 /*return*/, { logged: false, status: "Invalid username or password" }];
                 }
             });
         });
     };
-    return authService;
+    return authRepository;
 }());
-exports.default = authService;
+exports.default = authRepository;

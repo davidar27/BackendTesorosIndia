@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var User_1 = __importDefault(require("../../models/User"));
+var registerUser_1 = __importDefault(require("../../models/User/registerUser"));
 var User_register_service_1 = __importDefault(require("../../services/User/User_register_service"));
 var register = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, first_name, last_name, email, phone_number, password, userRegister, error_1;
@@ -48,7 +48,7 @@ var register = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
             case 0:
                 _b.trys.push([0, 2, , 3]);
                 _a = req.body, first_name = _a.first_name, last_name = _a.last_name, email = _a.email, phone_number = _a.phone_number, password = _a.password;
-                return [4 /*yield*/, User_register_service_1.default.register(new User_1.default(first_name, last_name, email, phone_number, password))];
+                return [4 /*yield*/, User_register_service_1.default.register(new registerUser_1.default(first_name, last_name, email, phone_number, password))];
             case 1:
                 userRegister = _b.sent();
                 return [2 /*return*/, res.status(201).json({ status: '¡USUARIO REGISTRADO CORRECTAMENTE!' })];

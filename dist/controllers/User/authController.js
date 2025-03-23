@@ -39,20 +39,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var authRepository_1 = __importDefault(require("../repositories/authRepository"));
-var authService = /** @class */ (function () {
-    function authService() {
-    }
-    authService.login = function (p0, auth) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, authRepository_1.default.login(auth)];
-                    case 1: return [2 /*return*/, _a.sent()];
+var LoginUser_1 = require("../../models/User/LoginUser");
+var authService_1 = __importDefault(require("../../services/authService"));
+var tokenGenerator_1 = __importDefault(require("../../helpers/tokenGenerator"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+var authController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, email, password, login, error_1;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                _a = req.body, email = _a.email, password = _a.password;
+                return [4 /*yield*/, authService_1.default.login(new LoginUser_1.loginUser(email, password))];
+            case 1:
+                login = _b.sent();
+                if (login.logged) {
+                    return [2 /*return*/, res.status(200).json({
+                            status: login.status,
+                            token: (0, tokenGenerator_1.default)({ id_user: login.id, role: login.role }, process.env.KEY_TOKEN, 60)
+                        })];
                 }
-            });
-        });
-    };
-    return authService;
-}());
-exports.default = authService;
+                return [2 /*return*/, res.status(401).json({
+                        status: login.status
+                    })];
+            case 2:
+                error_1 = _b.sent();
+                console.log(error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.default = authController;

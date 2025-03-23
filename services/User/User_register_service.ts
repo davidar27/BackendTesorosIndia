@@ -1,5 +1,5 @@
 import GenerateHast from "../../helpers/hashGenerator";
-import User from "../../models/User";
+import User from "../../models/User/registerUser";
 import userRepository from "../../repositories/User/userRepository";
 
 class userRegisterService{

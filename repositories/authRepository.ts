@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import db from '../config/db';
-import userAuth from '../dto/authDto';
+import userAuth from '../models/User/loginUser';
 
 class authRepository {
     static async login(user: userAuth) {

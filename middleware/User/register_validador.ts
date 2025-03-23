@@ -1,4 +1,3 @@
-
 import { NextFunction, Request, Response } from "express";
 import { check } from "express-validator/lib/middlewares/validation-chain-builders";
 import { validationResult } from "express-validator/lib/validation-result";

@@ -28,6 +28,5 @@ var checkDbConnection = function () {
         connection.release();
     });
 };
-// Verificar la conexión
 checkDbConnection();
 exports.default = db.promise();

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User from "../../models/User";
+import User from "../../models/User/registerUser";
 import userRegisterService from "../../services/User/User_register_service";
 
 let register = async (req: Request, res: Response): Promise<any> => {

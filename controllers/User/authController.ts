@@ -1,16 +1,18 @@
 import { Request, Response } from "express";
-import userAuth from "../../dto/authDto";
+import { loginUser } from "../../models/User/LoginUser";
 import authService from "../../services/authService";
 import tokenGenerator from "../../helpers/tokenGenerator";
 import dotenv from "dotenv";
 dotenv.config();
+
+
 
 let authController = async (req: Request, res: Response) : Promise<any>  => {
     try {
         const { 
             email, password 
         } = req.body;
-        const login = await authService.login(new userAuth(email, password));
+        const login = await authService.login(new loginUser(email, password));
         if (login.logged) {
             return res.status(200).json({
                 status: login.status,

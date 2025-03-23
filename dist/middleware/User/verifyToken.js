@@ -39,20 +39,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var authRepository_1 = __importDefault(require("../repositories/authRepository"));
-var authService = /** @class */ (function () {
-    function authService() {
-    }
-    authService.login = function (p0, auth) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, authRepository_1.default.login(auth)];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
-    };
-    return authService;
-}());
-exports.default = authService;
+var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+var verifyToken = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var authorization, token, decoded;
+    return __generator(this, function (_a) {
+        authorization = req.header('Authorization');
+        if (!authorization) {
+            return [2 /*return*/, res.status(403).json({ status: "The Authorization header is required" })];
+        }
+        token = authorization.split(' ')[1];
+        if (!token) {
+            return [2 /*return*/, res.status(401).json({ status: 'You have not sent a token' })];
+        }
+        try {
+            decoded = jsonwebtoken_1.default.verify(token, process.env.KEY_TOKEN);
+            req.body.identityNumber = decoded.data.identityNumber;
+            req.body.role = decoded.data.role;
+            next();
+        }
+        catch (error) {
+            return [2 /*return*/, res.status(403).json({ status: 'Unauthorized' })];
+        }
+        return [2 /*return*/];
+    });
+}); };
+exports.default = verifyToken;

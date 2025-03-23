@@ -1,4 +1,4 @@
-import User from "../../models/User";
+import User from "../../models/User/registerUser";
 import db from "../../config/db";
 
 class userRepository{
