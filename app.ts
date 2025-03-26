@@ -1,17 +1,12 @@
-import Express from "express";
-import bodyParser from 'body-parser';
-import userAuth from './routes/authRoutes';
-import dotenv from "dotenv";
-dotenv.config();
+import express from 'express';
+import cartRoutes from './routes/cartRoutes';
 
-const app = Express().use(bodyParser.json());
+const app = express();
+app.use(express.json());
 
-app.use('/auth', userAuth);
+app.use('/cart', cartRoutes);
 
-const PORT = process.env.PORT || 3000;
-
+const PORT = 3000;
 app.listen(PORT, () => {
-    console.log("Servidor ejecutándose en el puerto: ", PORT);
-}).on("error", (error: any) => {
-    throw new Error(error.message);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
