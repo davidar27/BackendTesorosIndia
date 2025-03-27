@@ -1,22 +1,27 @@
 import express from "express";
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
-import authRouter from "./routes/Auth/authRoutes";
-import user from "./routes/User/User";
 import cookieParser from "cookie-parser";
+import cartRoutes from "./routes/cart/cartRoutes"
+import userRoutes from "./routes/User/userRoutes"
+import authRoutes from "./routes/Auth/authRoutes"
+import productRoutes from "./routes/Product/productRoutes"
+import { checkRole } from "./middleware/Auth/checkRole";
 
 
 dotenv.config();
-import cartRoutes from './routes/cartRoutes';
+
 
 const app = express().use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
 
-app.use('/user', user);
-app.use('/admin', user,)
-app.use('/user', authRouter);
-app.use('/cart', cartRoutes);
+app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
+app.use('/cart', cartRoutes, checkRole('cliente'));
+app.use('/product', productRoutes );
+
+
 
 const PORT = 3000;
 app.listen(PORT, () => {

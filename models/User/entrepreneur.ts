@@ -1,4 +1,4 @@
-class Entrepreneur {
+export class Entrepreneur {
     private _first_name: string;
     private _last_name: string;
     private _email: string;
@@ -83,5 +83,3 @@ class Entrepreneur {
         this._description = description;
     }
 }
-
-export default Entrepreneur;

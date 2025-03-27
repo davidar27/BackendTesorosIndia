@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import UserAuth from "../../models/Auth/userAuth";
-import tokenGenerator from "../../helpers/User/tokenGenerator";
 import dotenv from "dotenv";
 import { authUserService } from "../../services/Auth/authUserService";
+import { generateToken } from "../../helpers/User/generateToken";
 dotenv.config();
 
 export const authUserController = async (req: Request, res: Response): Promise<any> => {
@@ -15,7 +15,16 @@ export const authUserController = async (req: Request, res: Response): Promise<a
                 throw new Error("Clave de token no definida en variables de entorno");
             }
 
-            const token = tokenGenerator({ id_user: login.id, role: login.role }, process.env.KEY_TOKEN, 60);
+            if (!login.role || !["cliente", "administrador", "emprendedor"].includes(login.role)) {
+                throw new Error("Role inválido o no definido");
+            }
+
+            const token = generateToken(
+                { userId: login.id ?? 0, role: login.role as "cliente" | "administrador" | "emprendedor" },
+                process.env.KEY_TOKEN,
+                60
+            );
+
             res.cookie('access_token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
@@ -25,6 +34,7 @@ export const authUserController = async (req: Request, res: Response): Promise<a
             return res.status(200).json({
                 status: login.status,
                 token: token,
+                role: login.role
             });
         }
 
@@ -34,5 +44,4 @@ export const authUserController = async (req: Request, res: Response): Promise<a
     } catch (error: any) {
         return res.status(500).json({ error: "Internal server error" });
     }
-
 }

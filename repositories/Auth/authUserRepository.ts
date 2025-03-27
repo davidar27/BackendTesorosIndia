@@ -12,16 +12,21 @@ export interface loginResult {
 
 export const authUserRepository = async (user: UserAuth): Promise<loginResult> => {
     try {
+       
+        
         const sql = `SELECT usuario_id, contraseña, rol FROM usuario WHERE correo = ?`;
         const values = [user.email];
         const result: any = await db.execute(sql, values);
         const userRecord = result[0][0];
-
+      
+        
         if (!userRecord) {
             return { logged: false, status: "Usuario o contraseña inválidos" };
         }
 
         const passwordValid = await bcrypt.compare(user.password, userRecord.contraseña);
+
+        
 
         if (!passwordValid) {
             return { logged: false, status: "Usuario o contraseña inválidos" };

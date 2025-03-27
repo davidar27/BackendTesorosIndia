@@ -1,4 +1,4 @@
-class user {
+export class User {
     private _first_name: string;
     private _last_name: string;
     private _email: string;
@@ -72,4 +72,3 @@ class user {
     }
 }
 
-export default user;

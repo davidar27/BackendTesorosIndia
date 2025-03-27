@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const createProductController_1 = require("../../controllers/Product/createProductController");
+const getProductByIdController_1 = require("../../controllers/Product/getProductByIdController");
+const getAllProductsController_1 = require("../../controllers/Product/getAllProductsController");
+const updateProductController_1 = require("../../controllers/Product/updateProductController");
+const deleteProductController_1 = require("../../controllers/Product/deleteProductController");
+const checkRole_1 = require("../../middleware/Auth/checkRole");
+const verifyToken_1 = require("../../middleware/Auth/verifyToken");
+const router = (0, express_1.Router)();
+router.post('/add', verifyToken_1.verifyToken, (0, checkRole_1.checkRole)('emprendedor'), createProductController_1.createProductController);
+router.get('/get', verifyToken_1.verifyToken, (0, checkRole_1.checkRole)('emprendedor'), getAllProductsController_1.getAllProductsController);
+router.get('/get/:id', verifyToken_1.verifyToken, (0, checkRole_1.checkRole)('emprendedor'), getProductByIdController_1.getProductByIdController);
+router.put('/update/:id', verifyToken_1.verifyToken, (0, checkRole_1.checkRole)('emprendedor'), updateProductController_1.updateProductController);
+router.delete('/delete/:id', verifyToken_1.verifyToken, (0, checkRole_1.checkRole)('emprendedor'), deleteProductController_1.deleteProductController);
+exports.default = router;
