@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const register_validador_1 = __importDefault(require("../../middleware/User/register_validador"));
+const createUserController_1 = require("../../controllers/User/createUserController");
+const getAllUserController_1 = require("../../controllers/User/getAllUserController");
+const verifyToken_1 = require("../../middleware/Auth/verifyToken");
+const checkRole_1 = require("../../middleware/Auth/checkRole");
+const updateUserController_1 = require("../../controllers/User/updateUserController");
+const deleteUserController_1 = require("../../controllers/User/deleteUserController");
+const router = express_1.default.Router();
+router.get('/users', verifyToken_1.verifyToken, (0, checkRole_1.checkRole)('administrador'), getAllUserController_1.getAllUserController);
+router.post('/register', register_validador_1.default.validatorParam, register_validador_1.default.validator, createUserController_1.createUserController);
+router.post('/register/emprendedor', verifyToken_1.verifyToken, (0, checkRole_1.checkRole)('administrador'), register_validador_1.default.validatorParam, register_validador_1.default.validator, createUserController_1.createUserController);
+router.put('/:id', verifyToken_1.verifyToken, (0, checkRole_1.checkRole)('administrador'), register_validador_1.default.validatorParam, register_validador_1.default.validator, updateUserController_1.updateUserController);
+router.delete('/:id', verifyToken_1.verifyToken, (0, checkRole_1.checkRole)('administrador'), deleteUserController_1.deleteUserController);
+exports.default = router;

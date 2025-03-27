@@ -3,21 +3,29 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+
+const requiredEnvVars = ['DB_HOST', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE'];
+for (const envVar of requiredEnvVars) {
+    if (!process.env[envVar]) {
+        throw new Error(`Falta la variable de entorno: ${envVar}`);
+    }
+}
+
 const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST as string,
+    user: process.env.DB_USERNAME as string,
+    password: process.env.DB_PASSWORD as string,
+    database: process.env.DB_DATABASE as string,
     connectionLimit: 10,
     queueLimit: 0,
     ssl: {
-        rejectUnauthorized: true, 
-    }, 
+        rejectUnauthorized: true,
+    }
 };
 
 const db = mysql.createPool(dbConfig);
 
-const checkDbConnection = () => {
+const checkDbConnection = (): void => {
     db.getConnection((err, connection) => {
         if (err) {
             console.error("Error al conectar a la base de datos:", err.message);
