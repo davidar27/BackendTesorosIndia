@@ -5,17 +5,9 @@ import { createContentService } from "../../services/Content/createContentServic
 export const createContentController = async (req: Request, res: Response) => {
     try {
     
-        console.log("req.body:", req.body);
-        console.log("req.file:", req.file);
 
         const { title, description } = req.body;
         const emprendedor_id = req.body.userId
-        console.log(emprendedor_id);
-        
-
-        if (!title || !description || !emprendedor_id) {
-            return res.status(400).json({ mensaje: "Faltan datos obligatorios" });
-        }
 
         let fileUrl = null;
         if (req.file) {

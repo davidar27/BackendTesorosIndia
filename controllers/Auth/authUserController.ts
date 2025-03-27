@@ -8,6 +8,8 @@ dotenv.config();
 export const authUserController = async (req: Request, res: Response): Promise<any> => {
     try {
         const { email, password } = req.body;
+        
+        
         const login = await authUserService(new UserAuth(email, password));
 
         if (login.logged) {
@@ -27,7 +29,6 @@ export const authUserController = async (req: Request, res: Response): Promise<a
 
             res.cookie('access_token', token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',
                 maxAge: 1000 * 60 * 60,
             });
