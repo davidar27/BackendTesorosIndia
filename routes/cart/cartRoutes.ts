@@ -5,22 +5,24 @@ import { updateQuantityController } from '../../controllers/Cart/updateQuantityC
 import { deleteProductController } from '../../controllers/Cart/deleteProductController';
 import { emptyCartController } from '../../controllers/Cart/emptyCartController';
 import { getCartController } from '../../controllers/Cart/getCartController';
+import { verifyToken } from '../../middleware/Auth/verifyToken';
+import { checkRole } from '../../middleware/Auth/checkRole';
 
 const router = Router();
 
 // Agregar producto al carrito 
-router.post('/add', cartMiddleware, addProductController);
+router.post('/add', verifyToken, checkRole('cliente'), cartMiddleware, addProductController);
 
 // Actualizar cantidad de un producto 
-router.put('/update', cartMiddleware, updateQuantityController);
+router.put('/update', verifyToken, checkRole('cliente'), cartMiddleware, updateQuantityController);
 
 // Eliminar un producto del carrito
-router.delete('/remove', cartMiddleware, deleteProductController);
+router.delete('/remove', verifyToken, checkRole('cliente'), cartMiddleware, deleteProductController);
 
 // Vaciar el carrito del cliente
-router.delete('/clear', emptyCartController);
+router.delete('/clear', verifyToken, checkRole('cliente'), emptyCartController);
 
 // Consultar el contenido del carrito
-router.get('/get', getCartController);
+router.get('/get', verifyToken, checkRole('cliente'), getCartController);
 
 export default router;

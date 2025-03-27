@@ -6,7 +6,6 @@ import cartRoutes from "./routes/cart/cartRoutes"
 import userRoutes from "./routes/User/userRoutes"
 import authRoutes from "./routes/Auth/authRoutes"
 import productRoutes from "./routes/Product/productRoutes"
-import { checkRole } from "./middleware/Auth/checkRole";
 
 
 dotenv.config();
@@ -18,7 +17,7 @@ app.use(express.json());
 
 app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
-app.use('/cart', cartRoutes, checkRole('cliente'));
+app.use('/cart', cartRoutes);
 app.use('/product', productRoutes );
 
 
