@@ -10,7 +10,7 @@ export const updateUserController = async (req: Request, res: Response) => {
 
         const updatedUser = await udpateUserService(Number(user_id), updateData);
 
-        if (!updatedUser) {
+        if (updatedUser === null) {
             return res.status(404).json({ message: 'User not found' });
         }
 

@@ -4,42 +4,43 @@ import dotenv from "dotenv";
 dotenv.config();
 
 interface Data {
-    identityNumber: number,
-    role: "cliente" | "administrador" | "emprendedor"
+    userId: number;
+    role: "cliente" | "administrador" | "emprendedor";
 }
 
 interface JwtPayload {
-    data: Data,
-    exp: number,
-    iat: number
+    data: Data;
+    exp: number;
+    iat: number;
 }
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+    const tokenKey = process.env.KEY_TOKEN;
 
-    let authorization = req.header('Authorization');
+    if (!tokenKey) {
+        return res.status(500).json({ message: "Token key is not set in environment variables" });
+    }
 
-    if (!authorization) {
-        return res.status(403).json(
-            { status: "The Authorization header is required" }
-        );
+    const authorization = req.header('Authorization');
+
+    if (!authorization || !authorization.startsWith("Bearer ")) {
+        return res.status(403).json({ message: "Authorization header is required and must start with 'Bearer '" });
     }
 
     const token = authorization.split(' ')[1];
+
     if (!token) {
-        return res.status(401).json(
-            { status: 'You have not sent a token' }
-        );
+        return res.status(401).json({ message: "You have not sent a token" });
     }
 
     try {
-        let decoded = jwt.verify(token, process.env.KEY_TOKEN as string) as JwtPayload;
-        req.body.identityNumber = decoded.data.identityNumber;
-        req.body.role = decoded.data.role;
-        next();
-    } catch (error) {
-        return res.status(403).json(
-            { status: 'Unauthorized' }
-        );
-    }
-}
+        const decoded = jwt.verify(token, tokenKey) as JwtPayload;
 
+        req.body.userId = decoded.data.userId;
+        req.body.role = decoded.data.role;
+
+        next();
+    } catch (error : any) {
+        return res.status(403).json({ message: "Unauthorized", error: error.message });
+    }
+};

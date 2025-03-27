@@ -1,11 +1,6 @@
-import updateUserRepositories from '../../repositories/User/updateUserRepositories';
-import user from '../../models/User/user';
+import { User } from '../../models/User/User';
+import { updateUserRepository } from '../../repositories/User/updateUserRepository';
 
-export const udpateUserService = async (user_id: number, userData: user) => {
-    try {
-        await updateUserRepositories(user_id, userData);
-        return { message: 'Usuario actualizado correctamente' };
-    } catch (error) {
-        throw new Error('Error al actualizar el usuario');
-    }
+export const udpateUserService = async (gUseId: number, userData: User) => {
+    await updateUserRepository(gUseId, userData);
 };

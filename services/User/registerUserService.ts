@@ -1,9 +1,9 @@
-import user from "../../models/User/user";
-import createUserRepositories from "../../repositories/User/createUserRepositories";
 import GenerateHash from "../../helpers/User/hashGenerator";
+import { User } from "../../models/User/User";
+import { createUserRepository } from "../../repositories/User/createUserRepository";
 
-export const registerUserService = async (user: user): Promise<user> => {
-    user.password = await GenerateHash(user.password);
-    return await createUserRepositories(user);
+export const registerUserService = async (newUser: User): Promise<User> => {    
+    newUser.password = await GenerateHash(newUser.password);
+    return await createUserRepository(newUser);
 }
 

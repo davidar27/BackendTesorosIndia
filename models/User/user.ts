@@ -1,19 +1,20 @@
-class user {
+export class User {
     private _first_name: string;
     private _last_name: string;
     private _email: string;
     private _password: string;
-    private _phone_number: Number;
-    private _role : string;
-
+    private _phone_number: number;
+    private _role: string;
+    private _description?: string;
 
     constructor(
         first_name: string,
         last_name: string,
         email: string,        
         password: string,
-        phone_number: Number,
-        role : string,
+        phone_number: number,
+        role: string,
+        description?: string
     ) {
         this._first_name = first_name;
         this._last_name = last_name;
@@ -21,6 +22,10 @@ class user {
         this._password = password;
         this._phone_number = phone_number;
         this._role = role;
+
+        if (role === "emprendedor") {
+            this._description = description;
+        }
     }
 
     get first_name(): string {
@@ -39,12 +44,16 @@ class user {
         return this._password;
     }
 
-    get phone_number(): Number {
+    get phone_number(): number {
         return this._phone_number;
     }
 
-    get role(): string{
+    get role(): string {
         return this._role;
+    }
+
+    get description(): string | undefined {
+        return this._description;
     }
 
     set first_name(first_name: string) {
@@ -63,13 +72,15 @@ class user {
         this._password = password;
     }
     
-    set phone_number(phone_number: Number) {
+    set phone_number(phone_number: number) {
         this._phone_number = phone_number;
     }
 
-    set role(role : string){
+    set role(role: string) {
         this._role = role;
     }
-}
 
-export default user;
+    set description(description: string | undefined) {
+        this._description = description;
+    }
+}
