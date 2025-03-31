@@ -1,4 +1,3 @@
-// ../controller/content/updateContentController.ts
 import { Request, Response } from "express";
 import { uploadToAzureService } from "../../services/Content/uploadToAzureService";
 import { updateContentService } from "../../services/Content/updateContentService";

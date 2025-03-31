@@ -1,4 +1,3 @@
-// ../repositories/Content/updateContentRepository.ts
 import db from "../../config/db";
 
 export const updateContentRepository = async (contentData: any) => {

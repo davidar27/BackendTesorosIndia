@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from "uuid";
-import { BlobClient } from "@azure/storage-blob";
 import { containerClient } from "../../config/azure";
 
 export const uploadToAzureService = async (file: Express.Multer.File): Promise<string | null> => {

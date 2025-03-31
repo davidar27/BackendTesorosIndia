@@ -1,4 +1,3 @@
-// ../controller/content/getContentByIdController.ts
 import { Request, Response } from "express";
 import { getContentByIdService } from "../../services/Content/getContentByIdService";
 
