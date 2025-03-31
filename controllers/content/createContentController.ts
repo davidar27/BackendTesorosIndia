@@ -6,7 +6,7 @@ export const createContentController = async (req: Request, res: Response) => {
     try {
     
 
-        const { title, description } = req.body;
+        const { nombre, descripcion, ubicacion } = req.body;
         const emprendedor_id = req.body.userId
 
         let fileUrl = null;
@@ -15,8 +15,9 @@ export const createContentController = async (req: Request, res: Response) => {
         }
 
         const newContent = { 
-            title, 
-            description, 
+            nombre, 
+            descripcion, 
+            ubicacion,
             emprendedor_id, 
             images: fileUrl || null, 
             videos: null 

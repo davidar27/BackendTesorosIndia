@@ -1,16 +1,17 @@
 import db from "../../config/db";
 
 export const createContentRepository = async (contentData: any) => {
-    const { title, description, emprendedor_id, images, videos } = contentData;
+    const { nombre, descripcion, ubicacion, emprendedor_id, images, videos } = contentData;
 
     const query = `
-        INSERT INTO contenido (titulo, descripcion, emprendedor_id, imagenes, videos) 
+        INSERT INTO finca (nombre, descripcion, ubicacion, emprendedor_id, imagenes, videos) 
         VALUES (?, ?, ?, ?, ?)
     `;
 
     const values = [
-        title || "Sin título",
-        description || "Sin descripción",
+        nombre || "Sin nombre",
+        descripcion || "Sin descripción",
+        ubicacion || null,
         emprendedor_id || 0, 
         images || null,
         videos || null
