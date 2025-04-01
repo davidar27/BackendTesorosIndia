@@ -1,5 +1,5 @@
 import GenerateHash from "../../helpers/User/hashGenerator";
-import { User } from "../../models/User/User";
+import { User } from "../../models/User/user";
 import { createEntrepreneurRepository } from "../../repositories/User/createEntrepreneurRepository";
 
 export const registerEntrepreneurService = async (newUser: User, description?: string): Promise<void> => {    

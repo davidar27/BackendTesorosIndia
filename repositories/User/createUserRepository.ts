@@ -1,5 +1,5 @@
 import db from "../../config/db";
-import { User } from "../../models/User/User";
+import { User } from "../../models/User/user";
 
 export const createUserRepository = async (newUser: User): Promise<User> => {
     const { first_name, last_name, email, password, phone_number } = newUser;
