@@ -12,7 +12,7 @@ export const createEntrepreneurController = async (req: Request, res: Response) 
             return res.status(400).json({ error: 'El correo electrónico ya está registrado.' });
         }
 
-        await registerEntrepreneurService(new User(first_name, last_name, email, password, phone_number, role), description);
+        await registerEntrepreneurService(new User(first_name, last_name, email, password, phone_number, role, description));
 
         return res.status(201).json({ message: 'El registro del emprendedor ha sido exitoso' });
     } catch (error) {

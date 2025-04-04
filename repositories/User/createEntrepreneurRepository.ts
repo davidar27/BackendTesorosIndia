@@ -1,16 +1,10 @@
 import db from "../../config/db";
 import { User } from "../../models/User/User";
 
-export const createEntrepreneurRepository = async (newUser: User, description?: string): Promise<void> => {
-    const { first_name, last_name, email, password, phone_number, role } = newUser;
+export const createEntrepreneurRepository = async (newUser: User): Promise<void> => {
+    const { first_name, last_name, email, password, phone_number, role, description } = newUser;
 
-    const sqlUser = 'INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, rol) VALUES (?, ?, ?, ?, ?, ?)';
-    const [result]: any = await db.execute(sqlUser, [first_name, last_name, email, password, phone_number, role]);
-
-    const userId = result.insertId;
-    
-    const sqlEmprendedor = 'UPDATE emprendedor SET descripcion = ? WHERE usuario_id = ?';
-    
-    await db.execute(sqlEmprendedor, [description, userId]);
-    
+    const sqlUser = 'INSERT INTO usuario (nombre, apellido, correo, contraseña, telefono, rol,descripcion_emprendedor) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const [result]: any = await db.execute(sqlUser, [first_name, last_name, email, password, phone_number, role, description]);
+    return result.insertId;
 };
