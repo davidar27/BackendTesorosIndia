@@ -1,12 +1,12 @@
 import express from "express";
 import upload from "../../config/multerConfig";
-import { createContentController } from "../../controllers/content/createContentController";
+import { createContentController } from "../../controllers/Content/createContentController";
 import { verifyToken } from "../../middleware/Auth/verifyToken";
 import { checkRole } from "../../middleware/Auth/checkRole";
-import { uploadToAzureController } from "../../controllers/content/uploadToAzureController";
-import { deleteContentController } from "../../controllers/content/deleteContentController";
-import { getContentByIdController } from "../../controllers/content/getContentByIdController";
-import { updateContentController } from "../../controllers/content/updateContentController";
+import { uploadToAzureController } from "../../controllers/Content/uploadToAzureController";
+import { deleteContentController } from "../../controllers/Content/deleteContentController";
+import { getContentByIdController } from "../../controllers/Content/getContentByIdController";
+import { updateContentController } from "../../controllers/Content/updateContentController";
 
 const router = express.Router();
 
