@@ -1,4 +1,4 @@
-import { User } from "../../models/User/user";
+import { User } from "../../models/User/User";
 import { findByEmailRepositoriy } from "../../repositories/User/findByEmailRepositoriy";
 
 
