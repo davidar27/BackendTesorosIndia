@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { registerUserService } from '../../services/User/registerUserService';
 import { findByEmailUserService } from '../../services/User/findByEmailUserService';
-import { User } from '../../models/User/user';
+import { User } from '../../models/User/User';
 
 export const createUserController = async (req: Request, res: Response) => {
     try {
