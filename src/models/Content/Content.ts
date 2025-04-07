@@ -1,8 +1,9 @@
 export interface finca {
-    nombre: string;
+    name: string;
     descripcion?: string;
-    ubicacion?: string;
-    emprendedor_id: number;
+    location?: string;
+    status: string;
     images?: string;
     videos?: string;
+    entrepreneur_id: number;
 }

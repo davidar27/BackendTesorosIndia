@@ -1,18 +1,18 @@
 import express from "express";
-import upload from "../../config/multerConfig";
 import { verifyToken } from "../../middleware/Auth/verifyToken";
 import { checkRole } from "../../middleware/Auth/checkRole";
-// import { deleteContentController } from "../../controllers/Content/deleteContentController";
-// import { getContentByIdController } from "../../controllers/Content/getContentByIdController";
-// import { updateContentController } from "../../controllers/Content/updateContentController";
 import { createContentController } from "../../controllers/content/createContentController";
+import { uploadFiles } from "../../config/multerConfig";
+import { deleteContentController } from "../../controllers/content/deleteContentController";
+import { updateContentController } from "../../controllers/content/updateContentController";
+import { getContentByIdController } from "../../controllers/content/getContentByIdController";
 
 const router = express.Router();
 
-router.post("/create", upload.single("file"), verifyToken, checkRole('emprendedor'), createContentController);
-// router.put("/id", upload.single("file"), verifyToken, checkRole('emprendedor'), updateContentController);
-// router.delete("/id", verifyToken, checkRole('emprendedor'), deleteContentController);
-// router.get("/finca", verifyToken, checkRole('emprendedor'), getContentByIdController);
+router.post("/create", uploadFiles, verifyToken, checkRole('emprendedor'), createContentController);
+router.put("/id", uploadFiles, verifyToken, checkRole('emprendedor'), updateContentController);
+router.delete("/delete/:finca_id", verifyToken, checkRole('emprendedor'), deleteContentController);
+router.get("/finca", verifyToken, checkRole('emprendedor'), getContentByIdController);
 
 
 

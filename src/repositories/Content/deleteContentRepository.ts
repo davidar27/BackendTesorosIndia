@@ -3,9 +3,10 @@ import db from "../../config/db";
 export const deleteContentRepository = async (finca_id: number, emprendedor_id: number) => {
     const query = `
         DELETE FROM finca 
-        WHERE contenido_id = ? AND emprendedor_id = ?
+        WHERE finca_id = ? AND emprendedor_id = ?
     `;
-
+        console.log(finca_id);
+        
     const values = [finca_id, emprendedor_id];
 
     try {

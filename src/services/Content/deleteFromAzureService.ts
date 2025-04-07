@@ -2,10 +2,11 @@ import { containerClient } from "../../config/azure";
 
 export const deleteFromAzureService = async (fileUrl: string) => {
     try {
+        const encodedBlobName = fileUrl.split('/').pop();
+        if (!encodedBlobName) return;
 
-        const blobName = fileUrl.split('/').pop();
-        if (!blobName) return;
-        
+        const blobName = decodeURIComponent(encodedBlobName); 
+
         const blockBlobClient = containerClient.getBlockBlobClient(blobName);
         await blockBlobClient.delete();
     } catch (error) {
