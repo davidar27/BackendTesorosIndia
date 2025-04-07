@@ -2,11 +2,11 @@ import express from "express";
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import cartRoutes from "./routes/cart/cartRoutes"
-import userRoutes from "./routes/User/userRoutes"
-import authRoutes from "./routes/Auth/authRoutes"
-import productRoutes from "./routes/Product/productRoutes"
-import contentRputes from "./routes/Content/contentRoutes"
+import cartRoutes from "./src/routes/cart/cartRoutes"
+import userRoutes from "./src/routes/User/userRoutes"
+import authRoutes from "./src/routes/Auth/authRoutes"
+import productRoutes from "./src/routes/Product/productRoutes"
+import contentRputes from "./src/routes/Content/contentRoutes"
 
 
 dotenv.config();

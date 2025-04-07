@@ -3,14 +3,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
-const requiredEnvVars = ['DB_HOST', 'DB_USERNAME', 'DB_PASSWORD', 'DB_DATABASE'];
-for (const envVar of requiredEnvVars) {
-    if (!process.env[envVar]) {
-        throw new Error(`Falta la variable de entorno: ${envVar}`);
-    }
-}
-
 const dbConfig = {
     host: process.env.DB_HOST as string,
     user: process.env.DB_USERNAME as string,

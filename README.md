@@ -11,7 +11,7 @@ Contiene archivos de configuración para la base de datos, autenticación y vari
 Los controladores manejan la lógica de las rutas y actúan como intermediarios entre las solicitudes HTTP y los servicios.
 
 ### `models/`
-Define los modelos de la base de datos utilizando Mongoose (para MongoDB) o Sequelize (para SQL).
+Define los modelos de la base de datos.
 
 ### `repositories/`
 Encapsula la lógica de acceso a la base de datos, separando la lógica de negocio de la interacción directa con la base de datos.
@@ -25,7 +25,7 @@ Define las rutas de la API y las asocia con los controladores correspondientes.
 ### `middleware/`
 Incluye middlewares personalizados para autenticación, manejo de errores y validación de datos.
 
-### `utils/`
+### `helpers/`
 Utilidades y funciones de ayuda, como el envío de correos electrónicos, generación de tokens y logging.
 
 ### `tests/`

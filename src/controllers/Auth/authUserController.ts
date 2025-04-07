@@ -9,8 +9,9 @@ export const authUserController = async (req: Request, res: Response): Promise<a
     try {
         const { email, password } = req.body;
         
-        
+
         const login = await authUserService(new UserAuth(email, password));
+        
 
         if (login.logged) {
             if (!process.env.KEY_TOKEN) {
