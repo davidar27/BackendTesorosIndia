@@ -1,8 +1,8 @@
 import db from "../../config/db";
-import { finca } from "../../models/Content/Content"
+import { Farm } from "../../models/Farm/Farm";
 
 
-export const getAllContentRepository = async (): Promise<finca> => {
+export const getAllFarmRepository = async (): Promise<Farm> => {
     const sql = 'SELECT * FROM finca';
     const [rows] : any = await db.execute(sql);
     return rows;

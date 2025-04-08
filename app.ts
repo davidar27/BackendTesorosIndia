@@ -6,8 +6,7 @@ import cartRoutes from "./src/routes/cart/cartRoutes"
 import userRoutes from "./src/routes/User/userRoutes"
 import authRoutes from "./src/routes/Auth/authRoutes"
 import productRoutes from "./src/routes/Product/productRoutes"
-import contentRputes from "./src/routes/Content/contentRoutes"
-
+import farmRoutes from "./src/routes/Farm/FarmRoutes"
 
 dotenv.config();
 
@@ -23,7 +22,7 @@ app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
 app.use('/cart', cartRoutes);
 app.use('/product', productRoutes );
-app.use('/content',contentRputes)
+app.use('/farm',farmRoutes)
 
 
 

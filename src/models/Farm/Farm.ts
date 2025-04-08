@@ -1,4 +1,4 @@
-export interface finca {
+export interface Farm {
     name: string;
     descripcion?: string;
     location?: string;

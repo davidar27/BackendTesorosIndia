@@ -1,6 +1,6 @@
 import db from "../../config/db";
 
-export const getContentByIdRepository = async (id: number, entrepreneur_id: number) => {
+export const getFarmByIdRepository = async (id: number, entrepreneur_id: number) => {
     const query = `
         SELECT * FROM finca 
         WHERE finca_id = ? AND emprendedor_id = ?
@@ -12,7 +12,7 @@ export const getContentByIdRepository = async (id: number, entrepreneur_id: numb
         const [rows]: any = await db.execute(query, values);
         return rows[0] || null;
     } catch (error) {
-        console.error("Error en getContentByIdRepository:", error);
+        console.error("Error en getFarmByIdRepository:", error);
         throw new Error("Error al obtener contenido de la base de datos");
     }
 };
