@@ -37,6 +37,9 @@ export const createContentController = async (req: Request, res: Response) => {
             entrepreneur_id,
         };
 
+
+
+
         await createContentService(newContent);
 
         res.status(201).json({ mensaje: "Contenido guardado correctamente" });

@@ -5,7 +5,7 @@ export const deleteFromAzureService = async (fileUrl: string) => {
         const encodedBlobName = fileUrl.split('/').pop();
         if (!encodedBlobName) return;
 
-        const blobName = decodeURIComponent(encodedBlobName); 
+        const blobName = decodeURIComponent(encodedBlobName);
 
         const blockBlobClient = containerClient.getBlockBlobClient(blobName);
         await blockBlobClient.delete();

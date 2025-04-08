@@ -5,12 +5,10 @@ import { getContentByIdService } from "../../services/Content/getContentByIdServ
 
 export const deleteContentController = async (req: Request, res: Response) => {
     try {
-        const { finca_id } = req.params;
-        const emprendedor_id = req.body.userId;
+        const { id } = req.params;
+        const entrepreneur_id = req.body.userId;
 
-
-
-        const content = await getContentByIdService(Number(finca_id), emprendedor_id);
+        const content = await getContentByIdService(Number(id), entrepreneur_id);
         if (!content) {
             return res.status(404).json({ message: 'Finca no encontrada' });
 
@@ -18,28 +16,13 @@ export const deleteContentController = async (req: Request, res: Response) => {
         let images: string[] = [];
         let videos: string[] = [];
 
-        if (typeof content.images === "string") {
-            const parsed = JSON.parse(content.images);
-            if (Array.isArray(parsed)) {
-                images = parsed;
-                images.forEach(img => {
-                    console.log("Imagen:", img);
-                });
-            } else {
-                images = [parsed];
-                console.log("Imagen única:", parsed);
-            }
+        if (typeof content.imagenes === "string") {
+            images = JSON.parse(content.imagenes);
+            
         }
 
         if (typeof content.videos === "string") {
-            try {
-                videos = JSON.parse(content.videos);
-                videos.forEach((video) => {
-                    console.log("Video:", video);
-                });
-            } catch (error) {
-                console.error("Error al parsear videos:", error);
-            }
+            videos = JSON.parse(content.videos);
         }
 
         if (content) {
@@ -52,12 +35,10 @@ export const deleteContentController = async (req: Request, res: Response) => {
             }
         }
 
-
-        await deleteContentService(Number(finca_id), emprendedor_id);
+        await deleteContentService(Number(id), entrepreneur_id);
 
         res.status(200).json({ mensaje: "Contenido eliminado correctamente" });
     } catch (error) {
-        console.error("Error en deleteContentController:", error);
         res.status(500).json({ mensaje: "Error al eliminar contenido" });
     }
 };

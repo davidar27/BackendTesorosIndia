@@ -8,8 +8,6 @@ export async function createProductRepository(product: Product): Promise<number>
     const checkValues = [product.nombre, product.emprendedor_id];
 
     const [existing]: any = await db.execute(checkSql, checkValues);
-    console.log(existing);
-    
 
     if (existing.length > 0) {
         throw new Error("Este producto ya ha sido registrado por el emprendedor.");

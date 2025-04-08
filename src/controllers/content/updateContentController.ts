@@ -1,46 +1,79 @@
 import { Request, Response } from "express";
 import { uploadToAzureService } from "../../services/Content/uploadToAzureService";
 import { updateContentService } from "../../services/Content/updateContentService";
-import { deleteFromAzureService } from "../../services/Content/deleteFromAzureService";
 import { getContentByIdService } from "../../services/Content/getContentByIdService";
+import { deleteFromAzureService } from "../../services/Content/deleteFromAzureService";
 
 export const updateContentController = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const { nombre, description, ubicacion } = req.body;
-        const emprendedor_id = req.body.userId;
+        const { name, description, location } = req.body;
+        const entrepreneur_id = req.body.userId;
 
 
-        const currentContent = await getContentByIdService(parseInt(id), emprendedor_id);
+        const files = req.files as {
+            [fieldname: string]: Express.Multer.File[];
+        };
 
-        if (!currentContent) {
-            return res.status(404).json({ mensaje: "Contenido no encontrado" });
+        const content = await getContentByIdService(Number(id), entrepreneur_id);
+        if (!content) {
+            return res.status(404).json({ message: 'Finca no encontrada' });
+
+        }
+        let images: string[] = [];
+        let videos: string[] = [];
+
+        if (typeof content.imagenes === "string") {
+            images = JSON.parse(content.imagenes);
+
         }
 
-        let fileUrl = currentContent.images;
+        if (typeof content.videos === "string") {
+            videos = JSON.parse(content.videos);
+        }
 
-        if (req.file) {
-            if (currentContent.images) {
-                await deleteFromAzureService(currentContent.images);
+        if (content) {
+            for (const img of images) {
+                await deleteFromAzureService(img);
             }
-            fileUrl = await uploadToAzureService(req.file);
+
+            for (const vid of videos) {
+                await deleteFromAzureService(vid);
+            }
+        }
+
+
+        const imageUrls = [];
+        const videoUrls = [];
+
+        if (files?.images) {
+            for (const image of files.images) {
+                const url = await uploadToAzureService(image);
+                imageUrls.push(url);
+            }
+        }
+
+        if (files?.videos) {
+            for (const video of files.videos) {
+                const url = await uploadToAzureService(video);
+                videoUrls.push(url);
+            }
         }
 
         const updatedContent = {
             id: parseInt(id),
-            nombre: nombre || currentContent.nombre,
-            description: description || currentContent.description,
-            ubicacion: ubicacion || currentContent.ubicacion,
-            emprendedor_id,
-            images: fileUrl,
-            videos: currentContent.videos
+            name: name || content.name,
+            description: description || content.description,
+            location: location || content.location,
+            entrepreneur_id,
+            images: imageUrls.length > 0 ? JSON.stringify(imageUrls) : null,
+            videos: videoUrls.length > 0 ? JSON.stringify(videoUrls) : null,
         };
 
         await updateContentService(updatedContent);
 
         res.status(200).json({
-            mensaje: "Contenido actualizado correctamente",
-            content: updatedContent
+            mensaje: "Contenido actualizado correctamente"
         });
     } catch (error) {
         console.error("Error en updateContentController:", error);

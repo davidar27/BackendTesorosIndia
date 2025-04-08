@@ -5,7 +5,6 @@ export const deleteContentRepository = async (finca_id: number, emprendedor_id: 
         DELETE FROM finca 
         WHERE finca_id = ? AND emprendedor_id = ?
     `;
-        console.log(finca_id);
         
     const values = [finca_id, emprendedor_id];
 

@@ -1,7 +1,7 @@
 import db from "../../config/db";
 
 export const updateContentRepository = async (contentData: any) => {
-    const { id, nombre, description, ubicacion, images, videos } = contentData;
+    const { id, name, description, location, images, videos, entrepreneur_id } = contentData;
 
     const query = `
         UPDATE finca 
@@ -10,19 +10,24 @@ export const updateContentRepository = async (contentData: any) => {
             ubicacion = ?, 
             imagenes = ?, 
             videos = ?,
-            updated_at = CURRENT_TIMESTAMP
-        WHERE id = ? AND emprendedor_id = ?
+            fecha_creacion = CURRENT_TIMESTAMP
+        WHERE finca_id = ? AND emprendedor_id = ?
     `;
 
     const values = [
-        nombre,
+        name,
         description,
-        ubicacion,
+        location,
         images,
         videos,
         id,
-        contentData.emprendedor_id
+        entrepreneur_id
     ];
+
+
+
+    
+    
 
     try {
         const [result]: any = await db.execute(query, values);

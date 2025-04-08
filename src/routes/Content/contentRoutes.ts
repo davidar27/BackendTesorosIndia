@@ -10,9 +10,9 @@ import { getContentByIdController } from "../../controllers/content/getContentBy
 const router = express.Router();
 
 router.post("/create", uploadFiles, verifyToken, checkRole('emprendedor'), createContentController);
-router.put("/id", uploadFiles, verifyToken, checkRole('emprendedor'), updateContentController);
-router.delete("/delete/:finca_id", verifyToken, checkRole('emprendedor'), deleteContentController);
-router.get("/finca", verifyToken, checkRole('emprendedor'), getContentByIdController);
+router.put("/update/:id", uploadFiles, verifyToken, checkRole('emprendedor'), updateContentController);
+router.delete("/delete/:id", verifyToken, checkRole('emprendedor'), deleteContentController);
+router.get("/get:id", verifyToken, checkRole('emprendedor'), getContentByIdController);
 
 
 
