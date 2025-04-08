@@ -1,7 +1,7 @@
 import db from "../../config/db";
 
-export const updateContentRepository = async (contentData: any) => {
-    const { id, name, description, location, images, videos, entrepreneur_id } = contentData;
+export const updateFarmRepository = async (FarmData: any) => {
+    const { id, name, description, location, images, videos, entrepreneur_id } = FarmData;
 
     const query = `
         UPDATE finca 
@@ -38,7 +38,7 @@ export const updateContentRepository = async (contentData: any) => {
         
         return result;
     } catch (error) {
-        console.error("Error en updateContentRepository:", error);
+        console.error("Error en updateFarmRepository:", error);
         throw new Error("Error al actualizar contenido en la base de datos");
     }
 };

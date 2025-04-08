@@ -1,31 +1,32 @@
 import { Request, Response } from "express";
-import { deleteContentService } from "../../services/Content/deleteContentService";
-import { deleteFromAzureService } from "../../services/Content/deleteFromAzureService";
-import { getContentByIdService } from "../../services/Content/getContentByIdService";
+import { deleteFromAzureService } from "../../services/Farm/deleteFromAzureService";
+import { getFarmByIdService } from "../../services/Farm/getContentByIdService";
+import { deleteFarmService } from "../../services/Farm/deleteFarmService";
 
-export const deleteContentController = async (req: Request, res: Response) => {
+
+export const deleteFarmController = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const entrepreneur_id = req.body.userId;
 
-        const content = await getContentByIdService(Number(id), entrepreneur_id);
-        if (!content) {
+        const Farm = await getFarmByIdService(Number(id), entrepreneur_id);
+        if (!Farm) {
             return res.status(404).json({ message: 'Finca no encontrada' });
 
         }
         let images: string[] = [];
         let videos: string[] = [];
 
-        if (typeof content.imagenes === "string") {
-            images = JSON.parse(content.imagenes);
+        if (typeof Farm.imagenes === "string") {
+            images = JSON.parse(Farm.imagenes);
             
         }
 
-        if (typeof content.videos === "string") {
-            videos = JSON.parse(content.videos);
+        if (typeof Farm.videos === "string") {
+            videos = JSON.parse(Farm.videos);
         }
 
-        if (content) {
+        if (Farm) {
             for (const img of images) {
                 await deleteFromAzureService(img);
             }
@@ -35,7 +36,7 @@ export const deleteContentController = async (req: Request, res: Response) => {
             }
         }
 
-        await deleteContentService(Number(id), entrepreneur_id);
+        await deleteFarmService(Number(id), entrepreneur_id);
 
         res.status(200).json({ mensaje: "Contenido eliminado correctamente" });
     } catch (error) {

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { uploadToAzureService } from "../../services/Content/uploadToAzureService";
-import { createContentService } from "../../services/Content/createContentService";
+import { uploadToAzureService } from "../../services/Farm/uploadToAzureService";
+import { createFarmService } from "../../services/Farm/createFarmService";
 
-export const createContentController = async (req: Request, res: Response) => {
+export const createFarmController = async (req: Request, res: Response) => {
     try {
         const { name, description, location } = req.body;
         const entrepreneur_id = req.body.userId;
@@ -28,7 +28,7 @@ export const createContentController = async (req: Request, res: Response) => {
             }
         }
 
-        const newContent = {
+        const newFarm = {
             name,
             description,
             location,
@@ -40,11 +40,11 @@ export const createContentController = async (req: Request, res: Response) => {
 
 
 
-        await createContentService(newContent);
+        await createFarmService(newFarm);
 
         res.status(201).json({ mensaje: "Contenido guardado correctamente" });
     } catch (error) {
-        console.error("Error en createContentController:", error);
+        console.error("Error en createFarmController:", error);
         res.status(500).json({ mensaje: "Error al guardar contenido" });
     }
 };

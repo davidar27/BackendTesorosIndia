@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import { uploadToAzureService } from "../../services/Content/uploadToAzureService";
-import { updateContentService } from "../../services/Content/updateContentService";
-import { getContentByIdService } from "../../services/Content/getContentByIdService";
-import { deleteFromAzureService } from "../../services/Content/deleteFromAzureService";
+import { uploadToAzureService } from "../../services/Farm/uploadToAzureService";
 
-export const updateContentController = async (req: Request, res: Response) => {
+import { deleteFromAzureService } from "../../services/Farm/deleteFromAzureService";
+import { getFarmByIdService } from "../../services/Farm/getContentByIdService";
+import { updateFarmService } from "../../services/Farm/updateFarmService";
+
+export const updateFarmController = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const { name, description, location } = req.body;
@@ -15,24 +16,24 @@ export const updateContentController = async (req: Request, res: Response) => {
             [fieldname: string]: Express.Multer.File[];
         };
 
-        const content = await getContentByIdService(Number(id), entrepreneur_id);
-        if (!content) {
+        const Farm = await getFarmByIdService(Number(id), entrepreneur_id);
+        if (!Farm) {
             return res.status(404).json({ message: 'Finca no encontrada' });
 
         }
         let images: string[] = [];
         let videos: string[] = [];
 
-        if (typeof content.imagenes === "string") {
-            images = JSON.parse(content.imagenes);
+        if (typeof Farm.imagenes === "string") {
+            images = JSON.parse(Farm.imagenes);
 
         }
 
-        if (typeof content.videos === "string") {
-            videos = JSON.parse(content.videos);
+        if (typeof Farm.videos === "string") {
+            videos = JSON.parse(Farm.videos);
         }
 
-        if (content) {
+        if (Farm) {
             for (const img of images) {
                 await deleteFromAzureService(img);
             }
@@ -60,23 +61,23 @@ export const updateContentController = async (req: Request, res: Response) => {
             }
         }
 
-        const updatedContent = {
+        const updatedFarm = {
             id: parseInt(id),
-            name: name || content.name,
-            description: description || content.description,
-            location: location || content.location,
+            name: name || Farm.name,
+            description: description || Farm.description,
+            location: location || Farm.location,
             entrepreneur_id,
             images: imageUrls.length > 0 ? JSON.stringify(imageUrls) : null,
             videos: videoUrls.length > 0 ? JSON.stringify(videoUrls) : null,
         };
 
-        await updateContentService(updatedContent);
+        await updateFarmService(updatedFarm);
 
         res.status(200).json({
             mensaje: "Contenido actualizado correctamente"
         });
     } catch (error) {
-        console.error("Error en updateContentController:", error);
+        console.error("Error en updateFarmController:", error);
         res.status(500).json({ mensaje: "Error al actualizar contenido" });
     }
 };
