@@ -9,10 +9,10 @@ import { checkRole } from "../../middleware/Auth/checkRole";
 
 const router = express.Router();
 
-router.post("/Reviews", verifyToken, checkRole('usuario'), createRviewsController);
-router.put("/Reviews/:id", verifyToken, checkRole('usuario'), updateReviewsController);
-router.delete("/Reviews/:id", verifyToken, checkRole('usuario'), deleteReviewsController);
-router.get("/Reviews/:id", verifyToken, checkRole('usuario'), getReviewsByFincaController);
+router.post("/Reviews", verifyToken, checkRole('cliente'), createRviewsController);
+router.put("/Reviews/:id", verifyToken, checkRole('cliente'), updateReviewsController);
+router.delete("/Reviews/:id", verifyToken, checkRole('cliente'), deleteReviewsController);
+router.get("/Reviews/:id", verifyToken, checkRole('cliente'), getReviewsByFincaController);
 
 export default router;
 
