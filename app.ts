@@ -18,11 +18,14 @@ const app = express().use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
 
-app.use('/user', userRoutes);
+app.use('/usuario', userRoutes);
 app.use('/auth', authRoutes);
-app.use('/cart', cartRoutes);
-app.use('/product', productRoutes );
-app.use('/farm',farmRoutes)
+app.use('/carrito', cartRoutes);
+app.use('/productos', productRoutes );
+app.use('/fincas',farmRoutes);
+app.use('/pagos', productRoutes );
+app.use('/paquete',farmRoutes);
+
 
 
 
