@@ -7,6 +7,8 @@ import userRoutes from "./src/routes/User/userRoutes"
 import authRoutes from "./src/routes/Auth/authRoutes"
 import productRoutes from "./src/routes/Product/productRoutes"
 import farmRoutes from "./src/routes/Farm/FarmRoutes"
+import reviewsRoutes from "./routes/Comments/reviewsRoutes"
+
 
 dotenv.config();
 
@@ -25,6 +27,7 @@ app.use('/productos', productRoutes );
 app.use('/fincas',farmRoutes);
 app.use('/pagos', productRoutes );
 app.use('/paquete',farmRoutes);
+app.use('/reviews', reviewsRoutes)
 
 
 
