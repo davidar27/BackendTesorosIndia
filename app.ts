@@ -2,12 +2,13 @@ import express from "express";
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+
 import cartRoutes from "./src/routes/cart/cartRoutes"
 import userRoutes from "./src/routes/User/userRoutes"
 import authRoutes from "./src/routes/Auth/authRoutes"
 import productRoutes from "./src/routes/Product/productRoutes"
 import farmRoutes from "./src/routes/Farm/FarmRoutes"
-import reviewsRoutes from "./routes/Comments/reviewsRoutes"
+import reviewsRoutes from "./src/routes/Comments/reviewsRoutes"
 
 
 dotenv.config();
@@ -27,7 +28,7 @@ app.use('/productos', productRoutes );
 app.use('/fincas',farmRoutes);
 app.use('/pagos', productRoutes );
 app.use('/paquete',farmRoutes);
-app.use('/reviews', reviewsRoutes)
+app.use('/comentarios', reviewsRoutes)
 
 
 
