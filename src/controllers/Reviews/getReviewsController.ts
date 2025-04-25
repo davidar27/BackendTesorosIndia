@@ -3,8 +3,7 @@ import { getReviewsByFincaService } from "../../services/Reviews/getReviewsServi
 
 export const getReviewsByFincaController = async (req: Request, res: Response) => {
     try {
-        const { finca_id } = req.params;
-        const valoraciones = await getReviewsByFincaService(parseInt(finca_id));
+        const valoraciones = await getReviewsByFincaService();
         
         res.status(200).json(valoraciones);
     } catch (error) {
