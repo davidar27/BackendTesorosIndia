@@ -4,7 +4,8 @@
   "description": "Estructura del proyecto BackendTesorosIndia, desarrollado con Node.js y Express.",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "build" : "tsc",
+    "start": "node dist/app.js",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
