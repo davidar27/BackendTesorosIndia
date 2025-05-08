@@ -30,7 +30,7 @@ export const authUserController = async (req: Request, res: Response): Promise<a
 
             res.cookie('access_token', token, {
                 httpOnly: true,
-                sameSite: 'strict',
+                sameSite: 'none',
                 maxAge: 1000 * 60 * 60,
             });
             return res.status(200).json({
