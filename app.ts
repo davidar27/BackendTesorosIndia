@@ -16,12 +16,11 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: [
-    'http://localhost:5173', 
-    'https://fronted-tesoros-india.vercel.app'
-  ],
-  credentials: true,
+  origin: ['http://localhost:5173', 'https://fronted-tesoros-india.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
 }));
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
