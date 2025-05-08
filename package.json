@@ -4,7 +4,7 @@
   "description": "Estructura del proyecto BackendTesorosIndia, desarrollado con Node.js y Express.",
   "main": "index.js",
   "scripts": {
-    "build" : "tsc",
+    "build": "tsc",
     "start": "node dist/app.js",
     "test": "jest",
     "test:watch": "jest --watchAll"
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/davidar27/BackendTesorosIndia#readme",
   "devDependencies": {
     "@types/cookie-parser": "^1.4.8",
+    "@types/cors": "^2.8.18",
     "@types/express-validator": "^2.20.33",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/multer": "^1.4.12",
@@ -34,6 +35,7 @@
     "@types/node": "^22.13.10",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
