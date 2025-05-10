@@ -7,16 +7,19 @@ export interface loginResult {
     status: string;
     id?: number;
     role?: string;
+    name?: string;
 }
 
 
 export const authUserRepository = async (user: UserAuth): Promise<loginResult> => {
     try {
         
-        const sql = `SELECT usuario_id, contraseña, rol FROM usuario WHERE correo = ?`;
+        const sql = `SELECT usuario_id, contraseña, rol, nombre FROM usuario WHERE correo = ?`;
         const values = [user.email];
         const result: any = await db.execute(sql, values);
         const userRecord = result[0][0];
+        
+       
         
         if (!userRecord) {
             return { logged: false, status: "Usuario o contraseña inválidos" };
@@ -30,11 +33,13 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
             return { logged: false, status: "Usuario o contraseña inválidos" };
         }
 
+
         return {
             logged: true,
             status: "Autenticación exitosa",
             id: userRecord.usuario_id,
             role: userRecord.rol,
+            name: userRecord.nombre,
         };
 
     } catch (error: any) {

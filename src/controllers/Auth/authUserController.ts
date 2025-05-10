@@ -3,15 +3,17 @@ import UserAuth from "../../models/Auth/userAuth";
 import dotenv from "dotenv";
 import { authUserService } from "../../services/Auth/authUserService";
 import { generateToken } from "../../helpers/User/generateToken";
+import { log } from "console";
 dotenv.config();
 
 export const authUserController = async (req: Request, res: Response): Promise<any> => {
     try {
         const { email, password } = req.body;
+
         
 
         const login = await authUserService(new UserAuth(email, password));
-        
+
 
         if (login.logged) {
             if (!process.env.KEY_TOKEN) {
@@ -33,10 +35,12 @@ export const authUserController = async (req: Request, res: Response): Promise<a
                 sameSite: 'none',
                 maxAge: 1000 * 60 * 60,
             });
+            
             return res.status(200).json({
                 status: login.status,
                 token: token,
-                role: login.role
+                role: login.role,
+                name: login.name,   
             });
         }
 

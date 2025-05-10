@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get('/usuarios', verifyToken, checkRole('administrador'), getAllUserController);
 
-router.post('/register', register_validador.validatorParam, register_validador.validator, createUserController);
+router.post('/registro', register_validador.validatorParam, register_validador.validator, createUserController);
 
 router.post('/register/emprendedor', verifyToken, checkRole('administrador'), register_validador.validatorParam, register_validador.validator, createEntrepreneurController);
 

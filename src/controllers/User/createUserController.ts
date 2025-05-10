@@ -5,15 +5,17 @@ import { User } from '../../models/User/User';
 
 export const createUserController = async (req: Request, res: Response) => {
     try {
-        const { first_name, last_name, email, password, phone_number, role } = req.body;
+        const { name, email, password, phone_number } = req.body;
         const existingUser = await findByEmailUserService(email);
         if (existingUser) {
             return res.status(400).json({ error: 'El correo electrónico ya está registrado.' });
         }
-        const userRegister = await registerUserService(new User(first_name, last_name, email, password, phone_number, role))
+        const userRegister = await registerUserService(new User(name, email, password, phone_number))
         return res.status(201).json({ message: 'Tu registro ha sido exitoso' });
     } catch (error) {
-        res.status(500).json({ error: 'Error al crear el usuario' });
+        console.error("Error en createUserController:", error);
+        return res.status(500).json({ error: 'Error al crear el usuario', details: error });
     }
+
 }
 

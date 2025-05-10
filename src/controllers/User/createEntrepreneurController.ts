@@ -5,14 +5,14 @@ import { registerEntrepreneurService } from '../../services/User/registerEntrepr
 
 export const createEntrepreneurController = async (req: Request, res: Response) => {
     try {
-        const { first_name, last_name, email, password, phone_number, description } = req.body;
+        const { name, email, password, phone_number, description } = req.body;
         const role = "emprendedor"; 
         const existingUser = await findByEmailUserService(email);
         if (existingUser) {
             return res.status(400).json({ error: 'El correo electrónico ya está registrado.' });
         }
 
-        await registerEntrepreneurService(new User(first_name, last_name, email, password, phone_number, role, description));
+        await registerEntrepreneurService(new User(name, email, password, phone_number, role, description));
 
         return res.status(201).json({ message: 'El registro del emprendedor ha sido exitoso' });
     } catch (error) {

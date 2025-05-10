@@ -3,8 +3,7 @@ import { check } from "express-validator/lib/middlewares/validation-chain-builde
 import { validationResult } from "express-validator/lib/validation-result";
 
 const validatorParam = [
-    check('first_name').isLength({ min: 1, max: 50 }).withMessage('El nombre debe tener entre 1 y 50 caracteres'),
-    check('last_name').isLength({ min: 1, max: 50 }).withMessage('El apellido debe tener entre 1 y 50 caracteres'),
+    check('name').isLength({ min: 1, max: 100 }).withMessage('El nombre debe tener entre 1 y 50 caracteres'),
     check('email').isEmail().withMessage('El correo electrónico no es válido'),
     check('phone_number').isLength({ min: 10, max: 10 }).withMessage('El teléfono debe tener 10 caracteres'),
     check('password').isLength({ min: 8, max: 32 })
