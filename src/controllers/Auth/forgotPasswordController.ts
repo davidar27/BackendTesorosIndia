@@ -1,4 +1,4 @@
-import EmailService from '../../services/Auth/emailService';
+/* import EmailService from '../../services/Auth/emailService';
 import { findByEmailUserService } from '../../services/User/findByEmailUserService';
 
 export const forgotPasswordController = async (req: Request, res: Response) => {
@@ -24,4 +24,4 @@ export const forgotPasswordController = async (req: Request, res: Response) => {
             details: error instanceof Error ? error.message : 'Error desconocido'
         });
     }
-};
+}; */
