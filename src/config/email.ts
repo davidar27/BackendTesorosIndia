@@ -1,4 +1,4 @@
 export const config = {
-    RESEND_API_KEY: process.env.RESEND_API_KEY || 're_WpqpuA5W_DbNTuFwQxf43DQhFBFdv4iSo',
+    BREVO_API_KEY: process.env.BREVO_API_KEY || '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',
     FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173',
 }
