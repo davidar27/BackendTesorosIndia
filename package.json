@@ -4,13 +4,12 @@
   "description": "Estructura del proyecto BackendTesorosIndia, desarrollado con Node.js y Express.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "serve": "nodemon dist/app.js",
-    "start": "concurrently \"npm:watch\" \"npm:serve\"",
-    "test": "jest",
-    "test:watch": "jest --watchAll"
-  },
+  "build": "tsc",
+  "dev": "concurrently \"npm:watch\" \"npm:serve\"",
+  "watch": "tsc -w",
+  "serve": "nodemon dist/app.js",
+  "start": "npm run build && node dist/app.js"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/davidar27/BackendTesorosIndia.git"
