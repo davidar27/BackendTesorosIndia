@@ -1,36 +1,36 @@
-import { Resend } from 'resend';
+import { TransactionalEmailsApi, SendSmtpEmail } from '@getbrevo/brevo';
 import { config } from '../../config/email';
-import { UserRole } from '../../models/Auth/Auth';
-import { generatePasswordResetToken } from '../../helpers/Tokens/generatePasswordResetToken';
 
-const resend = new Resend(config.RESEND_API_KEY);
+const brevoApi = new TransactionalEmailsApi();
+brevoApi.setApiKey(0, config.BREVO_API_KEY);
 
-export const sendPasswordResetEmail = async (email: string, userId: number, role: UserRole): Promise<void> => {
-    const resetToken = generatePasswordResetToken(userId, role);
+export const sendPasswordResetEmail = async (email: string, resetToken: string): Promise<void> => {
     const resetUrl = `${config.FRONTEND_URL}/reset-password?token=${resetToken}`;
 
+    const emailData: SendSmtpEmail = {
+        sender: {
+            email: 'onboarding@tesorosdelaindia.brevo.com', 
+            name: 'Tesoros de la India'
+        },
+        to: [{ email }],
+        subject: 'Restablece tu contraseña',
+        htmlContent: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <h1 style="color: #4F46E5;">Restablecer contraseña</h1>
+                <p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>
+                <a href="${resetUrl}" 
+                style="display: inline-block; padding: 12px 24px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 4px;">
+                Restablecer contraseña
+                </a>
+                <p style="margin-top: 20px;">Si no solicitaste este cambio, ignora este mensaje.</p>
+            </div>
+        `
+    };
+
     try {
-        await resend.emails.send({
-            from: 'Tesoros de la India <soporte@tudominio.com>',
-            to: email,
-            subject: 'Restablece tu contraseña',
-            html: `
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h2 style="color: #4F46E5;">Restablecimiento de contraseña</h2>
-                    <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta.</p>
-                    <a href="${resetUrl}" 
-                    style="display: inline-block; padding: 12px 24px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 4px;">
-                    Restablecer Contraseña
-                    </a>
-                    <p style="margin-top: 20px; font-size: 12px; color: #666;">
-                        Si no solicitaste este cambio, por favor ignora este email o contacta a soporte.
-                    </p>
-                    <p style="font-size: 12px; color: #666;">Este enlace expirará en 1 hora.</p>
-                </div>
-            `
-        });
+        await brevoApi.sendTransacEmail(emailData);
     } catch (error) {
-        console.error('Error enviando email de recuperación:', error);
-        throw new Error('No se pudo enviar el email de recuperación');
+        console.error('Error enviando email de restablecimiento:', error);
+        throw new Error('No se pudo enviar el email de restablecimiento');
     }
 };

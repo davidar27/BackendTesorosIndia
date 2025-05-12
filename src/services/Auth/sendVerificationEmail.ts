@@ -1,6 +1,6 @@
 import { TransactionalEmailsApi, SendSmtpEmail } from '@getbrevo/brevo';
 import { config } from '../../config/email'
- 
+
 const brevoApi = new TransactionalEmailsApi();
 brevoApi.setApiKey(0, config.BREVO_API_KEY);
 
@@ -9,7 +9,7 @@ export const sendVerificationEmail = async (email: string, token: string): Promi
 
     const emailData: SendSmtpEmail = {
         sender: {
-            email: 'onboarding@your-app-name.brevo.com',
+            email: 'onboarding@tesorosdelaindia.brevo.com',
             name: 'Tesoros de la India'
         },
         to: [{ email }],
