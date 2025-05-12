@@ -9,7 +9,7 @@ import authRoutes from "./src/routes/Auth/authRoutes";
 import productRoutes from "./src/routes/Product/productRoutes";
 import farmRoutes from "./src/routes/Farm/FarmRoutes";
 import reviewsRoutes from "./src/routes/Comments/reviewsRoutes";
-import cartRoutes from "./src/routes/Cart/cartRoutes"
+// import cartRoutes from "./src/routes/Cart/cartRoutes"
 
 dotenv.config({
   path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
@@ -32,7 +32,7 @@ app.use(express.json());
 // 🟢 Rutas
 app.use('/usuario', userRoutes);
 app.use('/auth', authRoutes);
-app.use('/carrito', cartRoutes);
+// app.use('/carrito', cartRoutes);
 app.use('/productos', productRoutes);
 app.use('/fincas', farmRoutes);
 /* app.use('/pagos', payRoutes ); 
