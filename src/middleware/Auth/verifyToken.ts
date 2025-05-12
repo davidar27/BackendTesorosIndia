@@ -15,7 +15,7 @@ interface JwtPayload {
 }
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
-    const tokenKey = process.env.KEY_TOKEN;
+    const tokenKey = process.env.JWT_ACCESS_SECRET;
 
     if (!tokenKey) {
         return res.status(500).json({ message: "Token key is not set in environment variables" });

@@ -9,7 +9,7 @@ export const sendVerificationEmail = async (email: string, token: string): Promi
 
     const emailData: SendSmtpEmail = {
         sender: {
-            email: 'onboarding@tesorosdelaindia.brevo.com',
+            email: 'tesorosindia692@gmail.com',
             name: 'Tesoros de la India'
         },
         to: [{ email }],
