@@ -2,7 +2,9 @@ export type UserRole = "cliente" | "administrador" | "emprendedor";
 
 export interface TokenPayload {
     userId: number;
-    role: UserRole;
+    role?: UserRole;
+    purpose?: string;
+
 }
 
 export interface AuthResponse {
