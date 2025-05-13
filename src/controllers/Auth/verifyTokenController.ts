@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { verifyToken } from '../../helpers/Tokens/verifyToken';
-import { VERIFICATION_TOKEN_SECRET } from '../../helpers/Tokens/TokenSecrets';
+import { ACCESS_TOKEN_SECRET } from '../../helpers/Tokens/TokenSecrets';
 
 export const verifyTokenController = async (req: Request, res: Response): Promise<Response> => {
     try {
@@ -9,8 +9,8 @@ export const verifyTokenController = async (req: Request, res: Response): Promis
         if (!token) {
             return res.status(400).json({ error: 'Token de verificación requerido' });
         }
-
-        verifyToken(token as string, VERIFICATION_TOKEN_SECRET);
+        
+        verifyToken(token as string, ACCESS_TOKEN_SECRET);
 
         return res.status(200).json({ message: 'Token verificado exitosamente' });
     } catch (err) {

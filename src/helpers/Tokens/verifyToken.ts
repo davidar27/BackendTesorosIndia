@@ -5,8 +5,9 @@ export const verifyToken = <T extends TokenPayload>(token: string, secret: strin
     if (!token || !secret) throw new Error('Token and secret are required');
 
     try {
-        const decoded = jwt.verify(token, secret) as any;
-        return decoded.data as T;
+        const decoded = jwt.verify(token, secret) as { data: T };
+        console.log(decoded.data);
+        return decoded.data;
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
             throw new Error('Token expirado');
