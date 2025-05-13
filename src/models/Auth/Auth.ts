@@ -11,5 +11,7 @@ export interface AuthResponse {
     logged: boolean;
     status: string;
     id?: number;
+    name?: string;
     role?: UserRole;
+
 }

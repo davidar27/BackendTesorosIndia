@@ -41,7 +41,6 @@ app.use('/fincas', farmRoutes);
 app.use('/paquete', /* packRoutes );   */
 app.use('/comentarios', reviewsRoutes);
 
-// 🔵 Inicia servidor
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);

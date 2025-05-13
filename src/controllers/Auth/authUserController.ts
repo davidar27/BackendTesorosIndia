@@ -4,7 +4,11 @@ import { authUserService } from "../../services/Auth/authUserService";
 import { generateAccessToken } from "../../helpers/Tokens/generateAccessToken";
 import { UserRole } from "../../models/Auth/Auth";
 
+
+
 export const authUserController = async (req: Request, res: Response): Promise<Response> => {
+    const isProduction = process.env.NODE_ENV === "production";
+
     try {
         const { email, password } = req.body;
 
@@ -33,20 +37,17 @@ export const authUserController = async (req: Request, res: Response): Promise<R
 
         res.cookie("access_token", token, {
             httpOnly: true,
-            secure: true,
-            sameSite: "none", 
-            maxAge: 1000 * 60 * 60, 
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax",
+            domain: isProduction ? new URL(process.env.FRONTEND_URL || "").hostname : undefined,
+            maxAge: 1000 * 60 * 60,
+            path: "/",
         });
 
+
         return res.status(200).json({
-            status,
-            token,
-            user:{
-                id,
-                email,
-                name,
-                role
-            }
+            status,            
+            name
         });
     } catch (error) {
         console.error("Error en authUserController:", error);
