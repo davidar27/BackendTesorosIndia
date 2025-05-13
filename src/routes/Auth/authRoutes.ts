@@ -12,7 +12,7 @@ router.post('/login', authMiddleware.validatorParams, authMiddleware.validator, 
 router.post('/logout', logoutController);
 router.post('/recuperar-contraseña', authMiddleware.validatorParams, authMiddleware.validator, authUserController);
 router.get('/verificar-correo', verifyEmailController);
-router.get('/verificar-token"', verifyTokenController);
+router.get('/verificar-token', verifyTokenController);
 
 
 export default router;

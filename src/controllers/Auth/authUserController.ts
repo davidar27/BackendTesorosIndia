@@ -24,16 +24,13 @@ export const authUserController = async (req: Request, res: Response): Promise<R
             return res.status(500).json({ error: "ID o rol del usuario faltantes" });
         }
 
-        // Verifica que el rol es válido
         const validRoles: UserRole[] = ["cliente", "administrador", "emprendedor"];
         if (!validRoles.includes(role as UserRole)) {
             return res.status(400).json({ error: "Rol de usuario no válido" });
         }
 
-        // Genera el token de acceso
         const token = generateAccessToken(id, role as UserRole);
 
-        // Configura la cookie segura
         res.cookie("access_token", token, {
             httpOnly: true,
             secure: true,
@@ -44,8 +41,12 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         return res.status(200).json({
             status,
             token,
-            role,
-            name,
+            user:{
+                id,
+                email,
+                name,
+                role
+            }
         });
     } catch (error) {
         console.error("Error en authUserController:", error);

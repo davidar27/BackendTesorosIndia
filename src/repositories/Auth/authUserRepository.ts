@@ -19,6 +19,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
         const result: any = await db.execute(sql, values);
         const userRecord = result[0][0];
         
+        
        
         
         if (!userRecord) {
