@@ -20,7 +20,6 @@ export const createUserRepository = async (newUser: User): Promise<User> => {
     );
 
     const userRow = rows[0];
-    console.log("Usuario insertado:", rows[0]);
 
     return new User(
         userRow.usuario_id,
