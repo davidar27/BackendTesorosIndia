@@ -9,7 +9,6 @@ export const logoutController = async (req: Request, res: Response) => {
             secure: isProduction,
             sameSite: isProduction ? "none" : "lax",
             domain: isProduction ? new URL(process.env.FRONTEND_URL || "").hostname : undefined,
-            maxAge: 1000 * 60 * 60,
             path: "/",
         });
 
