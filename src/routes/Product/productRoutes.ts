@@ -5,14 +5,14 @@ import { getAllProductsController } from '../../controllers/Product/getAllProduc
 import { updateProductController } from '../../controllers/Product/updateProductController';
 import { deleteProductController } from '../../controllers/Product/deleteProductController';
 import { checkRole } from '../../middleware/Auth/checkRole';
-import { verifyToken } from '../../middleware/Auth/verifyToken';
+import { authMiddlewareToken } from '../../middleware/Auth/authMiddlewareToken';
 
 const router = Router();
 
-router.post('/add', verifyToken, checkRole('emprendedor'), createProductController);
-router.get('/get', verifyToken, checkRole('emprendedor'), getAllProductsController);
-router.get('/get/:id', verifyToken, checkRole('emprendedor'), getProductByIdController);
-router.put('/update/:id', verifyToken, checkRole('emprendedor'), updateProductController);
-router.delete('/delete/:id', verifyToken, checkRole('emprendedor'), deleteProductController);
+router.post('/add', authMiddlewareToken, checkRole('emprendedor'), createProductController);
+router.get('/get', authMiddlewareToken, checkRole('emprendedor'), getAllProductsController);
+router.get('/get/:id', authMiddlewareToken, checkRole('emprendedor'), getProductByIdController);
+router.put('/update/:id', authMiddlewareToken, checkRole('emprendedor'), updateProductController);
+router.delete('/delete/:id', authMiddlewareToken, checkRole('emprendedor'), deleteProductController);
 
 export default router;

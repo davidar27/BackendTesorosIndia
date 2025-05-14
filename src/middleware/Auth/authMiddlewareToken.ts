@@ -14,7 +14,7 @@ interface JwtPayload {
     iat: number;
 }
 
-export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+export const authMiddlewareToken = async (req: Request, res: Response, next: NextFunction) => {
     const tokenKey = process.env.JWT_ACCESS_SECRET;
 
     if (!tokenKey) {
@@ -40,7 +40,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
         req.body.role = decoded.data.role;
 
         next();
-    } catch (error : any) {
+    } catch (error: any) {
         return res.status(403).json({ message: "Unauthorized", error: error.message });
     }
 };

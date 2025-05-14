@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { verifyToken } from '../../helpers/Tokens/verifyToken';
+import { verifyTokenPayload } from '../../helpers/Tokens/verifyTokenPayload';
 import { ACCESS_TOKEN_SECRET } from '../../helpers/Tokens/TokenSecrets';
 
 export const verifyTokenController = async (req: Request, res: Response) => {
@@ -13,7 +13,7 @@ export const verifyTokenController = async (req: Request, res: Response) => {
             });
         }
 
-        const payload = verifyToken(token, ACCESS_TOKEN_SECRET);
+        const payload = verifyTokenPayload(token, ACCESS_TOKEN_SECRET);
 
         return res.json({
             success: true,

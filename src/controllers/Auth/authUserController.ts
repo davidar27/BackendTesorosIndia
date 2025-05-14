@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 import UserAuth from "../../models/Auth/userAuth";
 import { authUserService } from "../../services/Auth/authUserService";
 import { generateAccessToken } from "../../helpers/Tokens/generateAccessToken";
+import { generateRefreshToken } from "../../helpers/Tokens/generateRefreshToken";
 import { UserRole } from "../../models/Auth/Auth";
-import { cookieOptions } from "../../config/cookie";
+import { cookieOptionsLogin, cookieOptionsRefresh } from "../../config/cookie";
 
 
 export const authUserController = async (req: Request, res: Response): Promise<Response> => {
@@ -24,7 +25,12 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         }
 
         const token = generateAccessToken(id!, name!, role as UserRole);
-        res.cookie('access_token', token, cookieOptions);
+        const refreshToken = generateRefreshToken(id!, role as UserRole);
+
+        res.cookie('access_token', token, cookieOptionsLogin);
+
+        res.cookie('refresh_Token', token, cookieOptionsRefresh)
+
 
         return res.status(200).json({
             status,
