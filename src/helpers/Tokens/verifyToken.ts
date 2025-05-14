@@ -6,7 +6,6 @@ export const verifyToken = <T extends TokenPayload>(token: string, secret: strin
 
     try {
         const decoded = jwt.verify(token, secret) as { data: T };
-        console.log(decoded.data);
         return decoded.data;
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {

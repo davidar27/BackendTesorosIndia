@@ -1,10 +1,28 @@
 import { Request, Response } from 'express';
 
 export const logoutController = async (req: Request, res: Response) => {
+    const isProduction = process.env.NODE_ENV === "production";
+
     try {
+        res.clearCookie('access_token', {
+            httpOnly: true,
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax",
+            domain: isProduction ? new URL(process.env.FRONTEND_URL || "").hostname : undefined,
+            maxAge: 1000 * 60 * 60,
+            path: "/",
+        });
+
+        // res.clearCookie('refresh_token', {
+        //     httpOnly: true,
+        //     secure: true,
+        //     sameSite: 'strict',
+        //     path: '/'
+        // });
+
         return res.status(200).json({
             success: true,
-            message: 'Sesión cerrada exitosamente. Por favor elimina el token del cliente.'
+            message: 'Sesión cerrada exitosamente.'
         });
 
     } catch (error) {
