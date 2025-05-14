@@ -6,7 +6,6 @@ export const cookieOptions = {
     sameSite: 'none' as const,
     maxAge: 1000 * 60 * 60 * 24,
     path: '/',
-    partitioned: true
 };
 
 export const cookieOptionsLogout = {
@@ -14,5 +13,4 @@ export const cookieOptionsLogout = {
     secure: true,
     sameSite: 'none' as const,
     path: '/',
-    partitioned: true
 };
