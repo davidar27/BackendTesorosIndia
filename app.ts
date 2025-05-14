@@ -11,9 +11,8 @@ import farmRoutes from "./src/routes/Farm/FarmRoutes";
 import reviewsRoutes from "./src/routes/Comments/reviewsRoutes";
 // import cartRoutes from "./src/routes/Cart/cartRoutes"
 
-dotenv.config({
-  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
-});
+dotenv.config();
+
 
 const app = express();
 
