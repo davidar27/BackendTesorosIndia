@@ -11,7 +11,10 @@ import farmRoutes from "./src/routes/Farm/FarmRoutes";
 import reviewsRoutes from "./src/routes/Comments/reviewsRoutes";
 // import cartRoutes from "./src/routes/Cart/cartRoutes"
 
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 
 
 const app = express();
@@ -22,7 +25,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,
-  optionsSuccessStatus: 200 
+  optionsSuccessStatus: 200
 }));
 
 
