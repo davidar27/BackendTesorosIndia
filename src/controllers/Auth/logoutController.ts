@@ -1,23 +1,11 @@
 import { Request, Response } from 'express';
+import { cookieOptionsLogout } from "../../config/cookie";
 
 export const logoutController = async (req: Request, res: Response) => {
-    const isProduction = process.env.NODE_ENV === "production";
 
     try {
-        res.clearCookie('access_token', {
-            httpOnly: true,
-            secure: isProduction,
-            sameSite: isProduction ? "none" : "lax",
-            domain: isProduction ? new URL(process.env.FRONTEND_URL || "").hostname : undefined,
-            path: "/",
-        });
-
-        // res.clearCookie('refresh_token', {
-        //     httpOnly: true,
-        //     secure: true,
-        //     sameSite: 'strict',
-        //     path: '/'
-        // });
+        res.clearCookie('access_token', cookieOptionsLogout);
+        // res.clearCookie('refresh_token', cookieOptionsLogout);
 
         return res.status(200).json({
             success: true,

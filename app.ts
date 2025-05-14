@@ -11,10 +11,7 @@ import farmRoutes from "./src/routes/Farm/FarmRoutes";
 import reviewsRoutes from "./src/routes/Comments/reviewsRoutes";
 // import cartRoutes from "./src/routes/Cart/cartRoutes"
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
+dotenv.config();
 
 
 const app = express();
@@ -27,6 +24,7 @@ app.use(cors({
   credentials: true,
   optionsSuccessStatus: 200,
   exposedHeaders: ['set-cookie']
+
 }));
 
 

@@ -16,7 +16,6 @@ export const generateToken = (
     if (!secret) throw new Error('Token secret is required');
 
     try {
-        // Create the token with explicit type casting to avoid TypeScript errors
         const token = jwt.sign(
             { data: payload },
             secret,
