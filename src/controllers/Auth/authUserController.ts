@@ -7,38 +7,23 @@ import { cookieOptions } from "../../config/cookie";
 
 
 export const authUserController = async (req: Request, res: Response): Promise<Response> => {
-
     try {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(400).json({ error: "Email y contraseña son requeridos" });
+            return res.status(400).json({ error: { type: "general", message: "Email y contraseña son requeridos" } });
         }
 
         const login = await authUserService(new UserAuth(email, password));
 
-        if (!login.logged) {
-            return res.status(401).json({ status: login.status });
-        }
-
         const { id, role, name, status } = login;
-
-        if (!id || !role || !name) {
-            return res.status(500).json({ error: "ID o rol del usuario faltantes" });
-        }
-
 
         const validRoles: UserRole[] = ["cliente", "administrador", "emprendedor"];
         if (!validRoles.includes(role as UserRole)) {
-            return res.status(400).json({ error: "Rol de usuario no válido" });
+            return res.status(400).json({ error: { type: "general", message: "Rol de usuario no válido" } });
         }
 
-        const token = generateAccessToken(id, name, role as UserRole);
-        console.log(token);
-
-        
-
-
+        const token = generateAccessToken(id!, name!, role as UserRole);
         res.cookie('access_token', token, cookieOptions);
 
         return res.status(200).json({
@@ -46,8 +31,21 @@ export const authUserController = async (req: Request, res: Response): Promise<R
             user: { id, name, role }
         });
 
-    } catch (error) {
-        console.error("Error en authUserController:", error);
-        return res.status(500).json({ error: "Error interno del servidor" });
+    } catch (error: any) {
+
+        if (error.status === 401 || error.errorType) {
+            return res.status(error.status || 401).json({
+                error: {
+                    status: error.status,
+                    type: error.errorType || "general",
+                    message: error.message,
+                    redirectTo: error.redirectTo
+                }
+            });
+        }
+
+        return res.status(500).json({
+            error: { type: "general", message: "Error interno del servidor" }
+        });
     }
 };
