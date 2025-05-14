@@ -3,11 +3,10 @@ import UserAuth from "../../models/Auth/userAuth";
 import { authUserService } from "../../services/Auth/authUserService";
 import { generateAccessToken } from "../../helpers/Tokens/generateAccessToken";
 import { UserRole } from "../../models/Auth/Auth";
-
+import { cookieOptions } from "../../config/cookie";
 
 
 export const authUserController = async (req: Request, res: Response): Promise<Response> => {
-    const isProduction = process.env.NODE_ENV === "production";
 
     try {
         const { email, password } = req.body;
@@ -37,15 +36,7 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         const token = generateAccessToken(id, name, role as UserRole);
         console.log(token);
 
-        const cookieOptions = {
-            httpOnly: true,
-            secure: !isProduction,
-            sameSite: !isProduction ? 'none' as 'none' : 'lax' as 'lax',
-            domain: !isProduction ? new URL(process.env.FRONTEND_URL || "").hostname : undefined,
-            maxAge: 1000 * 60 * 60 * 24,
-            path: '/',
-            partitioned: true
-        };
+        
 
 
         res.cookie('access_token', token, cookieOptions);
@@ -60,12 +51,3 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         return res.status(500).json({ error: "Error interno del servidor" });
     }
 };
-// Helper para extraer dominio correctamente
-function getDomainFromUrl(url: string): string | undefined {
-    try {
-        const { hostname } = new URL(url);
-        return hostname.startsWith('www.') ? hostname.slice(4) : hostname;
-    } catch {
-        return undefined;
-    }
-}
