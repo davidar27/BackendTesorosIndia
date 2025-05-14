@@ -34,10 +34,6 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         }
 
         const token = generateAccessToken(id, name, role as UserRole);
-        console.log(token);
-
-        
-
 
         res.cookie('access_token', token, cookieOptions);
 
