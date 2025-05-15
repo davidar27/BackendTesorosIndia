@@ -8,11 +8,13 @@ export interface TokenPayload {
 
 }
 
-export interface AuthResponse {
+export interface loginResult {
     logged: boolean;
     status: string;
     id?: number;
+    role?: string;
     name?: string;
-    role?: UserRole;
-
+    message?: string;
+    errorType?: string;
+    redirectTo?: string;
 }

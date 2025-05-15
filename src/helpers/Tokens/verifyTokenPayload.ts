@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { TokenPayload } from '../../models/Auth/Auth';
 
-export const verifyToken = <T extends TokenPayload>(token: string, secret: string): T => {
+export const verifyTokenPayload = <T extends TokenPayload>(token: string, secret: string): T => {
     if (!token || !secret) throw new Error('Token and secret are required');
 
     try {

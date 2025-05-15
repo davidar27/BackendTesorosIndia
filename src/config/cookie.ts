@@ -1,6 +1,6 @@
 
 
-export const cookieOptions = {
+export const cookieOptionsLogin = {
     httpOnly: true,
     secure: true,
     sameSite: 'none' as const,
@@ -13,4 +13,12 @@ export const cookieOptionsLogout = {
     secure: true,
     sameSite: 'none' as const,
     path: '/',
+};
+
+export const cookieOptionsRefresh = {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none' as const,
+    path: '/',
+    maxAge: 1000 * 60 * 60 * 24 * 7
 };

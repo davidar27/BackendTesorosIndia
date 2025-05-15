@@ -1,5 +1,5 @@
 import express from "express";
-import { verifyToken } from "../../middleware/Auth/verifyToken";
+import { authMiddlewareToken } from "../../middleware/Auth/authMiddlewareToken";
 import { checkRole } from "../../middleware/Auth/checkRole";
 import { uploadFiles } from "../../config/multerConfig";
 import { createFarmController } from "../../controllers/Farm/createFarmController";
@@ -10,11 +10,11 @@ import { getAllFarmController } from "../../controllers/Farm/getAllFarmControlle
 
 const router = express.Router();
 
-router.post("/create", uploadFiles, verifyToken, checkRole('emprendedor'), createFarmController);
-router.put("/update/:id", uploadFiles, verifyToken, checkRole('emprendedor'), updateFarmController);
-router.delete("/delete/:id", verifyToken, checkRole('emprendedor'), deleteFarmController);
-router.get("/get:id", verifyToken, checkRole('emprendedor'), getFarmByIdController);
-router.get("/", verifyToken, checkRole('emprendedor'), getAllFarmController);
+router.post("/create", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), createFarmController);
+router.put("/update/:id", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), updateFarmController);
+router.delete("/delete/:id", authMiddlewareToken, checkRole('emprendedor'), deleteFarmController);
+router.get("/get:id", authMiddlewareToken, checkRole('emprendedor'), getFarmByIdController);
+router.get("/", authMiddlewareToken, checkRole('emprendedor'), getAllFarmController);
 
 
 export default router;
