@@ -9,10 +9,10 @@ import { authMiddlewareToken } from '../../middleware/Auth/authMiddlewareToken';
 
 const router = Router();
 
-router.post('/add', authMiddlewareToken, checkRole('emprendedor'), createProductController);
-router.get('/get', authMiddlewareToken, checkRole('emprendedor'), getAllProductsController);
-router.get('/get/:id', authMiddlewareToken, checkRole('emprendedor'), getProductByIdController);
-router.put('/update/:id', authMiddlewareToken, checkRole('emprendedor'), updateProductController);
-router.delete('/delete/:id', authMiddlewareToken, checkRole('emprendedor'), deleteProductController);
+router.post('/agregar', authMiddlewareToken, checkRole('emprendedor'), createProductController);
+router.get('/obtener-productos', authMiddlewareToken, checkRole('emprendedor'), getAllProductsController);
+router.get('/obtener/:id', authMiddlewareToken, checkRole('emprendedor'), getProductByIdController);
+router.put('/actualizar/:id', authMiddlewareToken, checkRole('emprendedor'), updateProductController);
+router.delete('/eliminar/:id', authMiddlewareToken, checkRole('emprendedor'), deleteProductController);
 
 export default router;
