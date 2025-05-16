@@ -1,9 +1,8 @@
 import db from "../../config/db";
 import { Product } from "../../models/Product/Product";
 
-
-
 export async function createProductRepository(product: Product): Promise<number> {
+    // Verificar si el producto ya existe
     const checkSql = `SELECT producto_id FROM producto WHERE nombre = ? AND emprendedor_id = ?`;
     const checkValues = [product.nombre, product.emprendedor_id];
 
@@ -12,18 +11,29 @@ export async function createProductRepository(product: Product): Promise<number>
     if (existing.length > 0) {
         throw new Error("Este producto ya ha sido registrado por el emprendedor.");
     }
-    const sql = `INSERT INTO producto (nombre, descripcion, precio, stock, categoria_id, emprendedor_id, estado)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    const values = [
+
+    // Obtener finca_id desde emprendedor_id
+    const fincaSql = `SELECT finca_id FROM finca WHERE usuario_id = ?`;
+    const [fincaResult]: any = await db.execute(fincaSql, [product.emprendedor_id]);
+
+    if (fincaResult.length === 0) {
+        throw new Error("No se encontró una finca asociada a este emprendedor.");
+    }
+
+    const finca_id = fincaResult[0].finca_id;
+
+    // Llamar al Stored Procedure
+    const spCall = `CALL sp_crear_producto(?, ?, ?, ?)`;
+    const spValues = [
         product.nombre,
         product.descripcion || null,
         product.precio || null,
-        product.stock || null,
-        product.categoria_id || null,
-        product.emprendedor_id,
-        product.estado || 'disponible'
+        finca_id
     ];
 
-    const [result]: any = await db.execute(sql, values);
-    return result.insertId;
+    const [spResult]: any = await db.execute(spCall, spValues);
+
+    // Obtenemos el ID insertado desde el SP si lo retorna (depende de cómo definiste el SP)
+    const insertedId = spResult[0]?.[0]?.servicio_id; // Asegúrate que el SP retorna el ID como SELECT LAST_INSERT_ID() AS servicio_id;
+    return insertedId;
 }
