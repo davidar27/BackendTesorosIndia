@@ -14,7 +14,7 @@ router.post('/logout', logoutController);
 router.post('/recuperar-contraseña', authInputValidator.validatorParams, authInputValidator.validator, authUserController);
 router.get('/verificar-correo', verifyEmailController);
 router.get('/verificar-token', verifyTokenController);
-router.post('/auth/refresh', refreshToken);
+router.post('/refrescar-token', refreshToken);
 
 
 export default router;

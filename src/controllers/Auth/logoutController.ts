@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
-import { cookieOptionsLogout } from "../../config/cookie";
 
 export const logoutController = async (req: Request, res: Response) => {
 
     try {
-        res.clearCookie('access_token', cookieOptionsLogout);
-        // res.clearCookie('refresh_token', cookieOptionsLogout);
+        res.clearCookie('access_token', { httpOnly: true, sameSite: 'none', secure: true });
+        res.clearCookie('refresh_token', { httpOnly: true, sameSite: 'none', secure: true });
 
         return res.status(200).json({
             success: true,
