@@ -35,7 +35,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
         return {
             logged: false,
             status: "Error en el repositorio",
-            message: "Error al buscar el usuario",
+            message: "El correo o la contraseña son incorrectos.",
             errorType: "general"
         };
     }

@@ -17,11 +17,14 @@ export const generateToken = (
 
     try {
         const token = jwt.sign(
-            { data: payload },
+            {
+                data: payload,
+                jti: crypto.randomUUID()
+            },
             secret,
-            { expiresIn } as jwt.SignOptions
+            { expiresIn } as jwt.SignOptions,
         );
-        
+
         return token;
     } catch (error) {
         console.error('Error generating token:', error);

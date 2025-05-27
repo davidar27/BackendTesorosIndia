@@ -28,7 +28,7 @@ app.use(cors({
 }));
 
 
-app.use(cookieParser());
+app.use(cookieParser(process.env.JWT_ACCESS_SECRET));
 app.use(bodyParser.json());
 app.use(express.json());
 

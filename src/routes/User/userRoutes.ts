@@ -9,7 +9,7 @@ import { deleteUserController } from '../../controllers/User/deleteUserControlle
 import { createEntrepreneurController } from '../../controllers/User/createEntrepreneurController';
 const router = express.Router();
 
-router.get('/usuarios', authMiddlewareToken, checkRole('administrador'), getAllUserController);
+router.get('/emprendedores', authMiddlewareToken, checkRole('administrador'), getAllUserController);
 
 router.post('/registro', register_validador.validatorParam, register_validador.validator, createUserController);
 
