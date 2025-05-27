@@ -13,7 +13,7 @@ router.get('/emprendedores', authMiddlewareToken, checkRole('administrador'), ge
 
 router.post('/registro', register_validador.validatorParam, register_validador.validator, createUserController);
 
-router.post('/register/emprendedor', authMiddlewareToken, checkRole('administrador'), register_validador.validatorParam, register_validador.validator, createEntrepreneurController);
+router.post('/registrar/emprendedor', authMiddlewareToken, checkRole('administrador'), register_validador.validatorParam, register_validador.validator, createEntrepreneurController);
 
 router.put('/:id', authMiddlewareToken, checkRole('administrador'), register_validador.validatorParam, register_validador.validator, updateUserController);
 

@@ -3,8 +3,16 @@ import { Farm } from "../../models/Farm/Farm";
 
 
 export const getAllFarmRepository = async (): Promise<Farm> => {
-    const sql = 'SELECT * FROM finca';
-    const [rows] : any = await db.execute(sql);
+    const sql = `SELECT 
+    f.finca_id AS id,
+    f.nombre AS name,
+	f.descripcion AS description,
+    f.ubicacion AS location,
+    f.fecha_creacion AS created_at,
+    f.estado AS status,
+    u.nombre AS emprendedor_id
+    FROM finca f
+    LEFT JOIN usuario u ON f.emprendedor_id = u.usuario_id;`;
+    const [rows]: any = await db.execute(sql);
     return rows;
 };
-

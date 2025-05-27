@@ -5,10 +5,16 @@ import { gettAllUsersServices } from '../../services/User/gettAllUsersServices';
 
 export const getAllUserController = async (req: Request, res: Response) => {
     try {
-        const users = await gettAllUsersServices();
-        res.json({ message: 'Lista de emprendedores', users });
+        const entrepreneurs  = await gettAllUsersServices();
+        return res.status(200).json({
+            status: 'success',
+            entrepreneurs : entrepreneurs 
+        });
     } catch (error) {
-        res.status(500).json({ error: 'Error al listar emprendedores' });
+        return res.status(500).json({
+            status: 'error',
+            message: 'Error al listar emprendedores'
+        });
     }
 }
 
