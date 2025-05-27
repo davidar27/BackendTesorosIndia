@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { TokenPayload } from '../../models/Auth/Auth';
+import crypto from 'crypto';
+
 
 /**
  * Generates a JWT token with the given payload
