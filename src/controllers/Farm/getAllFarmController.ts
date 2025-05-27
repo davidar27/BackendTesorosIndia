@@ -6,10 +6,15 @@ import { getAllFarmServices } from '../../services/Farm/getAllFarmServices';
 export const getAllFarmController = async (req: Request, res: Response) => {
     try {
         const farms = await getAllFarmServices();
-        res.json({ message: 'Lista de Fincas', farms });
+        return res.status(200).json({
+            status: 'success',
+            farms: farms
+        });
     } catch (error) {
-        res.status(500).json({ error: 'Error al listar fincas' });
+        return res.status(500).json({
+            status: 'error',
+            message: 'Error al listar fincas'
+        });
     }
 }
-
 

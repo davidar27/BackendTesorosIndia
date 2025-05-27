@@ -37,7 +37,7 @@ app.use('/usuario', userRoutes);
 app.use('/auth', authRoutes);
 // app.use('/carrito', cartRoutes);
 app.use('/productos', productRoutes);
-app.use('/fincas', farmRoutes);
+app.use('/finca', farmRoutes);
 /* app.use('/pagos', payRoutes ); 
 app.use('/paquete', /* packRoutes );   */
 app.use('/comentarios', reviewsRoutes);

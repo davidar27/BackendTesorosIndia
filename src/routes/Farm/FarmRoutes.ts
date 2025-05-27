@@ -14,7 +14,7 @@ router.post("/crear", uploadFiles, authMiddlewareToken, checkRole('emprendedor')
 router.put("/actualizar/:id", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), updateFarmController);
 router.delete("/eliminar/:id", authMiddlewareToken, checkRole('emprendedor'), deleteFarmController);
 router.get("/obtener:id", authMiddlewareToken, checkRole('emprendedor'), getFarmByIdController);
-router.get("/", authMiddlewareToken, getAllFarmController);
-
+router.get("/fincas", authMiddlewareToken, getAllFarmController);
+// router.get("/fincas/emprendedor", authMiddlewareToken, checkRole('emprendedor'), getAllFarmByEmprendedorController);
 
 export default router;
