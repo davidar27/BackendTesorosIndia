@@ -10,11 +10,11 @@ import { getAllFarmController } from "../../controllers/Farm/getAllFarmControlle
 
 const router = express.Router();
 
-router.post("/create", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), createFarmController);
-router.put("/update/:id", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), updateFarmController);
-router.delete("/delete/:id", authMiddlewareToken, checkRole('emprendedor'), deleteFarmController);
-router.get("/get:id", authMiddlewareToken, checkRole('emprendedor'), getFarmByIdController);
-router.get("/", authMiddlewareToken, checkRole('emprendedor'), getAllFarmController);
+router.post("/crear", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), createFarmController);
+router.put("/actualizar/:id", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), updateFarmController);
+router.delete("/eliminar/:id", authMiddlewareToken, checkRole('emprendedor'), deleteFarmController);
+router.get("/obtener:id", authMiddlewareToken, checkRole('emprendedor'), getFarmByIdController);
+router.get("/", authMiddlewareToken, getAllFarmController);
 
 
 export default router;
