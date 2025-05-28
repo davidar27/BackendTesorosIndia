@@ -2,20 +2,20 @@ import db from "../../config/db";
 import { User } from "../../models/User/User";
 
 export const createUserRepository = async (newUser: User): Promise<User> => {
-    const { name, email, password, phone_number, email_verified } = newUser;
+    const { name, email, password, phone_number, verified } = newUser;
 
-    const sql = 'INSERT INTO usuario (nombre, correo, contraseña, telefono, email_verified) VALUES (?, ?, ?, ?, ?)';
+    const sql = 'INSERT INTO usuario (nombre, correo, contraseña, telefono, verificado) VALUES (?, ?, ?, ?, ?)';
     const [result]: any = await db.execute(sql, [
         name,
         email,
         password,
         phone_number,
-        email_verified,
+        verified,
     ]);
 
     const insertedId = result.insertId;
     const [rows]: any = await db.execute(
-        'SELECT usuario_id, nombre, correo, telefono, email_verified, rol FROM usuario WHERE usuario_id = ?',
+        'SELECT usuario_id, nombre, correo, telefono, verificado, rol FROM usuario WHERE usuario_id = ?',
         [insertedId]
     );
 
@@ -27,7 +27,7 @@ export const createUserRepository = async (newUser: User): Promise<User> => {
         userRow.correo,
         userRow.telefono,
         '',
-        Boolean(userRow.email_verified),
+        Boolean(userRow.verificado),
         userRow.rol
     );
 

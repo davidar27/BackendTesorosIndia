@@ -25,7 +25,7 @@ export const authUserController = async (req: Request, res: Response): Promise<R
 
         const validRoles: UserRole[] = ["cliente", "administrador", "emprendedor"];
         if (!validRoles.includes(role as UserRole)) {
-            return res.status(400).json({
+            return res.status(401).json({
                 error: {
                     type: "general",
                     message: "Rol de usuario no válido"

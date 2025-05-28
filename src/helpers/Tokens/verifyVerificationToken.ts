@@ -10,15 +10,7 @@ export const verifyEmailVerificationToken = (
         token,
         VERIFICATION_TOKEN_SECRET
     );
-    
-/* 
-    if (payload.purpose !== 'email_verification') {
-        throw new Error('Token no válido para verificación de email');
-    }else{
-        console.log("TOKEN VALIDO PARA VERIFICAR EMAIL");
-        
-    } */
-    
+
     return { userId: payload.userId };
 };
 

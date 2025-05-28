@@ -15,7 +15,7 @@ let validatorParams = [
 function validator(req: Request, res: Response, next: NextFunction): any {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(422).json({ error: errors.array() });
+        return res.status(401).json({ error: errors.array() });
     }
     next();
 }
