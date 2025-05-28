@@ -6,7 +6,7 @@ export class User {
     private _phone_number: string;
     private _password: string;
     private _description?: string;
-    private _email_verified: boolean;
+    private _verified: boolean;
     private _role?: string;
 
 
@@ -16,7 +16,7 @@ export class User {
         email: string,
         phone_number: string,
         password: string,
-        email_verified: boolean = false,
+        verified: boolean = false,
         role?: string,
         description?: string,
     ) {
@@ -25,7 +25,7 @@ export class User {
         this._email = email;
         this._phone_number = phone_number;
         this._password = password;
-        this._email_verified = email_verified;
+        this._verified = verified;
         this._role = role;
 
         if (role === "emprendedor") {
@@ -67,8 +67,8 @@ export class User {
         return this._description;
     }
 
-    get email_verified(): boolean {
-        return this._email_verified;
+    get verified(): boolean {
+        return this._verified;
     }
 
     set name(name: string) {
@@ -95,7 +95,7 @@ export class User {
         this._description = description;
     }
 
-    set email_verified(email_verified: boolean) {
-        this._email_verified = email_verified;
+    set verified(verified: boolean) {
+        this._verified = verified;
     }
 }

@@ -5,7 +5,6 @@ import { findByEmailRepository } from "../../repositories/User/findByEmailReposi
 
 export const findByEmailUserService = async (email: string): Promise<User | null> => {
     const user = await findByEmailRepository(email);
-    return user;
+    return user as User | null;
 }
-
 

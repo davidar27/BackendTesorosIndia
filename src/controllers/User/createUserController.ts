@@ -15,7 +15,7 @@ export const createUserController = async (req: Request, res: Response) => {
 
         const existingUser = await findByEmailUserService(email);
         if (existingUser) {
-            return res.status(400).json({ error: 'El correo electrónico ya está registrado' });
+            return res.status(409).json({ error: 'El correo electrónico ya está registrado' });
         }
 
         const newUser = await registerUserService({ id : NaN, name, email, phone_number, password });
