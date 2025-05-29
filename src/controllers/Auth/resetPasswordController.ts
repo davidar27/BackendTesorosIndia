@@ -16,7 +16,6 @@ export const resetPasswordController = async (req: Request, res: Response) => {
         const { password } = req.body;
         
         const payload = verifyTokenPayload<ResetPasswordPayload>(token, PASSWORD_RESET_SECRET);
-        console.log(payload);
         
 
         if (!payload.userId || payload.purpose !== 'password_reset') {
@@ -26,7 +25,6 @@ export const resetPasswordController = async (req: Request, res: Response) => {
             });
         }
         const user = await findByEmailUserService(payload.email as string);
-        console.log(user);
         if (!user) {
             return res.status(400).json({
                 success: false,
