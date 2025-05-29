@@ -9,6 +9,7 @@ import { resendVerificationEmail } from "../../controllers/Auth/resendEmailVerif
 import { recoverPasswordController } from "../../controllers/Auth/recoverPasswordController";
 import { resetPasswordController } from "../../controllers/Auth/resetPasswordController";
 import resetPasswordValidation from "../../middleware/Auth/resetPasswordValidation";
+import { checkVerification } from "../../controllers/Auth/checkVerificationController";
 
 const router = express.Router();
 
@@ -20,8 +21,6 @@ router.get('/verificar-correo', verifyEmailController);
 router.get('/verificar-token', verifyTokenController);
 router.post('/refrescar-token', refreshToken);
 router.post('/reenviar-correo-verificacion', resendVerificationEmail);
-
-
-
+router.get('/revisar-verificacion', checkVerification);
 
 export default router;
