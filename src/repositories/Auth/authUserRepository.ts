@@ -4,7 +4,7 @@ import UserAuth from '../../models/Auth/userAuth';
 import { loginResult } from '../../models/Auth/Auth';
 
 export const authUserRepository = async (user: UserAuth): Promise<loginResult> => {
-    const sql = `SELECT usuario_id, contraseña, rol, nombre, verificado FROM usuario WHERE correo = ?`;
+    const sql = `SELECT usuario_id, contraseña, rol, nombre, verificado, token_version FROM usuario WHERE correo = ?`;
     const values = [user.email];
 
     try {
@@ -45,7 +45,8 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
             status: "Autenticación exitosa",
             id: userRecord.usuario_id,
             role: userRecord.rol,
-            name: userRecord.nombre
+            name: userRecord.nombre,
+            token_version: userRecord.token_version
         };
 
     } catch (error) {

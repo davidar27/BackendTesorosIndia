@@ -21,7 +21,8 @@ export const generateToken = (
         const token = jwt.sign(
             {
                 data: payload,
-                jti: crypto.randomUUID()
+                jti: crypto.randomUUID(),
+                token_version: payload.token_version
             },
             secret,
             { expiresIn } as jwt.SignOptions,

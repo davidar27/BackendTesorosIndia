@@ -6,12 +6,16 @@ import { logoutController } from "../../controllers/Auth/logoutController";
 import { verifyTokenController } from "../../controllers/Auth/verifyTokenController";
 import { refreshToken } from "../../controllers/Auth/refreshToken";
 import { resendVerificationEmail } from "../../controllers/Auth/resendEmailVerification";
+import { recoverPasswordController } from "../../controllers/Auth/recoverPasswordController";
+import { resetPasswordController } from "../../controllers/Auth/resetPasswordController";
+import resetPasswordValidation from "../../middleware/Auth/resetPasswordValidation";
 
 const router = express.Router();
 
 router.post('/login', authInputValidator.validatorParams, authInputValidator.validator, authUserController);
 router.post('/logout', logoutController);
-router.post('/recuperar-contraseña',  authUserController);
+router.post('/recuperar-password',  recoverPasswordController);
+router.put('/restablecer-password', resetPasswordValidation.validatorParam, resetPasswordValidation.validator, resetPasswordController);
 router.get('/verificar-correo', verifyEmailController);
 router.get('/verificar-token', verifyTokenController);
 router.post('/refrescar-token', refreshToken);

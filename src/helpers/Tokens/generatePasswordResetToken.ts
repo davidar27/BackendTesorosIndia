@@ -1,10 +1,13 @@
 import { generateToken } from './generateToken';
 import { PASSWORD_RESET_SECRET } from './TokenSecrets';
-import { UserRole } from '../../models/Auth/Auth';
 
-export const generatePasswordResetToken = (userId: number, role: UserRole): string => {
+export const generatePasswordResetToken = ( userId: number,email: string
+): string => {
     return generateToken(
-        { userId, role, purpose: 'password_reset' },
+        {
+            userId, email, purpose: 'password_reset',
+            token_version: 0
+        },
         PASSWORD_RESET_SECRET,
         '1h'
     );
