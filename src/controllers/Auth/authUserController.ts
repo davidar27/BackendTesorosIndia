@@ -21,7 +21,7 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         }
 
         const login = await authUserService(new UserAuth(email, password));
-        const { id, role, name, status } = login;
+        const { id, role, name, token_version, status } = login;
 
         const validRoles: UserRole[] = ["cliente", "administrador", "emprendedor"];
         if (!validRoles.includes(role as UserRole)) {
@@ -33,8 +33,8 @@ export const authUserController = async (req: Request, res: Response): Promise<R
             });
         }
 
-        const accessToken = generateAccessToken(id!, name!, role as UserRole);
-        const refreshToken = generateRefreshToken(id!, name!, role as UserRole);
+        const accessToken = generateAccessToken(id!, name!, role as UserRole, token_version!);
+        const refreshToken = generateRefreshToken(id!, name!, role as UserRole, token_version!);
 
         res.cookie('access_token', accessToken, cookieOptionsLogin);
 
@@ -42,7 +42,7 @@ export const authUserController = async (req: Request, res: Response): Promise<R
 
         return res.status(200).json({
             status,
-            user: { id, name, role },
+            user: { id, name, role, token_version },
         });
 
     } catch (error: any) {

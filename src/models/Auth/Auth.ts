@@ -4,8 +4,9 @@ export interface TokenPayload {
     userId: number;
     name?: string;
     role?: UserRole;
+    email?: string;
     purpose?: string;
-
+    token_version: number;
 }
 
 export interface loginResult {
@@ -14,7 +15,13 @@ export interface loginResult {
     id?: number;
     role?: string;
     name?: string;
+    token_version?: number;
     message?: string;
     errorType?: string;
     redirectTo?: string;
+}
+
+export interface PasswordResetPayload {
+    userId: number;
+    purpose: string;
 }

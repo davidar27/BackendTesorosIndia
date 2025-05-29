@@ -21,7 +21,6 @@ export const resendVerificationEmail = async (req: Request, res: Response) => {
 
         res.json({ message: 'Email de verificación reenviado' });
     } catch (error) {
-        console.error('Error al reenviar email:', error);
         res.status(500).json({ message: 'Error interno del servidor' });
     }
 };

@@ -1,4 +1,3 @@
-
 export class User {
     private _id: number;
     private _name: string;
@@ -8,6 +7,7 @@ export class User {
     private _description?: string;
     private _verified: boolean;
     private _role?: string;
+    private _token_version: number;
 
 
     constructor(
@@ -19,6 +19,7 @@ export class User {
         verified: boolean = false,
         role?: string,
         description?: string,
+        token_version: number = 0,
     ) {
         this._id = id;
         this._name = name;
@@ -27,6 +28,7 @@ export class User {
         this._password = password;
         this._verified = verified;
         this._role = role;
+        this._token_version = token_version;
 
         if (role === "emprendedor") {
             this._description = description;
@@ -71,6 +73,10 @@ export class User {
         return this._verified;
     }
 
+    get token_version(): number {
+        return this._token_version;
+    }
+
     set name(name: string) {
         this._name = name;
     }
@@ -97,5 +103,9 @@ export class User {
 
     set verified(verified: boolean) {
         this._verified = verified;
+    }
+
+    set token_version(version: number) {
+        this._token_version = version;
     }
 }

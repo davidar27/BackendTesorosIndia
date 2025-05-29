@@ -2,36 +2,25 @@
 import jwt from 'jsonwebtoken';
 import AuthError from '../../models/AuthError';
 import { findByIdUserService } from '../../services/User/findByIdUserService';
+import { REFRESH_TOKEN_SECRET } from './TokenSecrets';
+import { TokenPayload } from '../../models/Auth/Auth';
 
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET!;
-
-interface RefreshTokenPayload {
-    userId: string;
-    jti?: string;
-    iat: number;
-    exp: number;
-}
-
-export const verifyRefreshToken = async (token: string): Promise<{ userId: string }> => {
+export const verifyRefreshToken = async (token: string): Promise<{ userId: number; token_version: number }> => {
     if (!token) {
         throw new Error('Token de refresco no proporcionado');
     }
 
     try {
-        // 1. Verificar firma y expiración del JWT
-        const payload = jwt.verify(token, JWT_REFRESH_SECRET) as RefreshTokenPayload;
+        const decoded = jwt.verify(token, REFRESH_TOKEN_SECRET) as TokenPayload;
 
-        // 2. Validar estructura del payload
-        if (!payload.userId) {
+        if (!decoded.userId) {
             throw new AuthError('Token malformado: falta userId', {
                 status: 401,
                 errorType: 'authentication'
             });
-
         }
 
-        // 3. (Opcional) Validar si el usuario existe
-        const user = await findByIdUserService(payload.userId);
+        const user = await findByIdUserService(decoded.userId.toString());
         if (!user) {
             throw new AuthError('Usuario no encontrado', {
                 status: 404,
@@ -39,8 +28,10 @@ export const verifyRefreshToken = async (token: string): Promise<{ userId: strin
             });
         }
 
-        return { userId: payload.userId };
-
+        return {
+            userId: decoded.userId,
+            token_version: decoded.token_version
+        };
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
             throw new AuthError('Token de refresco expirado', {
