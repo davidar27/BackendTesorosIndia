@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { uploadToAzureService } from "../../services/Farm/uploadToAzureService";
 
 import { deleteFromAzureService } from "../../services/Farm/deleteFromAzureService";
-import { getFarmByIdService } from "../../services/Farm/getContentByIdService";
+import { getFarmByIdService } from "../../services/Farm/getFarmByIdService";
 import { updateFarmService } from "../../services/Farm/updateFarmService";
 
 export const updateFarmController = async (req: Request, res: Response) => {

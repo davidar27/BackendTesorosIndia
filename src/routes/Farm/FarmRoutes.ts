@@ -7,6 +7,7 @@ import { updateFarmController } from "../../controllers/Farm/updateFarmControlle
 import { deleteFarmController } from "../../controllers/Farm/deleteFarmController";
 import { getFarmByIdController } from "../../controllers/Farm/getFarmByIdController";
 import { getAllFarmController } from "../../controllers/Farm/getAllFarmController";
+import { getAllNamesFarmController } from "../../controllers/Farm/getAllNamesFarmController";
 
 const router = express.Router();
 
@@ -14,7 +15,9 @@ router.post("/crear", uploadFiles, authMiddlewareToken, checkRole('emprendedor')
 router.put("/actualizar/:id", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), updateFarmController);
 router.delete("/eliminar/:id", authMiddlewareToken, checkRole('emprendedor'), deleteFarmController);
 router.get("/obtener:id", authMiddlewareToken, checkRole('emprendedor'), getFarmByIdController);
-router.get("/fincas", authMiddlewareToken, getAllFarmController);
+router.get("/", authMiddlewareToken, getAllFarmController);
+router.get("/nombres", getAllNamesFarmController);
+
 // router.get("/fincas/emprendedor", authMiddlewareToken, checkRole('emprendedor'), getAllFarmByEmprendedorController);
 
 export default router;

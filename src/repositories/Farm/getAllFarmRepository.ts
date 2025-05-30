@@ -1,18 +1,18 @@
 import db from "../../config/db";
+import { Farm } from "../../models/Farm/Farm";
 
-export const getFarmByIdRepository = async (id: number, entrepreneur_id: number) => {
-    const query = `
-        SELECT * FROM finca 
-        WHERE finca_id = ? AND emprendedor_id = ?
-    `;
 
-    const values = [id, entrepreneur_id];
-
-    try {
-        const [rows]: any = await db.execute(query, values);
-        return rows[0] || null;
-    } catch (error) {
-        console.error("Error en getFarmByIdRepository:", error);
-        throw new Error("Error al obtener contenido de la base de datos");
-    }
+export const getAllFarmRepository = async (): Promise<Farm> => {
+    const sql = `SELECT 
+    f.finca_id AS id,
+    f.nombre AS name,
+	f.descripcion AS description,
+    f.ubicacion AS location,
+    f.fecha_creacion AS created_at,
+    f.estado AS status,
+    u.nombre AS emprendedor_id
+    FROM finca f
+    LEFT JOIN usuario u ON f.emprendedor_id = u.usuario_id;`;
+    const [rows]: any = await db.execute(sql);
+    return rows;
 };
