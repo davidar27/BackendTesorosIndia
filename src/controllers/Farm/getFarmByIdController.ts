@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getFarmByIdService } from "../../services/Farm/getContentByIdService";
+import { getFarmByIdService } from "../../services/Farm/getFarmByIdService";
 
 export const getFarmByIdController = async (req: Request, res: Response) => {
     try {

@@ -7,9 +7,9 @@ let validatorParams = [
         .isLength({ max: 100 })
         .isEmail(),
 
-    check('password')
+        check('password')
         .isLength({ min: 8, max: 32 })
-        .matches(/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+$/),
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,32}$/)
 ];
 
 function validator(req: Request, res: Response, next: NextFunction): any {

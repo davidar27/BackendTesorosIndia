@@ -1,4 +1,4 @@
-import { getAllFarmRepository } from "../../repositories/Farm/getAllContentRepository";
+import { getAllFarmRepository } from "../../repositories/Farm/getAllFarmRepository";
 
 
 
