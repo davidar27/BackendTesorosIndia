@@ -8,7 +8,6 @@ export const getReviewsByFincaControllerId = async (req: Request, res: Response)
         
         res.status(200).json(valoraciones);
     } catch (error) {
-        console.error("Error en getValoracionesController:", error);
         res.status(500).json({ mensaje: "Error al obtener valoraciones" });
     }
 };

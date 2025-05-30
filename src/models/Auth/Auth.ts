@@ -1,18 +1,25 @@
 export type UserRole = "cliente" | "administrador" | "emprendedor";
 
-export interface TokenPayload {
+export interface TokenData {
     userId: number;
     name?: string;
     role?: UserRole;
     email?: string;
-    purpose?: string;
+}
+
+export interface TokenPayload {
+    data: TokenData;
+    jti: string;
     token_version: number;
+    iat: number;
+    exp: number;
+    purpose?: string;
 }
 
 export interface loginResult {
     logged: boolean;
     status: string;
-    id?: number;
+    userId?: number;
     role?: string;
     name?: string;
     token_version?: number;

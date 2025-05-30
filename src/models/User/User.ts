@@ -1,48 +1,55 @@
 export class User {
-    private _id: number;
+    private _userId?: number;
     private _name: string;
     private _email: string;
     private _phone_number: string;
     private _password: string;
     private _description?: string;
     private _verified: boolean;
-    private _role?: string;
+    private _role: string;
     private _token_version: number;
 
-
     constructor(
-        id: number,
         name: string,
         email: string,
         phone_number: string,
         password: string,
         verified: boolean = false,
-        role?: string,
-        description?: string,
+        role: string,
+        userId?: number,
+        description: string = '',
         token_version: number = 0,
     ) {
-        this._id = id;
-        this._name = name;
-        this._email = email;
-        this._phone_number = phone_number;
+        if (!name || typeof name !== 'string') {
+            throw new Error('Nombre inválido');
+        }
+        if (!email || typeof email !== 'string') {
+            throw new Error('Email inválido');
+        }
+        if (!role || typeof role !== 'string') {
+            throw new Error('Rol inválido');
+        }
+
+        this._userId = userId;
+        this._name = name.trim();
+        this._email = email.trim().toLowerCase();
+        this._phone_number = phone_number ? phone_number.trim() : '';
         this._password = password;
         this._verified = verified;
         this._role = role;
         this._token_version = token_version;
+        this._description = description;
+    }
 
-        if (role === "emprendedor") {
-            this._description = description;
+    get userId(): number | undefined {
+        return this._userId;
+    }
+
+    set userId(value: number | undefined) {
+        if (value !== undefined && (!Number.isInteger(value) || value < 0)) {
+            throw new Error('ID de usuario inválido');
         }
-
-
-    }
-
-    get id(): number | undefined {
-        return this._id;
-    }
-
-    set id(id: number) {
-        this._id = id;
+        this._userId = value;
     }
 
     get name(): string {
@@ -61,7 +68,7 @@ export class User {
         return this._password;
     }
 
-    get role(): string | undefined {
+    get role(): string {
         return this._role;
     }
 
@@ -77,35 +84,63 @@ export class User {
         return this._token_version;
     }
 
-    set name(name: string) {
-        this._name = name;
+    set name(value: string) {
+        if (!value || typeof value !== 'string') {
+            throw new Error('Nombre inválido');
+        }
+        this._name = value.trim();
     }
 
-    set email(email: string) {
-        this._email = email;
+    set email(value: string) {
+        if (!value || typeof value !== 'string') {
+            throw new Error('Email inválido');
+        }
+        this._email = value.trim().toLowerCase();
     }
 
-    set phone_number(phone_number: string) {
-        this._phone_number = phone_number;
+    set phone_number(value: string) {
+        this._phone_number = value ? value.trim() : '';
     }
 
-    set password(password: string) {
-        this._password = password;
+    set password(value: string) {
+        if (!value || typeof value !== 'string') {
+            throw new Error('Contraseña inválida');
+        }
+        this._password = value;
     }
 
-    set role(role: string | undefined) {
-        this._role = role;
+    set role(value: string) {
+        if (!value || typeof value !== 'string') {
+            throw new Error('Rol inválido');
+        }
+        this._role = value;
     }
 
-    set description(description: string | undefined) {
-        this._description = description;
+    set description(value: string | undefined) {
+        this._description = value;
     }
 
-    set verified(verified: boolean) {
-        this._verified = verified;
+    set verified(value: boolean) {
+        this._verified = Boolean(value);
     }
 
-    set token_version(version: number) {
-        this._token_version = version;
+    set token_version(value: number) {
+        if (!Number.isInteger(value) || value < 0) {
+            throw new Error('Versión de token inválida');
+        }
+        this._token_version = value;
+    }
+
+    toJSON() {
+        return {
+            userId: this._userId,
+            name: this._name,
+            email: this._email,
+            phone_number: this._phone_number,
+            verified: this._verified,
+            role: this._role,
+            description: this._description,
+            token_version: this._token_version
+        };
     }
 }

@@ -12,7 +12,6 @@ export const logoutController = async (req: Request, res: Response) => {
         });
 
     } catch (error) {
-        console.error('Error en logoutController:', error);
         return res.status(500).json({
             error: 'Error al cerrar sesión'
         });

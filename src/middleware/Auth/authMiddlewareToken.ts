@@ -14,7 +14,6 @@ interface JwtPayload {
     iat: number;
 }
 
-// Extender el tipo Request para incluir user
 declare global {
     namespace Express {
         interface Request {
@@ -30,7 +29,6 @@ export const authMiddlewareToken = async (req: Request, res: Response, next: Nex
         return res.status(500).json({ message: "Token key is not set in environment variables" });
     }
 
-    // Buscar token en header Authorization
     const authorization = req.header('Authorization');
     let token: string | undefined;
 
@@ -38,16 +36,10 @@ export const authMiddlewareToken = async (req: Request, res: Response, next: Nex
         token = authorization.split(' ')[1];
     }
 
-    // Si no hay token en el header, buscar en cookies
     if (!token) {
-        // Buscar en diferentes nombres de cookies comunes
-        token = req.cookies?.authToken ||
-            req.cookies?.access_token ||
-            req.cookies?.token ||
-            req.cookies?.accessToken;
+        token = req.cookies?.access_token
     }
 
-    // Si aún no hay token, devolver error
     if (!token) {
         return res.status(403).json({
             message: "Access token is required. Provide it via Authorization header (Bearer <token>) or cookie."
@@ -57,10 +49,8 @@ export const authMiddlewareToken = async (req: Request, res: Response, next: Nex
     try {
         const decoded = jwt.verify(token, tokenKey) as JwtPayload;
 
-        // Mejor práctica: usar req.user en lugar de req.body
         req.user = decoded.data;
 
-        // Mantener compatibilidad con código existente si es necesario
         req.body.userId = decoded.data.userId;
         req.body.role = decoded.data.role;
 
@@ -88,7 +78,6 @@ export const authMiddlewareToken = async (req: Request, res: Response, next: Nex
     }
 };
 
-// Middleware opcional para rutas que requieren roles específicos
 export const requireRole = (allowedRoles: Array<"cliente" | "administrador" | "emprendedor">) => {
     return (req: Request, res: Response, next: NextFunction) => {
         if (!req.user) {

@@ -6,17 +6,32 @@ interface VerificationResult {
     status: string;
     message: string;
     errorType: string;
-    id?: number;
+    userId?: number;
     email?: string;
 }
 
 export const findByEmailRepository = async (email: string): Promise<User | VerificationResult | null> => {
-    const sql = 'SELECT usuario_id, correo, verificado FROM usuario WHERE correo = ?';
+    const sql = `
+        SELECT 
+            usuario_id,
+            nombre,
+            correo,
+            telefono,
+            contraseña,
+            verificado,
+            rol,
+            token_version,
+            descripcion_emprendedor
+        FROM usuario 
+        WHERE correo = ?
+    `;
 
     try {
         const [rows]: any = await db.execute(sql, [email]);
 
-        if (rows.length === 0) return null;
+        if (rows.length === 0) {
+            return null;
+        }
 
         const row = rows[0];
 
@@ -26,30 +41,27 @@ export const findByEmailRepository = async (email: string): Promise<User | Verif
                 status: "Cuenta no verificada",
                 message: "Por favor verifica tu cuenta antes de iniciar sesión. Revisa tu correo electrónico.",
                 errorType: "unverified",
-                id: row.usuario_id,
+                userId: row.usuario_id,
                 email: row.correo
             };
             return result;
         }
 
-        const userSql = 'SELECT * FROM usuario WHERE correo = ?';
-        const [userRows]: any = await db.execute(userSql, [email]);
-
-        if (userRows.length === 0) return null;
-
         const user = new User(
-            userRows[0].usuario_id,
-            userRows[0].nombre,
-            userRows[0].correo,
-            userRows[0].telefono,
-            userRows[0].contraseña,
-            userRows[0].verificado,
-            userRows[0].rol
+            row.nombre,
+            row.correo,
+            row.telefono || '',
+            row.contraseña,
+            row.verificado,
+            row.rol,
+            row.usuario_id,
+            row.descripcion || '',
+            row.token_version || 0
         );
 
         return user;
 
     } catch (error) {
-        throw new Error('Error al buscar usuario por email');
+        throw new Error(`Error al buscar usuario por email: ${error instanceof Error ? error.message : 'Error desconocido'}`);
     }
 };

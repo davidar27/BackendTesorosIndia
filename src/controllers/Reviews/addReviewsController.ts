@@ -21,7 +21,6 @@ export const createRviewsController = async (req: Request, res: Response) => {
             data: newReviews
         });
     } catch (error) {
-        console.error("Error en createValoracionController:", error);
         res.status(500).json({ mensaje: "Error al guardar valoración" });
     }
 };

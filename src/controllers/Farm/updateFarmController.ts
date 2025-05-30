@@ -77,7 +77,6 @@ export const updateFarmController = async (req: Request, res: Response) => {
             mensaje: "Contenido actualizado correctamente"
         });
     } catch (error) {
-        console.error("Error en updateFarmController:", error);
         res.status(500).json({ mensaje: "Error al actualizar contenido" });
     }
 };

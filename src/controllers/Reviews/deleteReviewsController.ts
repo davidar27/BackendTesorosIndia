@@ -10,7 +10,6 @@ export const deleteReviewsController = async (req: Request, res: Response) => {
 
         res.status(200).json({ mensaje: "Valoración eliminada correctamente" });
     } catch (error) {
-        console.error("Error en deleteValoracionController:", error);
         res.status(500).json({ mensaje: "Error al eliminar valoración" });
     }
 };

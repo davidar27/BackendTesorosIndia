@@ -30,7 +30,6 @@ export const generateToken = (
 
         return token;
     } catch (error) {
-        console.error('Error generating token:', error);
         throw new Error('Failed to generate token');
     }
 };
