@@ -3,8 +3,8 @@ import { CookieOptions } from 'express';
 
 export const cookieOptionsLogin: CookieOptions = {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    secure: true,
+    sameSite: 'none',
     maxAge: 1000 * 60 * 5, // 5 minutos
     path: '/',
 };
