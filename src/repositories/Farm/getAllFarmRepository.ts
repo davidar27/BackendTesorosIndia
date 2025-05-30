@@ -10,7 +10,7 @@ export const getAllFarmRepository = async (): Promise<Farm> => {
     f.ubicacion AS location,
     f.fecha_creacion AS created_at,
     f.estado AS status,
-    u.nombre AS emprendedor_id
+    u.nombre AS entrepreneur_id
     FROM finca f
     LEFT JOIN usuario u ON f.emprendedor_id = u.usuario_id;`;
     const [rows]: any = await db.execute(sql);
