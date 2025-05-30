@@ -44,7 +44,6 @@ export const createFarmController = async (req: Request, res: Response) => {
 
         res.status(201).json({ mensaje: "Contenido guardado correctamente" });
     } catch (error) {
-        console.error("Error en createFarmController:", error);
         res.status(500).json({ mensaje: "Error al guardar contenido" });
     }
 };

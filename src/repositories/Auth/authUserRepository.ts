@@ -26,7 +26,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
                 status: "Cuenta no verificada",
                 message: "Por favor verifica tu cuenta antes de iniciar sesión. Revisa tu correo electrónico.",
                 errorType: "unverified",
-                id: userRecord.usuario_id
+                userId: userRecord.usuario_id
             };
         }
 
@@ -43,7 +43,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
         return {
             logged: true,
             status: "Autenticación exitosa",
-            id: userRecord.usuario_id,
+            userId: userRecord.usuario_id,
             role: userRecord.rol,
             name: userRecord.nombre,
             token_version: userRecord.token_version

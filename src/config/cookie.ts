@@ -13,13 +13,13 @@ export const cookieOptionsRefresh: CookieOptions = {
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? 'none' : 'lax',
-    path: '/auth/refresh',
-    maxAge: 1000 * 60 * 60 * 24 * 7 // 7 días
+    path: '/',
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
 };
 
 export const cookieOptionsLogout = {
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? 'none' : 'lax',
-    path: '/'
+    path: '/',
 };

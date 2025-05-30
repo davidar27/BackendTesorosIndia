@@ -13,21 +13,18 @@ import reviewsRoutes from "./src/routes/Comments/reviewsRoutes";
 
 dotenv.config();
 
-
 const app = express();
 
-
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
   credentials: true,
   optionsSuccessStatus: 200,
-  exposedHeaders: ['set-cookie']
-
+  exposedHeaders: ['Set-Cookie']
 }));
 
-
+// Configuración de cookies
 app.use(cookieParser(process.env.JWT_ACCESS_SECRET));
 app.use(bodyParser.json());
 app.use(express.json());

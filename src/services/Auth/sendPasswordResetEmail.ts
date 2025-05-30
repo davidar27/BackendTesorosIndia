@@ -2,7 +2,7 @@ import { TransactionalEmailsApi, SendSmtpEmail } from '@getbrevo/brevo';
 import { config } from '../../config/email';
 
 const brevoApi = new TransactionalEmailsApi();
-brevoApi.setApiKey(0, config.BREVO_API_KEY);
+brevoApi.setApiKey(0, config.BREVO_API_KEY as string);
 
 export const sendPasswordResetEmail = async (email: string, resetToken: string): Promise<void> => {
     const resetUrl = `${config.FRONTEND_URL}/restablecer-contraseña?token=${resetToken}`;

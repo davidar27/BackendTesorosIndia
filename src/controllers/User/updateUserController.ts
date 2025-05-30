@@ -5,10 +5,10 @@ import { udpateUserService } from '../../services/User/udpateUserService';
 
 export const updateUserController = async (req: Request, res: Response) => {
     try {
-        const { user_id } = req.params;
+        const { userId } = req.params;
         const updateData = req.body;
 
-        const updatedUser = await udpateUserService(Number(user_id), updateData);
+        const updatedUser = await udpateUserService(Number(userId), updateData);
 
         if (updatedUser === null) {
             return res.status(404).json({ message: 'User not found' });

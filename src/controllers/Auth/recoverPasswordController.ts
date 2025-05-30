@@ -15,7 +15,7 @@ export const recoverPasswordController = async (req: Request, res: Response) => 
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        const resetToken = generatePasswordResetToken(user.id as number,user.email as string);
+        const resetToken = generatePasswordResetToken(user.userId as number,user.email as string);
         
         await sendPasswordResetEmail(email, resetToken);
 

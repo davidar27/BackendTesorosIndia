@@ -1,12 +1,12 @@
 import { verifyTokenPayload } from './verifyTokenPayload';
 import { VERIFICATION_TOKEN_SECRET } from './TokenSecrets';
-import { UserRole } from '../../models/Auth/Auth';
+import { TokenPayload } from '../../models/Auth/Auth';
 
 export const verifyEmailVerificationToken = (
     token: string
     
 ): { userId: number } => {
-    const payload = verifyTokenPayload<{ userId: number; role: UserRole; purpose: string; token_version: number }>(
+    const payload = verifyTokenPayload<TokenPayload>(
         token,
         VERIFICATION_TOKEN_SECRET
     );
@@ -15,6 +15,6 @@ export const verifyEmailVerificationToken = (
         throw new Error('Token de verificación inválido');
     }
 
-    return { userId: payload.userId };
+    return { userId: payload.data.userId };
 };
 

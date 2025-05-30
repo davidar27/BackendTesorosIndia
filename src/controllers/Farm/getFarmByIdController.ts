@@ -14,7 +14,6 @@ export const getFarmByIdController = async (req: Request, res: Response) => {
 
         res.status(200).json(Farm);
     } catch (error) {
-        console.error("Error en getFarmByIdController:", error);
         res.status(500).json({ mensaje: "Error al obtener el contenido" });
     }
 };
