@@ -1,20 +1,16 @@
-import { verifyTokenPayload } from './verifyTokenPayload';
-import { VERIFICATION_TOKEN_SECRET } from './TokenSecrets';
-import { TokenPayload } from '../../models/Auth/Auth';
+import { verifyTokenPayload } from '@/helpers/Tokens/verifyTokenPayload';
+import { VERIFICATION_TOKEN_SECRET } from '@/helpers/Tokens/TokenSecrets';
+import { TokenPayload } from '@/models/Auth/Auth';
 
-export const verifyEmailVerificationToken = (
-    token: string
-    
-): { userId: number } => {
-    const payload = verifyTokenPayload<TokenPayload>(
+export const verifyEmailVerificationToken = (token: string): { userId: number } => {
+    const data = verifyTokenPayload<TokenPayload>(
         token,
-        VERIFICATION_TOKEN_SECRET
+        VERIFICATION_TOKEN_SECRET,
+        {
+            requirePurpose: 'email_verification',
+            requireTokenVersion: 1
+        }
     );
-
-    if (payload.token_version !== 1) {
-        throw new Error('Token de verificación inválido');
-    }
-
-    return { userId: payload.data.userId };
+    return { userId: data.data.userId };
 };
 

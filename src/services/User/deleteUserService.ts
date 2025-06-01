@@ -1,4 +1,4 @@
-import { deleteUserRepository } from "../../repositories/User/deleteUserRepository";
+import { deleteUserRepository } from "@/repositories/User/deleteUserRepository";
 
 export const deleteUserService = async (gUseId: number) => {
     try {

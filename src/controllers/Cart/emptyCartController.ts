@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { emptyCartService } from "../../services/Cart/emptyCartService";
+import { Request, Response } from 'express';
+import { emptyCartService } from '@/services/Cart/emptyCartService';
 
 export const emptyCartController = async (req: Request, res: Response): Promise<void> => {
     try {

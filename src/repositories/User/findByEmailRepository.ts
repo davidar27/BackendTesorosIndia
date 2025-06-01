@@ -1,5 +1,5 @@
-import db from "../../config/db";
-import { User } from "../../models/User/User";
+import db from '@/config/db';
+import { User } from '@/models/User/User';
 
 interface VerificationResult {
     logged: boolean;
@@ -8,6 +8,8 @@ interface VerificationResult {
     errorType: string;
     userId?: number;
     email?: string;
+    role?: string;
+    token_version?: number;
 }
 
 export const findByEmailRepository = async (email: string): Promise<User | VerificationResult | null> => {
@@ -42,7 +44,9 @@ export const findByEmailRepository = async (email: string): Promise<User | Verif
                 message: "Por favor verifica tu cuenta antes de iniciar sesión. Revisa tu correo electrónico.",
                 errorType: "unverified",
                 userId: row.usuario_id,
-                email: row.correo
+                email: row.correo,
+                role: row.rol,
+                token_version: row.token_version
             };
             return result;
         }

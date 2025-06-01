@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { sendVerificationEmail } from '../../services/Auth/sendVerificationEmail';
-import { findByEmailUserService } from '../../services/User/findByEmailUserService';
-import { UserRole } from '../../models/Auth/Auth';
-import { generateVerificationToken } from '../../helpers/Tokens/generateVerificationToken';
+import { sendVerificationEmail } from '@/services/Auth/sendVerificationEmail';
+import { findByEmailUserService } from '@/services/User/findByEmailUserService';
+import { UserRole } from '@/models/Auth/Auth';
+import { generateVerificationToken } from '@/helpers/Tokens/generateVerificationToken';
 
 function isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,7 +44,7 @@ export const resendVerificationEmail = async (req: Request, res: Response) => {
             });
         }
 
-        if (!user.userId) {
+        if (!user.userId || !user.role || user.token_version === undefined) {
             return res.status(500).json({
                 status: 'error',
                 error: 'Error en datos de usuario',

@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
-import UserAuth from "../../models/Auth/userAuth";
-import { authUserService } from "../../services/Auth/authUserService";
-import { generateAccessToken } from "../../helpers/Tokens/generateAccessToken";
-import { generateRefreshToken } from "../../helpers/Tokens/generateRefreshToken";
-import { UserRole } from "../../models/Auth/Auth";
-import { cookieOptionsLogin, cookieOptionsRefresh } from "../../config/cookie";
-
+import UserAuth from "@/models/Auth/userAuth";
+import { authUserService } from "@/services/Auth/authUserService";
+import { generateAccessToken } from "@/helpers/Tokens/generateAccessToken";
+import { generateRefreshToken } from "@/helpers/Tokens/generateRefreshToken";
+import { UserRole } from "@/models/Auth/Auth";
+import { cookieOptionsLogin, cookieOptionsRefresh } from "@/config/cookie";
 
 export const authUserController = async (req: Request, res: Response): Promise<Response> => {
     try {
@@ -21,6 +20,7 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         }
 
         const login = await authUserService(new UserAuth(email, password));
+
         const { userId, role, name, token_version, status } = login;
 
         const validRoles: UserRole[] = ["cliente", "administrador", "emprendedor"];
@@ -32,12 +32,11 @@ export const authUserController = async (req: Request, res: Response): Promise<R
                 }
             });
         }
-        
+
         const accessToken = generateAccessToken(userId!, name!, role as UserRole, token_version!);
         const refreshToken = generateRefreshToken(userId!, name!, role as UserRole, token_version!);
 
         res.cookie('access_token', accessToken, cookieOptionsLogin);
-
         res.cookie('refresh_token', refreshToken, cookieOptionsRefresh);
 
         return res.status(200).json({
@@ -46,6 +45,7 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         });
 
     } catch (error: any) {
+        console.error("Login error:", error);
         res.clearCookie('access_token');
         res.clearCookie('refresh_token');
 

@@ -1,7 +1,6 @@
-import { generatePasswordResetToken } from '../../helpers/Tokens/generatePasswordResetToken';
-import { UserRole } from '../../models/Auth/Auth';
-import { sendPasswordResetEmail } from '../../services/Auth/sendPasswordResetEmail';
-import { findByEmailUserService } from '../../services/User/findByEmailUserService';
+import { generatePasswordResetToken } from '@/helpers/Tokens/generatePasswordResetToken';
+import { sendPasswordResetEmail } from '@/services/Auth/sendPasswordResetEmail';
+import { findByEmailUserService } from '@/services/User/findByEmailUserService';
 import { Request, Response } from 'express';
 
 
@@ -15,8 +14,8 @@ export const recoverPasswordController = async (req: Request, res: Response) => 
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        const resetToken = generatePasswordResetToken(user.userId as number,user.email as string);
-        
+        const resetToken = generatePasswordResetToken(user.userId as number, user.email as string);
+
         await sendPasswordResetEmail(email, resetToken);
 
         return res.json({

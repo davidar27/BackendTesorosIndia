@@ -1,5 +1,5 @@
-import db from "../../config/db";
-import { Product } from "../../models/Product/Product";
+import db from '@/config/db';
+import { Product } from '@/models/Product/Product';
 
 export async function createProductRepository(product: Product): Promise<number> {
     // Verificar si el producto ya existe

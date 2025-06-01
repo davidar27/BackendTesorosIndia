@@ -1,18 +1,15 @@
-import { Router } from 'express';
-import { createProductController } from '../../controllers/Product/createProductController';
-import { getProductByIdController } from '../../controllers/Product/getProductByIdController';
-import { getAllProductsController } from '../../controllers/Product/getAllProductsController';
-import { updateProductController } from '../../controllers/Product/updateProductController';
-import { deleteProductController } from '../../controllers/Product/deleteProductController';
-import { checkRole } from '../../middleware/Auth/checkRole';
-import { authMiddlewareToken } from '../../middleware/Auth/authMiddlewareToken';
+import express from 'express';
+import { getAllProductsController } from '@/controllers/Product/getAllProductsController';
+import { getProductByIdController } from '@/controllers/Product/getProductByIdController';
+import { getProductsByCategoryController } from '@/controllers/Product/getProductsByCategoryController';
+import { authMiddlewareToken } from '@/middleware/Auth/authMiddlewareToken';
+import { checkRole } from '@/middleware/Auth/checkRole';
 
-const router = Router();
+const router = express.Router();
 
-router.post('/agregar', authMiddlewareToken, checkRole('emprendedor'), createProductController);
-router.get('/obtener-productos', authMiddlewareToken, checkRole('emprendedor'), getAllProductsController);
-router.get('/obtener/:id', authMiddlewareToken, checkRole('emprendedor'), getProductByIdController);
-router.put('/actualizar/:id', authMiddlewareToken, checkRole('emprendedor'), updateProductController);
-router.delete('/eliminar/:id', authMiddlewareToken, checkRole('emprendedor'), deleteProductController);
+// Rutas públicas de productos
+router.get('/', getAllProductsController);
+router.get('/:id', getProductByIdController);
+router.get('/categorias/:categoryId', getProductsByCategoryController);
 
 export default router;

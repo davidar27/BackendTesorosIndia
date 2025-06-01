@@ -1,4 +1,4 @@
-import db from "../../config/db";
+import db from '@/config/db';
 
 export const updateFarmRepository = async (FarmData: any) => {
     const { id, name, description, location, images, videos, entrepreneur_id } = FarmData;

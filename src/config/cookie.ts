@@ -1,4 +1,4 @@
-const isProduction = process.env.NODE_ENV === 'production';
+// const isProduction = process.env.NODE_ENV === 'production';
 import { CookieOptions } from 'express';
 
 export const cookieOptionsLogin: CookieOptions = {
@@ -11,15 +11,15 @@ export const cookieOptionsLogin: CookieOptions = {
 
 export const cookieOptionsRefresh: CookieOptions = {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    secure: true,
+    sameSite: 'none',
     path: '/',
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
 };
 
 export const cookieOptionsLogout = {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    secure: true,
+    sameSite: 'none',
     path: '/',
 };

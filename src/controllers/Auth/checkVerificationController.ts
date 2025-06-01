@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
-import { findByEmailUserService } from "../../services/User/findByEmailUserService";
+import { findByEmailUserService } from "@/services/User/findByEmailUserService";
 
-// Cache para rate limiting
 const checkAttempts = new Map<string, { count: number; timestamp: number }>();
-const MAX_ATTEMPTS = 24; // 24 intentos (2 minutos con intervalos de 5 segundos)
-const WINDOW_MS = 120000; // 2 minutos
-const MIN_INTERVAL = 4000; // Mínimo 4 segundos entre intentos
+const MAX_ATTEMPTS = 24; 
+const WINDOW_MS = 120000; 
+const MIN_INTERVAL = 4000;
 
 function isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,7 +24,6 @@ export const checkVerification = async (req: Request, res: Response) => {
     try {
         const email = req.query.email as string;
 
-        // Validar que el email existe y tiene formato correcto
         if (!email) {
             return res.status(400).json({ 
                 error: 'Email requerido',
@@ -33,7 +31,6 @@ export const checkVerification = async (req: Request, res: Response) => {
             });
         }
 
-        // Decodificar el email si viene codificado en la URL
         const decodedEmail = decodeURIComponent(email).trim();
 
         if (!isValidEmail(decodedEmail)) {
@@ -43,17 +40,14 @@ export const checkVerification = async (req: Request, res: Response) => {
             });
         }
 
-        // Limpiar entradas antiguas
         cleanupOldEntries();
 
-        // Rate limiting
         const now = Date.now();
         const userAttempts = checkAttempts.get(decodedEmail);
 
         if (userAttempts) {
             const timeSinceLastAttempt = now - userAttempts.timestamp;
 
-            // Verificar intervalo mínimo
             if (timeSinceLastAttempt < MIN_INTERVAL) {
                 return res.status(429).json({
                     error: 'Demasiado rápido',
@@ -62,7 +56,6 @@ export const checkVerification = async (req: Request, res: Response) => {
                 });
             }
 
-            // Verificar límite de intentos
             if (userAttempts.count >= MAX_ATTEMPTS) {
                 return res.status(429).json({
                     error: 'Límite excedido',
@@ -77,7 +70,6 @@ export const checkVerification = async (req: Request, res: Response) => {
             checkAttempts.set(decodedEmail, { count: 1, timestamp: now });
         }
 
-        // Buscar usuario
         const user = await findByEmailUserService(decodedEmail);
 
         if (!user) {
@@ -87,7 +79,6 @@ export const checkVerification = async (req: Request, res: Response) => {
             });
         }
 
-        // Si el usuario está verificado, limpiar sus intentos
         if (user.verified) {
             checkAttempts.delete(decodedEmail);
             return res.json({ 

@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { deleteProductService } from "../../services/Product/deleteProductService";
+import { Request, Response } from 'express';
+import { deleteProductService } from '@/services/Product/deleteProductService';
 
 export async function deleteProductController(req: Request, res: Response): Promise<void> {
     try {

@@ -1,5 +1,5 @@
-import { User } from "../../models/User/User";
-import { findByEmailRepository } from "../../repositories/User/findByEmailRepository";
+import { User } from "@/models/User/User";
+import { findByEmailRepository } from "@/repositories/User/findByEmailRepository";
 
 
 

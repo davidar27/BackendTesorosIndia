@@ -1,5 +1,5 @@
 import { TransactionalEmailsApi, SendSmtpEmail } from '@getbrevo/brevo';
-import { config } from '../../config/email';
+import { config } from '@/config/email';
 
 const apiInstance = new TransactionalEmailsApi();
 apiInstance.setApiKey(0, config.BREVO_API_KEY || '');

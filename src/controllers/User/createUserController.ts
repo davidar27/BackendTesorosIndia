@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { registerUserService } from '../../services/User/registerUserService';
-import { findByEmailUserService } from '../../services/User/findByEmailUserService';
-import { generateVerificationToken } from '../../helpers/Tokens/generateVerificationToken';
-import { UserRole } from '../../models/Auth/Auth';
-import { sendVerificationEmail } from '../../services/Auth/sendVerificationEmail';
+import { registerUserService } from '@/services/User/registerUserService';
+import { findByEmailUserService } from '@/services/User/findByEmailUserService';
+import { generateVerificationToken } from '@/helpers/Tokens/generateVerificationToken';
+import { UserRole } from '@/models/Auth/Auth';
+import { sendVerificationEmail } from '@/services/Auth/sendVerificationEmail';
 
 function isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,7 +23,7 @@ function validateUserData(data: any): { isValid: boolean; error?: string } {
     if (!data.name || typeof data.name !== 'string') {
         return { isValid: false, error: 'El nombre es requerido y debe ser texto' };
     }
-    if (data.phone_number && typeof data.phone_number !== 'string') {
+    if (data.phone && typeof data.phone !== 'string') {
         return { isValid: false, error: 'El teléfono debe ser texto' };
     }
     return { isValid: true };
@@ -31,9 +31,9 @@ function validateUserData(data: any): { isValid: boolean; error?: string } {
 
 export const createUserController = async (req: Request, res: Response) => {
     try {
-        const { name, email, phone_number, password } = req.body;
+        const { name, email, phone, password } = req.body;
 
-        const validation = validateUserData({ name, email, phone_number, password });
+        const validation = validateUserData({ name, email, phone, password });
         if (!validation.isValid) {
             return res.status(400).json({ 
                 error: 'Datos inválidos',
@@ -53,7 +53,7 @@ export const createUserController = async (req: Request, res: Response) => {
             userId: NaN, 
             name: name.trim(), 
             email: email.trim().toLowerCase(), 
-            phone_number: phone_number ? phone_number.trim() : '', 
+            phone: phone ? phone.trim() : '', 
             password, 
             verified: false, 
             role: 'cliente', 

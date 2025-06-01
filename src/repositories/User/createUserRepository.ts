@@ -1,8 +1,8 @@
-import db from "../../config/db";
-import { User } from "../../models/User/User";
+import db from '@/config/db';
+import { User } from '@/models/User/User';
 
 export const createUserRepository = async (newUser: User): Promise<User> => {
-    const { name, email, password, phone_number, verified, role, token_version } = newUser;
+    const { name, email, password, phone, verified, role, token_version } = newUser;
 
     try {
         const sql = 'INSERT INTO usuario (nombre, correo, contraseña, telefono, verificado, rol, token_version) VALUES (?, ?, ?, ?, ?, ?, ?)';
@@ -10,7 +10,7 @@ export const createUserRepository = async (newUser: User): Promise<User> => {
             name,
             email,
             password,
-            phone_number,
+            phone,
             verified,
             role,
             token_version

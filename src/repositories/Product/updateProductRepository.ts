@@ -1,5 +1,5 @@
-import db from "../../config/db";
-import { Product } from "../../models/Product/Product";
+import db from '@/config/db';
+import { Product } from '@/models/Product/Product';
 
 export async function updateProductRepository(producto_id: number, product: Partial<Product>): Promise<void> {
     const fields: string[] = [];

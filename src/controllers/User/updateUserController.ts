@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { udpateUserService } from '../../services/User/udpateUserService';
+import { udpateUserService } from '@/services/User/udpateUserService';
 
 
 

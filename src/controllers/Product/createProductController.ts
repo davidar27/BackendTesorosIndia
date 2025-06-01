@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { Product } from "../../models/Product/Product";
-import { createProductService } from "../../services/Product/createProductService";
+import { Request, Response } from 'express';
+import { Product } from '@/models/Product/Product';
+import { createProductService } from '@/services/Product/createProductService';
 
 export async function createProductController(req: Request, res: Response): Promise<void> {
     try {

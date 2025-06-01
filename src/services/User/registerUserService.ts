@@ -1,11 +1,11 @@
-import GenerateHash from "../../helpers/User/hashGenerator";
-import { User } from "../../models/User/User";
-import { createUserRepository } from "../../repositories/User/createUserRepository";
+import GenerateHash from "@/helpers/User/hashGenerator";
+import { User } from "@/models/User/User";
+import { createUserRepository } from "@/repositories/User/createUserRepository";
 
 export const registerUserService = async (userData: {
     name: string;
     email: string;
-    phone_number: string;
+    phone: string;
     password: string;
     verified: boolean;
     role: string;
@@ -19,7 +19,7 @@ export const registerUserService = async (userData: {
         const user = new User(
             userData.name,
             userData.email, 
-            userData.phone_number,
+            userData.phone,
             hashedPassword,
             false,
             userData.role,

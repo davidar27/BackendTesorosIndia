@@ -1,6 +1,6 @@
-import db from '../../config/db';
-import { Farm } from '../../models/Farm/Farm';
-import { User } from '../../models/User/User';
+import db from '@/config/db';
+import { Farm } from '@/models/Farm/Farm';
+import { User } from '@/models/User/User';
 
 
 
@@ -16,7 +16,7 @@ async function crearEmprendedorConFinca(newUser: User, newFarm: Farm) {
                 newUser.name,
                 newUser.email,
                 newUser.password,
-                newUser.phone_number,
+                newUser.phone,
                 newUser.verified,
                 newUser.role,
             ]

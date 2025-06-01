@@ -1,4 +1,4 @@
-import db from "../../config/db";
+import db from '@/config/db';
 
 export const incrementTokenVersionRepository = async (userId: number): Promise<void> => {
     await db.query(

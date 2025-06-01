@@ -1,4 +1,4 @@
-import db from "../../config/db";
+import db from '@/config/db';
 
 export const getCartRepository = async (userId: number): Promise<any[]> => {
     const [rows] = await db.query(

@@ -1,4 +1,4 @@
-import { deleteReviewsRepository } from "../../repositories/Reviews/deleteReviewsRepository";
+import { deleteReviewsRepository } from "@/repositories/Reviews/deleteReviewsRepository";
 
 export const deleteReviewsService = async (
     servicio_id: number,

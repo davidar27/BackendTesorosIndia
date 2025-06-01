@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { cartMiddleware } from '../../middleware/cart/cartMiddleware';
-import { addProductController } from '../../controllers/Cart/addProductController';
-import { updateQuantityController } from '../../controllers/Cart/updateQuantityController';
-import { deleteProductController } from '../../controllers/Cart/deleteProductController';
-import { emptyCartController } from '../../controllers/Cart/emptyCartController';
-import { getCartController } from '../../controllers/Cart/getCartController';
-import { authMiddlewareToken } from '../../middleware/Auth/authMiddlewareToken';
-import { checkRole } from '../../middleware/Auth/checkRole';
+import { cartMiddleware } from '@/middleware/cart/cartMiddleware';
+import { addProductController } from '@/controllers/Cart/addProductController';
+import { updateQuantityController } from '@/controllers/Cart/updateQuantityController';
+import { deleteProductController } from '@/controllers/Cart/deleteProductController';
+import { emptyCartController } from '@/controllers/Cart/emptyCartController';
+import { getCartController } from '@/controllers/Cart/getCartController';
+import { authMiddlewareToken } from '@/middleware/Auth/authMiddlewareToken';
+import { checkRole } from '@/middleware/Auth/checkRole';
 
 const router = Router();
 

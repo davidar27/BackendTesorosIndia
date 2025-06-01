@@ -1,4 +1,4 @@
-import db from "../../config/db";
+import db from '@/config/db';
 
 export const deleteProductRepository = async(producto_id: number, emprendedor_id: number): Promise<void> => {
     const sql = `DELETE FROM producto WHERE producto_id = ? AND emprendedor_id = ?`;

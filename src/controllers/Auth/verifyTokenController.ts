@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { verifyTokenPayload } from '../../helpers/Tokens/verifyTokenPayload';
-import { ACCESS_TOKEN_SECRET } from '../../helpers/Tokens/TokenSecrets';
+import { verifyTokenPayload } from '@/helpers/Tokens/verifyTokenPayload';
+import { ACCESS_TOKEN_SECRET } from '@/helpers/Tokens/TokenSecrets';
 
 export const verifyTokenController = async (req: Request, res: Response) => {
     try {

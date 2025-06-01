@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { cookieOptionsRefresh, cookieOptionsLogin } from '../../config/cookie';
-import { refreshTokenService } from '../../services/Auth/refreshTokenService';
+import { cookieOptionsRefresh, cookieOptionsLogin } from '@/config/cookie';
+import { refreshTokenService } from '@/services/Auth/refreshTokenService';
 
 export const refreshToken = async (req: Request, res: Response) => {
     try {

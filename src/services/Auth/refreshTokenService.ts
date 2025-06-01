@@ -1,8 +1,9 @@
-import { generateAccessToken } from "../../helpers/Tokens/generateAccessToken";
-import { generateRefreshToken } from "../../helpers/Tokens/generateRefreshToken";
-import { findByIdUserService } from "../User/findByIdUserService";
-import { verifyRefreshToken } from "../../helpers/Tokens/verifyRefreshToken";
-import { UserRole } from "../../models/Auth/Auth";
+import { generateAccessToken } from "@/helpers/Tokens/generateAccessToken";
+import { generateRefreshToken } from "@/helpers/Tokens/generateRefreshToken";
+import { findByIdUserService } from "@/services/User/findByIdUserService";
+import { verifyRefreshToken } from "@/helpers/Tokens/verifyRefreshToken";
+import { UserRole } from "@/models/Auth/Auth";
+import AuthError from "@/models/AuthError";
 
 export const refreshTokenService = async (refreshToken: string) => {
     const { userId, token_version: tokenVersion } = await verifyRefreshToken(refreshToken);
@@ -10,11 +11,24 @@ export const refreshTokenService = async (refreshToken: string) => {
     const user = await findByIdUserService(userId.toString());
 
     if (!user) {
-        throw new Error("Usuario no encontrado");
+        throw new AuthError("Usuario no encontrado", {
+            status: 404,
+            errorType: 'authentication'
+        });
+    }
+
+    if (!user.role) {
+        throw new AuthError("Rol de usuario no encontrado", {
+            status: 401,
+            errorType: 'authentication'
+        });
     }
 
     if (user.token_version !== tokenVersion) {
-        throw new Error("Token inválido - versión no coincide");
+        throw new AuthError("Token inválido - versión no coincide", {
+            status: 401,
+            errorType: 'authentication'
+        });
     }
 
     const newAccessToken = generateAccessToken(Number(userId), user.name, user.role as UserRole, user.token_version);

@@ -1,4 +1,4 @@
-import { containerClient } from "../../config/azure";
+import { containerClient } from "@/config/azure";
 
 export const deleteFromAzureService = async (fileUrl: string) => {
     try {

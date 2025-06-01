@@ -1,4 +1,4 @@
-import db from "../../config/db";
+import db from '@/config/db';
 
 export const createReviewsRepository = async (reviewsData: any) => {
     const { finca_id, usuario_id, valoracion, comentario, infringe_normas } = reviewsData;

@@ -2,7 +2,7 @@ export class User {
     private _userId?: number;
     private _name: string;
     private _email: string;
-    private _phone_number: string;
+    private _phone: string;
     private _password: string;
     private _description?: string;
     private _verified: boolean;
@@ -12,7 +12,7 @@ export class User {
     constructor(
         name: string,
         email: string,
-        phone_number: string,
+        phone: string,
         password: string,
         verified: boolean = false,
         role: string,
@@ -33,7 +33,7 @@ export class User {
         this._userId = userId;
         this._name = name.trim();
         this._email = email.trim().toLowerCase();
-        this._phone_number = phone_number ? phone_number.trim() : '';
+        this._phone = phone ? phone.trim() : '';
         this._password = password;
         this._verified = verified;
         this._role = role;
@@ -60,8 +60,8 @@ export class User {
         return this._email;
     }
 
-    get phone_number(): string {
-        return this._phone_number;
+    get phone(): string {
+        return this._phone;
     }
 
     get password(): string {
@@ -98,8 +98,8 @@ export class User {
         this._email = value.trim().toLowerCase();
     }
 
-    set phone_number(value: string) {
-        this._phone_number = value ? value.trim() : '';
+    set phone(value: string) {
+        this._phone = value ? value.trim() : '';
     }
 
     set password(value: string) {
@@ -136,7 +136,7 @@ export class User {
             userId: this._userId,
             name: this._name,
             email: this._email,
-            phone_number: this._phone_number,
+            phone: this._phone,
             verified: this._verified,
             role: this._role,
             description: this._description,

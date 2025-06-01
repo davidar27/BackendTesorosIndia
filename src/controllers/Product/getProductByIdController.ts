@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { getProductByIdService } from "../../services/Product/getProductByIdService";
+import { Request, Response } from 'express';
+import { getProductByIdService } from '@/services/Product/getProductByIdService';
 
 export async function getProductByIdController(req: Request,res: Response): Promise<void> { 
     try {

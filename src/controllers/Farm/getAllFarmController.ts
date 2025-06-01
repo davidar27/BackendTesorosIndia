@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getAllFarmServices } from '../../services/Farm/getAllFarmServices';
+import { getAllFarmServices } from '@/services/Farm/getAllFarmServices';
 
 
 

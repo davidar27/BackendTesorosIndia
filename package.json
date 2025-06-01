@@ -21,6 +21,9 @@
     "url": "https://github.com/davidar27/BackendTesorosIndia/issues"
   },
   "homepage": "https://github.com/davidar27/BackendTesorosIndia#readme",
+  "_moduleAliases": {
+    "@": "dist/src"
+  },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.18",
@@ -44,6 +47,7 @@
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "multer": "^1.4.5-lts.2",
     "mysql2": "^3.14.0",
     "node-cron": "^4.0.7",

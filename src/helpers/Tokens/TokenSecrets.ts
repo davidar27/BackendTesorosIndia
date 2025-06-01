@@ -1,4 +1,4 @@
-import { config } from '../../config/token';
+import { config } from '@/config/token';
 
 export const ACCESS_TOKEN_SECRET = config.JWT_ACCESS_SECRET;
 export const REFRESH_TOKEN_SECRET = config.JWT_REFRESH_SECRET;

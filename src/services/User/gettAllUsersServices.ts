@@ -1,4 +1,4 @@
-import { findAllUserRepository } from "../../repositories/User/findAllUserRepository";
+import { findAllUserRepository } from "@/repositories/User/findAllUserRepository";
 
 
 

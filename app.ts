@@ -1,14 +1,17 @@
+import 'module-alias/register';
 import express from "express";
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import cors from 'cors';
 import cookieParser from "cookie-parser";
+import './src/controllers/User/deleteUnverifiedUsers';
 
-import userRoutes from "./src/routes/User/userRoutes";
-import authRoutes from "./src/routes/Auth/authRoutes";
-import productRoutes from "./src/routes/Product/productRoutes";
-import farmRoutes from "./src/routes/Farm/FarmRoutes";
-import reviewsRoutes from "./src/routes/Comments/reviewsRoutes";
+import userRoutes from "@/routes/User/userRoutes";
+import authRoutes from "@/routes/Auth/authRoutes";
+import productRoutes from "@/routes/Product/productRoutes";
+import farmRoutes from "@/routes/Farm/FarmRoutes";
+import reviewsRoutes from "@/routes/Comments/reviewsRoutes";
+import dashboardRoutes from "@/routes/Dashboard/dashboardRoutes";
 // import cartRoutes from "./src/routes/Cart/cartRoutes"
 
 dotenv.config();
@@ -31,13 +34,14 @@ app.use(express.json());
 
 // 🟢 Rutas
 app.use('/usuario', userRoutes);
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 // app.use('/carrito', cartRoutes);
-app.use('/productos', productRoutes);
-app.use('/finca', farmRoutes);
+app.use('/api/productos', productRoutes);
+app.use('/api/fincas', farmRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 /* app.use('/pagos', payRoutes ); 
 app.use('/paquete', /* packRoutes );   */
-app.use('/comentarios', reviewsRoutes);
+app.use('/api/comentarios', reviewsRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
