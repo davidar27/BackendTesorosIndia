@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { deleteProductCartService } from "../../services/Cart/deleteProductCartService";
+import { Request, Response } from 'express';
+import { deleteProductCartService } from '@/services/Cart/deleteProductCartService';
 
 export const deleteProductController = async (req: Request, res: Response): Promise<void> => {
     try {

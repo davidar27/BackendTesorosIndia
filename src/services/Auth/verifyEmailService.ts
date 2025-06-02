@@ -1,5 +1,4 @@
-import jwt from 'jsonwebtoken';
-import { verifyEmailRepository } from '../../repositories/Auth/verifyEmailRepository';
+import { verifyEmailRepository } from '@/repositories/Auth/verifyEmailRepository';
 
 export const verifyEmailService = async (userId: number): Promise<void> => {
     try {

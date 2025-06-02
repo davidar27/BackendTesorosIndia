@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { uploadToAzureService } from "../../services/Farm/uploadToAzureService";
-import { createFarmService } from "../../services/Farm/createFarmService";
+import { Request, Response } from 'express';
+import { uploadToAzureService } from '@/services/Farm/uploadToAzureService';
+import { createFarmService } from '@/services/Farm/createFarmService';
 
 export const createFarmController = async (req: Request, res: Response) => {
     try {

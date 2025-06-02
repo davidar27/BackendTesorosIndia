@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
-import db from '../../config/db';
-import UserAuth from '../../models/Auth/userAuth';
-import { loginResult } from '../../models/Auth/Auth';
+import db from '@/config/db';
+import UserAuth from '@/models/Auth/userAuth';
+import { loginResult } from '@/models/Auth/Auth';
 
 export const authUserRepository = async (user: UserAuth): Promise<loginResult> => {
     const sql = `SELECT usuario_id, contraseña, rol, nombre, verificado, token_version FROM usuario WHERE correo = ?`;

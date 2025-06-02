@@ -1,31 +1,34 @@
 import { Request, Response } from 'express';
-import { findByEmailUserService } from '../../services/User/findByEmailUserService';
-import updateUserPasswordService from '../../services/Auth/updateUserPasswordService';
-import { verifyTokenPayload } from '../../helpers/Tokens/verifyTokenPayload';
-import { PASSWORD_RESET_SECRET } from '../../helpers/Tokens/TokenSecrets';
-import { TokenPayload } from '../../models/Auth/Auth';
+import { findByEmailUserService } from '@/services/User/findByEmailUserService';
+import updateUserPasswordService from '@/services/Auth/updateUserPasswordService';
+import { verifyTokenPayload } from '@/helpers/Tokens/verifyTokenPayload';
+import { PASSWORD_RESET_SECRET } from '@/helpers/Tokens/TokenSecrets';
+import { TokenPayload } from '@/models/Auth/Auth';
+import { User } from '@/models/User/User';
 
-interface ResetPasswordPayload extends TokenPayload {
+type PasswordResetToken = TokenPayload & {
     purpose: 'password_reset';
-}
-
+};
 
 export const resetPasswordController = async (req: Request, res: Response) => {
     try {
         const token = req.query.token as string;
         const { password } = req.body;
         
-        const payload = verifyTokenPayload<ResetPasswordPayload>(token, PASSWORD_RESET_SECRET);
-        
+        const data = verifyTokenPayload<PasswordResetToken>(
+            token, 
+            PASSWORD_RESET_SECRET,
+            { requirePurpose: 'password_reset' }
+        );
 
-        if (!payload.data.userId || payload.purpose !== 'password_reset') {
+        if (!data.data.userId) {
             return res.status(400).json({
                 success: false,
                 message: 'Token de restablecimiento inválido'
             });
         }
-        const user = await findByEmailUserService(payload.data.name as string);
-        if (!user) {
+        const user = await findByEmailUserService(data.data.email as string);
+        if (!user || 'errorType' in user) {
             return res.status(400).json({
                 success: false,
                 message: 'Token de restablecimiento inválido'

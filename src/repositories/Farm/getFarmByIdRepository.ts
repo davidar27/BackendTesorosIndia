@@ -1,4 +1,4 @@
-import db from "../../config/db";
+import db from '@/config/db';
 
 export const getFarmByIdRepository = async (id: number, entrepreneur_id: number) => {
     const query = `

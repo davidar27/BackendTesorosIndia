@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { deleteFromAzureService } from "../../services/Farm/deleteFromAzureService";
-import { getFarmByIdService } from "../../services/Farm/getFarmByIdService";
-import { deleteFarmService } from "../../services/Farm/deleteFarmService";
+import { Request, Response } from 'express';
+import { deleteFromAzureService } from '@/services/Farm/deleteFromAzureService';
+import { getFarmByIdService } from '@/services/Farm/getFarmByIdService';
+import { deleteFarmService } from '@/services/Farm/deleteFarmService';
 
 
 export const deleteFarmController = async (req: Request, res: Response) => {

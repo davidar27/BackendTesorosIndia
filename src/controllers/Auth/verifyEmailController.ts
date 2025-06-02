@@ -1,5 +1,5 @@
-import { verifyEmailVerificationToken } from "../../helpers/Tokens/verifyVerificationToken";
-import { verifyEmailService } from "../../services/Auth/verifyEmailService";
+import { verifyEmailVerificationToken } from '@/helpers/Tokens/verifyVerificationToken';
+import { verifyEmailService } from '@/services/Auth/verifyEmailService';
 import { Request, Response } from 'express';
 
 

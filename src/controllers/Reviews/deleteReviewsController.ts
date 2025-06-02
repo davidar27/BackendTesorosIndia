@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { deleteReviewsService } from "../../services/Reviews/deleteReviewsService";
+import { Request, Response } from 'express';
+import { deleteReviewsService } from '@/services/Reviews/deleteReviewsService';
 
 export const deleteReviewsController = async (req: Request, res: Response) => {
     try {

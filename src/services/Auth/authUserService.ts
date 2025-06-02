@@ -1,6 +1,6 @@
-import { authUserRepository } from '../../repositories/Auth/authUserRepository';
-import { loginResult } from '../../models/Auth/Auth';
-import UserAuth from '../../models/Auth/userAuth';
+import { authUserRepository } from '@/repositories/Auth/authUserRepository';
+import { loginResult } from '@/models/Auth/Auth';
+import UserAuth from '@/models/Auth/userAuth';
 
 export const authUserService = async (userAuth: UserAuth): Promise<loginResult> => {
     const result = await authUserRepository(userAuth);

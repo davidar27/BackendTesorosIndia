@@ -1,4 +1,4 @@
-import db from "../../config/db"; 
+import db from '@/config/db';
 
 export const verifyEmailRepository = async (userId: number): Promise<boolean> => {
     try {

@@ -1,4 +1,4 @@
-import db from "../../config/db";
+import db from '@/config/db';
 
 export const getReviewsByFincaRepositoryId = async (finca_id: number) => {
     const [rows]: any = await db.execute(

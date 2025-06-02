@@ -1,4 +1,4 @@
-import { getAllNamesFarmRepository } from "../../repositories/Farm/getAllNamesFarmRepository";
+import { getAllNamesFarmRepository } from "@/repositories/Farm/getAllNamesFarmRepository";
 
 
 

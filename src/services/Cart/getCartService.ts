@@ -1,5 +1,5 @@
-import { Cart, CartItem } from "../../models/Cart/cart";
-import { getCartRepository } from "../../repositories/cart/getCartRepository";
+import { Cart, CartItem } from "@/models/Cart/cart";
+import { getCartRepository } from "@/repositories/Cart/getCartRepository";
 
 export const getCartService = async (userId: number): Promise<Cart> => {
     const cartItems = await getCartRepository(userId);

@@ -11,8 +11,6 @@ export interface TokenPayload {
     data: TokenData;
     jti: string;
     token_version: number;
-    iat: number;
-    exp: number;
     purpose?: string;
 }
 

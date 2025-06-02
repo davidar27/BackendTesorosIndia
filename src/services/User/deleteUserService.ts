@@ -1,10 +1,9 @@
-import { deleteUserRepository } from "../../repositories/User/deleteUserRepository";
+import { deleteUserRepository } from '@/repositories/User/deleteUserRepository';
 
-export const deleteUserService = async (gUseId: number) => {
+export const deleteUserService = async (userId: number): Promise<void> => {
     try {
-        await deleteUserRepository(gUseId);
-        return { message: 'Usuario eliminado correctamente' };
+        await deleteUserRepository(userId);
     } catch (error) {
-        throw new Error('Error al eliminar el usuario');
+        throw error;
     }
 };

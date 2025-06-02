@@ -1,4 +1,4 @@
-import { updateReviewsRepository } from "../../repositories/Reviews/updateReviewsRepository";
+import { updateReviewsRepository } from "@/repositories/Reviews/updateReviewsRepository";
 
 export const updateReviewsService = async (
     servicio_id: number,

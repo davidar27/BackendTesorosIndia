@@ -1,4 +1,3 @@
-// models/AuthError.ts
 class AuthError extends Error {
     status: number;
     errorType: string;

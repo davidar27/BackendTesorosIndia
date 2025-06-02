@@ -1,7 +1,12 @@
-import { generateToken } from './generateToken';
-import { REFRESH_TOKEN_SECRET } from './TokenSecrets';
-import { UserRole } from '../../models/Auth/Auth';
+import { generateToken } from '@/helpers/Tokens/generateToken';
+import { REFRESH_TOKEN_SECRET } from '@/helpers/Tokens/TokenSecrets';
+import { UserRole } from '@/models/Auth/Auth';
+import { createTokenPayload, TOKEN_EXPIRATION } from '@/helpers/Tokens/TokenTypes';
 
 export const generateRefreshToken = (userId: number, name: string, role: UserRole, tokenVersion: number): string => {
-    return generateToken({ data: { userId, name, role }, jti: '', token_version: tokenVersion, iat: 0, exp: 0 }, REFRESH_TOKEN_SECRET, '7d');
+    if (!userId || !role || tokenVersion === undefined) {
+        throw new Error('userId, role y tokenVersion son requeridos para generar el token de refresco');
+    }
+    const payload = createTokenPayload({ userId, name, role }, tokenVersion);
+    return generateToken(payload, REFRESH_TOKEN_SECRET, TOKEN_EXPIRATION.REFRESH);
 };

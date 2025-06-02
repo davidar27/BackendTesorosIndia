@@ -1,5 +1,5 @@
 import cron from 'node-cron';
-import db from '../../config/db';
+import db from '@/config/db';
 
 cron.schedule('0 3 * * *', async () => {
     await db.execute(`

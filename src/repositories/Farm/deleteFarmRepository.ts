@@ -1,4 +1,4 @@
-import db from "../../config/db";
+import db from '@/config/db';
 
 export const deleteFarmRepository = async (finca_id: number, emprendedor_id: number) => {
     const query = `

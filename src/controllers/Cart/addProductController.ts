@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addProductCartService } from "../../services/Cart/addProductCartService";
+import { addProductCartService } from '@/services/Cart/addProductCartService';
 
 export const addProductController = async (req: Request, res: Response): Promise<void> => {
     try {

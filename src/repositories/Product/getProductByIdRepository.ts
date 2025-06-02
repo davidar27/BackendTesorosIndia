@@ -1,5 +1,5 @@
-import db from "../../config/db";
-import { Product } from "../../models/Product/Product";
+import db from '@/config/db';
+import { Product } from '@/models/Product/Product';
 
 export async function getProductByIdRepository(producto_id: number): Promise<Product | null> {    
     const sql = `SELECT * FROM producto WHERE producto_id = ?`;

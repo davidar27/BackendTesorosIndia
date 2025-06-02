@@ -1,5 +1,5 @@
 import { TransactionalEmailsApi, SendSmtpEmail } from '@getbrevo/brevo';
-import { config } from '../../config/email';
+import { config } from '@/config/email';
 
 const apiInstance = new TransactionalEmailsApi();
 apiInstance.setApiKey(0, config.BREVO_API_KEY || '');
@@ -21,7 +21,7 @@ export const sendVerificationEmail = async (email: string, token: string): Promi
         throw new Error('Token de verificación no proporcionado');
     }
 
-    const verificationUrl = `${config.FRONTEND_URL}/verificar-correo?token=${token}`;
+    const verificationUrl = `${config.FRONTEND_URL}/auth/verificacion/correo?token=${token}`;
 
     const emailData: SendSmtpEmail = {
         sender: {

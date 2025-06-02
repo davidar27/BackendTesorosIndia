@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { getReviewsByFincaServiceId } from "../../services/Reviews/getReviewsServiceId";
+import { Request, Response } from 'express';
+import { getReviewsByFincaServiceId } from '@/services/Reviews/getReviewsServiceId';
 
 export const getReviewsByFincaControllerId = async (req: Request, res: Response) => {
     try {

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { getProductRepository } from '../../repositories/cart/getProductRepository';
+import { getProductRepository } from '@/repositories/Cart/getProductRepository';
 
 export const cartMiddleware: any = async (req: Request, res: Response, next: NextFunction) => {
     const productId = req.body.productId || req.params.productId;

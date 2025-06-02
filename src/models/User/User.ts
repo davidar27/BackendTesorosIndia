@@ -1,146 +1,208 @@
-export class User {
-    private _userId?: number;
-    private _name: string;
-    private _email: string;
-    private _phone_number: string;
-    private _password: string;
-    private _description?: string;
-    private _verified: boolean;
-    private _role: string;
-    private _token_version: number;
+export type UserRole = 'cliente' | 'emprendedor' | 'administrador';
 
-    constructor(
-        name: string,
-        email: string,
-        phone_number: string,
-        password: string,
-        verified: boolean = false,
-        role: string,
-        userId?: number,
-        description: string = '',
-        token_version: number = 0,
-    ) {
-        if (!name || typeof name !== 'string') {
+// Propiedades base que comparten todos los usuarios
+interface BaseUserProps {
+    userId?: number;
+    name: string;
+    email: string;
+    password: string;
+    phone: string;
+    verified?: boolean;
+    status?:string,
+    image?: string;
+    token_version?: number;
+}
+
+// Propiedades específicas para clientes
+interface ClientProps extends BaseUserProps {
+    role: 'cliente';
+    address?: string;
+    description?: never;
+}
+
+// Propiedades específicas para emprendedores
+export interface EntrepreneurProps extends BaseUserProps {
+    role: 'emprendedor';
+    name_farm: string;
+    description?: string;
+    address?: never;
+}
+
+// Propiedades específicas para administradores
+interface AdminProps extends BaseUserProps {
+    role: 'administrador';
+    description?: string;
+    address?: string;
+}
+
+// Union type para todos los tipos de usuario
+type UserProps = ClientProps | EntrepreneurProps | AdminProps;
+
+export class User {
+    private _data: UserProps;
+
+    constructor(props: UserProps) {
+        this.validateProps(props);
+        this._data = {
+            ...props,
+            name: props.name.trim(),
+            email: props.email.trim().toLowerCase(),
+            phone: props.phone.trim(),
+            verified: props.verified ?? false,
+            token_version: props.token_version ?? 0,
+            image: props.image || '',
+            status:props.status
+        };
+    }
+
+    private validateProps(props: UserProps): void {
+        if (!props.name?.trim()) {
             throw new Error('Nombre inválido');
         }
-        if (!email || typeof email !== 'string') {
+        if (!this.isValidEmail(props.email)) {
             throw new Error('Email inválido');
         }
-        if (!role || typeof role !== 'string') {
-            throw new Error('Rol inválido');
+        if (!props.phone?.trim()) {
+            throw new Error('Teléfono inválido');
         }
-
-        this._userId = userId;
-        this._name = name.trim();
-        this._email = email.trim().toLowerCase();
-        this._phone_number = phone_number ? phone_number.trim() : '';
-        this._password = password;
-        this._verified = verified;
-        this._role = role;
-        this._token_version = token_version;
-        this._description = description;
-    }
-
-    get userId(): number | undefined {
-        return this._userId;
-    }
-
-    set userId(value: number | undefined) {
-        if (value !== undefined && (!Number.isInteger(value) || value < 0)) {
+        if (props.userId !== undefined && (!Number.isInteger(props.userId) || props.userId < 0)) {
             throw new Error('ID de usuario inválido');
         }
-        this._userId = value;
+        if (props.token_version !== undefined && (!Number.isInteger(props.token_version) || props.token_version < 0)) {
+            throw new Error('Versión de token inválida');
+        }
+
+        // Validaciones específicas por rol
+        switch (props.role) {
+            case 'cliente':
+                if (props.address && !props.address.trim()) {
+                    throw new Error('La dirección no puede estar vacía');
+                }
+                break;
+            case 'emprendedor':
+                if (props.description && !props.description.trim()) {
+                    throw new Error('La descripción no puede estar vacía');
+                }
+                break;
+        }
     }
 
-    get name(): string {
-        return this._name;
+    private isValidEmail(email: string): boolean {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email.trim());
     }
 
-    get email(): string {
-        return this._email;
-    }
+    // Getters
+    get userId(): number | undefined { return this._data.userId; }
+    get name(): string { return this._data.name; }
+    get email(): string { return this._data.email; }
+    get password(): string { return this._data.password; }
+    get phone(): string { return this._data.phone; }
+    get verified(): boolean { return this._data.verified || false; }
+    get role(): UserRole { return this._data.role; }
+    get image(): string { return this._data.image || ''; }
+    get status(): string { return this._data.status || ''}
+    get token_version(): number { return this._data.token_version || 0; }
 
-    get phone_number(): string {
-        return this._phone_number;
-    }
+    // Getters condicionales basados en el rol
 
-    get password(): string {
-        return this._password;
-    }
 
-    get role(): string {
-        return this._role;
+    get name_farm(): string | undefined {
+        if (this._data.role === 'cliente') return undefined;
+        return 'name_farm' in this._data ? this._data.name_farm : undefined;
     }
 
     get description(): string | undefined {
-        return this._description;
+        if (this._data.role === 'cliente') return undefined;
+        return 'description' in this._data ? this._data.description : undefined;
     }
 
-    get verified(): boolean {
-        return this._verified;
+    get address(): string | undefined {
+        if (this._data.role === 'emprendedor') return undefined;
+        return 'address' in this._data ? this._data.address : undefined;
     }
 
-    get token_version(): number {
-        return this._token_version;
-    }
-
-    set name(value: string) {
-        if (!value || typeof value !== 'string') {
-            throw new Error('Nombre inválido');
-        }
-        this._name = value.trim();
-    }
-
-    set email(value: string) {
-        if (!value || typeof value !== 'string') {
-            throw new Error('Email inválido');
-        }
-        this._email = value.trim().toLowerCase();
-    }
-
-    set phone_number(value: string) {
-        this._phone_number = value ? value.trim() : '';
-    }
-
+    // Setters con validación
     set password(value: string) {
-        if (!value || typeof value !== 'string') {
-            throw new Error('Contraseña inválida');
+        if (!value) throw new Error('Contraseña inválida');
+        this._data.password = value;
+    }
+
+    set image(value: string) {
+        if (value) {
+            const baseUrl = value.split('?')[0];
+            this._data.image = baseUrl;
+        } else {
+            this._data.image = '';
         }
-        this._password = value;
     }
 
-    set role(value: string) {
-        if (!value || typeof value !== 'string') {
-            throw new Error('Rol inválido');
+    set status(value: string){
+        this._data.status = value || '';
+    }
+
+    // Método para actualizar propiedades
+    update(props: Partial<Omit<UserProps, 'role'>>): void {
+        if (props.name) {
+            if (!props.name.trim()) throw new Error('Nombre inválido');
+            this._data.name = props.name.trim();
         }
-        this._role = value;
-    }
-
-    set description(value: string | undefined) {
-        this._description = value;
-    }
-
-    set verified(value: boolean) {
-        this._verified = Boolean(value);
-    }
-
-    set token_version(value: number) {
-        if (!Number.isInteger(value) || value < 0) {
-            throw new Error('Versión de token inválida');
+        if (props.email) {
+            if (!this.isValidEmail(props.email)) throw new Error('Email inválido');
+            this._data.email = props.email.trim().toLowerCase();
         }
-        this._token_version = value;
+        if (props.phone) {
+            if (!props.phone.trim()) throw new Error('Teléfono inválido');
+            this._data.phone = props.phone.trim();
+        }
+        if (props.image !== undefined) {
+            this._data.image = props.image;
+        }
+
+        if (props.status !== undefined){
+            this._data.status = props.status;
+        }
+        
+        // Actualizaciones específicas por rol
+        if (this._data.role === 'cliente' && 'address' in props) {
+            if (!props.address?.trim()) throw new Error('Dirección inválida');
+            (this._data as ClientProps).address = props.address.trim();
+        }
+
+        if (this._data.role === 'emprendedor' && 'name_farm' in props) {
+            const name_farm = props.name_farm as string;
+            if (!name_farm?.trim()) throw new Error('nombre de finca inválida');
+            (this._data as EntrepreneurProps).name_farm = name_farm.trim();
+        }
+
+        // if (this._data.role === 'emprendedor' && 'description' in props) {
+        //     if (!props.description?.trim()) throw new Error('Descripción inválida');
+        //     (this._data as EntrepreneurProps).description = props.description.trim();
+        // }
+
+
     }
 
     toJSON() {
-        return {
-            userId: this._userId,
-            name: this._name,
-            email: this._email,
-            phone_number: this._phone_number,
-            verified: this._verified,
-            role: this._role,
-            description: this._description,
-            token_version: this._token_version
-        };
+        return { ...this._data };
+    }
+
+    // Factory methods
+    static createClient(props: Omit<ClientProps, 'role' | 'verified' | 'token_version'>): User {
+        return new User({
+            ...props,
+            role: 'cliente',
+            verified: false,
+            token_version: 0
+        });
+    }
+
+    static createEntrepreneur(props: Omit<EntrepreneurProps, 'role' | 'verified' | 'token_version'>): User {
+        return new User({
+            ...props,
+            role: 'emprendedor',
+            verified: true,
+            token_version: 0
+        });
     }
 }

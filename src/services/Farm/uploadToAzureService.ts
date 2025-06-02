@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { containerClient } from "../../config/azure";
+import { containerClient } from "@/config/azure";
 
 export const uploadToAzureService = async (file: Express.Multer.File): Promise<string | null> => {
     try {
@@ -12,7 +12,7 @@ export const uploadToAzureService = async (file: Express.Multer.File): Promise<s
             blobHTTPHeaders: { blobContentType: file.mimetype },
         });
 
-        return blockBlobClient.url;
+        return blobName;
     } catch (error) {
         console.error("Error subiendo archivo a Azure:", error);
         return null;
