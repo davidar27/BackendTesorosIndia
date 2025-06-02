@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getDashboardPackagesService } from '@/services/Dashboard/getDashboardPackagesService';
+import { getDashboardPackagesService } from '@/services/Dashboard/packages/getDashboardPackagesService';
 
 export const getDashboardPackagesController = async (req: Request, res: Response): Promise<void> => {
     try {

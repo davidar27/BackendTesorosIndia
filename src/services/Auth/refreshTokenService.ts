@@ -8,7 +8,7 @@ import AuthError from "@/models/AuthError";
 export const refreshTokenService = async (refreshToken: string) => {
     const { userId, token_version: tokenVersion } = await verifyRefreshToken(refreshToken);
 
-    const user = await findByIdUserService(userId.toString());
+    const user = await findByIdUserService(userId);
 
     if (!user) {
         throw new AuthError("Usuario no encontrado", {

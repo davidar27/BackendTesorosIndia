@@ -1,7 +1,7 @@
 import db from '@/config/db';
 import { User } from '@/models/User/User';
 
-export const getDashboardEntrepreneursRepository = async (): Promise<User[]> => {
+export const getEntrepreneursRepository = async (): Promise<User[]> => {
     const sql = `
         SELECT 
             u.usuario_id AS id,

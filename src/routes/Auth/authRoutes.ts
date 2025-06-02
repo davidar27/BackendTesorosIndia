@@ -10,13 +10,13 @@ import { recoverPasswordController } from '@/controllers/Auth/recoverPasswordCon
 import { resetPasswordController } from '@/controllers/Auth/resetPasswordController';
 import resetPasswordValidation from '@/middleware/Auth/resetPasswordValidation';
 import { checkVerification } from '@/controllers/Auth/checkVerificationController';
-import { registerUserController } from '@/controllers/Auth/registerUserController';
+import { createUserController } from '@/controllers/User/createUserController';
 
 const router = express.Router();
 
 // Rutas de autenticación
 router.post('/iniciar-sesion', authInputValidator.validatorParams, authInputValidator.validator, authUserController);
-router.post('/registro', authInputValidator.validatorParams, authInputValidator.validator, registerUserController);
+router.post('/registro', authInputValidator.validatorParams, authInputValidator.validator, createUserController);
 router.get('/verificacion/correo', verifyEmailController);
 router.get('/verificacion', checkVerification);
 router.post('/password/recuperar', recoverPasswordController);

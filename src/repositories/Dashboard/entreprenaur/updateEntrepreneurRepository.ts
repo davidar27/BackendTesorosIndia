@@ -1,53 +1,62 @@
-import { User } from '@/models/User/User';
 import db from '@/config/db';
+import { User } from '@/models/User/User';
 
-export const updateUserService = async (userData: User): Promise<User> => {
+export const updateEntrepreneurRepository = async (userData: User): Promise<User> => {
     const connection = await db.getConnection();
-    
+
     try {
         await connection.beginTransaction();
 
-        // Actualizar usuario
         await connection.execute(
             `UPDATE usuario 
-             SET nombre = ?, telefono = ?, imagen = ?, descripcion = ?, direccion = ?
-             WHERE usuario_id = ?`,
+             SET nombre = ?, telefono = ?, imagen = ?, descripcion = ?
+             WHERE usuario_id = ? AND rol = 'emprendedor'`,
             [
                 userData.name,
                 userData.phone,
                 userData.image || null,
                 userData.description || null,
-                userData.address || null,
                 userData.userId
             ]
         );
 
-        // Obtener el usuario actualizado
+        if (userData.name_farm) {
+            await connection.execute(
+                `UPDATE finca 
+                 SET nombre = ?
+                 WHERE emprendedor_id = ?`,
+                [userData.name_farm, userData.userId]
+            );
+        }
+
         const [rows]: any = await connection.execute(
-            `SELECT usuario_id, nombre, correo, telefono, rol, verificado, imagen, descripcion, direccion 
-             FROM usuario WHERE usuario_id = ?`,
+            `SELECT 
+                u.usuario_id, u.nombre, u.correo, u.telefono, u.rol, 
+                u.verificado, u.imagen, u.descripcion, f.nombre as name_farm
+             FROM usuario u
+             LEFT JOIN finca f ON u.usuario_id = f.emprendedor_id
+             WHERE u.usuario_id = ? AND u.rol = 'emprendedor'`,
             [userData.userId]
         );
 
         await connection.commit();
 
         if (!rows[0]) {
-            throw new Error('Usuario no encontrado');
+            throw new Error('Emprendedor no encontrado');
         }
 
-        // Crear y retornar una nueva instancia de User con los datos actualizados
         const userFromDb = rows[0];
         return new User({
             userId: userFromDb.usuario_id,
             name: userFromDb.nombre,
             email: userFromDb.correo,
-            password: '', // No devolvemos la contraseña
+            password: '', 
             phone: userFromDb.telefono,
-            role: userFromDb.rol,
+            role: 'emprendedor',
             verified: Boolean(userFromDb.verificado),
             image: userFromDb.imagen || '',
             description: userFromDb.descripcion,
-            address: userFromDb.direccion,
+            name_farm: userFromDb.name_farm,
             token_version: userData.token_version
         });
     } catch (error) {
@@ -56,4 +65,4 @@ export const updateUserService = async (userData: User): Promise<User> => {
     } finally {
         connection.release();
     }
-};
+}; 

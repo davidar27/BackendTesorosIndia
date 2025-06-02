@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import cors from 'cors';
 import cookieParser from "cookie-parser";
-import './src/controllers/User/deleteUnverifiedUsers';
+import './src/controllers/User/removeUnverifiedUsersController';
 
 import userRoutes from "@/routes/User/userRoutes";
 import authRoutes from "@/routes/Auth/authRoutes";
@@ -12,6 +12,7 @@ import productRoutes from "@/routes/Product/productRoutes";
 import farmRoutes from "@/routes/Farm/FarmRoutes";
 import reviewsRoutes from "@/routes/Comments/reviewsRoutes";
 import dashboardRoutes from "@/routes/Dashboard/dashboardRoutes";
+import imageRoutes from "@/routes/Azure/imageRoutes";
 // import cartRoutes from "./src/routes/Cart/cartRoutes"
 
 dotenv.config();
@@ -42,6 +43,7 @@ app.use('/dashboard', dashboardRoutes);
 /* app.use('/pagos', payRoutes ); 
 app.use('/paquete', /* packRoutes );   */
 app.use('/comentarios', reviewsRoutes);
+app.use('/images', imageRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {

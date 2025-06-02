@@ -8,6 +8,7 @@ interface BaseUserProps {
     password: string;
     phone: string;
     verified?: boolean;
+    status?:string,
     image?: string;
     token_version?: number;
 }
@@ -15,14 +16,15 @@ interface BaseUserProps {
 // Propiedades específicas para clientes
 interface ClientProps extends BaseUserProps {
     role: 'cliente';
-    address?: string; // Ahora es opcional
+    address?: string;
     description?: never;
 }
 
 // Propiedades específicas para emprendedores
-interface EntrepreneurProps extends BaseUserProps {
+export interface EntrepreneurProps extends BaseUserProps {
     role: 'emprendedor';
-    description?: string; // Ahora es opcional
+    name_farm: string;
+    description?: string;
     address?: never;
 }
 
@@ -48,7 +50,8 @@ export class User {
             phone: props.phone.trim(),
             verified: props.verified ?? false,
             token_version: props.token_version ?? 0,
-            image: props.image || ''
+            image: props.image || '',
+            status:props.status
         };
     }
 
@@ -98,9 +101,17 @@ export class User {
     get verified(): boolean { return this._data.verified || false; }
     get role(): UserRole { return this._data.role; }
     get image(): string { return this._data.image || ''; }
+    get status(): string { return this._data.status || ''}
     get token_version(): number { return this._data.token_version || 0; }
 
     // Getters condicionales basados en el rol
+
+
+    get name_farm(): string | undefined {
+        if (this._data.role === 'cliente') return undefined;
+        return 'name_farm' in this._data ? this._data.name_farm : undefined;
+    }
+
     get description(): string | undefined {
         if (this._data.role === 'cliente') return undefined;
         return 'description' in this._data ? this._data.description : undefined;
@@ -118,7 +129,16 @@ export class User {
     }
 
     set image(value: string) {
-        this._data.image = value || '';
+        if (value) {
+            const baseUrl = value.split('?')[0];
+            this._data.image = baseUrl;
+        } else {
+            this._data.image = '';
+        }
+    }
+
+    set status(value: string){
+        this._data.status = value || '';
     }
 
     // Método para actualizar propiedades
@@ -138,16 +158,29 @@ export class User {
         if (props.image !== undefined) {
             this._data.image = props.image;
         }
+
+        if (props.status !== undefined){
+            this._data.status = props.status;
+        }
         
         // Actualizaciones específicas por rol
         if (this._data.role === 'cliente' && 'address' in props) {
             if (!props.address?.trim()) throw new Error('Dirección inválida');
             (this._data as ClientProps).address = props.address.trim();
         }
-        if (this._data.role === 'emprendedor' && 'description' in props) {
-            if (!props.description?.trim()) throw new Error('Descripción inválida');
-            (this._data as EntrepreneurProps).description = props.description.trim();
+
+        if (this._data.role === 'emprendedor' && 'name_farm' in props) {
+            const name_farm = props.name_farm as string;
+            if (!name_farm?.trim()) throw new Error('nombre de finca inválida');
+            (this._data as EntrepreneurProps).name_farm = name_farm.trim();
         }
+
+        // if (this._data.role === 'emprendedor' && 'description' in props) {
+        //     if (!props.description?.trim()) throw new Error('Descripción inválida');
+        //     (this._data as EntrepreneurProps).description = props.description.trim();
+        // }
+
+
     }
 
     toJSON() {
@@ -168,7 +201,7 @@ export class User {
         return new User({
             ...props,
             role: 'emprendedor',
-            verified: false,
+            verified: true,
             token_version: 0
         });
     }

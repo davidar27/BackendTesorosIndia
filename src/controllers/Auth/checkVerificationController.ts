@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { findByEmailUserService } from "@/services/User/findByEmailUserService";
+import { User } from "@/models/User/User";
 
 const checkAttempts = new Map<string, { count: number; timestamp: number }>();
 const MAX_ATTEMPTS = 24; 
@@ -76,6 +77,15 @@ export const checkVerification = async (req: Request, res: Response) => {
             return res.status(404).json({ 
                 isVerified: false,
                 details: 'Usuario no encontrado'
+            });
+        }
+
+        if ('errorType' in user) {
+            return res.json({ 
+                isVerified: false,
+                details: user.message,
+                attemptCount: checkAttempts.get(decodedEmail)?.count || 1,
+                maxAttempts: MAX_ATTEMPTS
             });
         }
 

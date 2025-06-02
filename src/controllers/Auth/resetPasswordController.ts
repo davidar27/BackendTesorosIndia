@@ -4,6 +4,7 @@ import updateUserPasswordService from '@/services/Auth/updateUserPasswordService
 import { verifyTokenPayload } from '@/helpers/Tokens/verifyTokenPayload';
 import { PASSWORD_RESET_SECRET } from '@/helpers/Tokens/TokenSecrets';
 import { TokenPayload } from '@/models/Auth/Auth';
+import { User } from '@/models/User/User';
 
 type PasswordResetToken = TokenPayload & {
     purpose: 'password_reset';
@@ -27,7 +28,7 @@ export const resetPasswordController = async (req: Request, res: Response) => {
             });
         }
         const user = await findByEmailUserService(data.data.email as string);
-        if (!user) {
+        if (!user || 'errorType' in user) {
             return res.status(400).json({
                 success: false,
                 message: 'Token de restablecimiento inválido'

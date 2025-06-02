@@ -1,17 +1,18 @@
 import db from '@/config/db';
-import { Farm } from '@/models/Farm/Farm';
 import { User } from '@/models/User/User';
 
 
 
-async function crearEmprendedorConFinca(newUser: User, newFarm: Farm) {
+async function createEntrepreneurRepository(newUser: User) {
     const connection = await db.getConnection();
+    
     try {
         await connection.beginTransaction();
+        
 
         const [usuarioResult]: any = await connection.execute(
-            `INSERT INTO usuario (nombre, correo, contraseña, telefono, verificado, rol)
-       VALUES (?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO usuario (nombre, correo, contraseña, telefono, verificado, rol, estado)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
             [
                 newUser.name,
                 newUser.email,
@@ -19,8 +20,10 @@ async function crearEmprendedorConFinca(newUser: User, newFarm: Farm) {
                 newUser.phone,
                 newUser.verified,
                 newUser.role,
+                newUser.status = 'Pendiente'
             ]
         );
+        const name_farm = newUser.name_farm
 
         const emprendedorId = usuarioResult.insertId;
 
@@ -28,7 +31,7 @@ async function crearEmprendedorConFinca(newUser: User, newFarm: Farm) {
             `INSERT INTO finca (nombre, emprendedor_id)
        VALUES (?, ?)`,
             [
-                newFarm.name,
+                name_farm,
                 emprendedorId,
             ]
         );
@@ -43,4 +46,4 @@ async function crearEmprendedorConFinca(newUser: User, newFarm: Farm) {
     }
 }
 
-export default crearEmprendedorConFinca;
+export default createEntrepreneurRepository;

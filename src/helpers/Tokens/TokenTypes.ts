@@ -1,7 +1,7 @@
 import { UserRole } from '@/models/Auth/Auth';
 
 export const TOKEN_EXPIRATION = {
-    ACCESS: '15m',
+    ACCESS: '5m',
     REFRESH: '7d',
     VERIFICATION: '24h',
     PASSWORD_RESET: '1h'

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { deleteUnverifiedUsersService } from '@/services/User/deleteUnverifiedUsersService';
+import { removeUnverifiedUsersService } from '@/services/User/removeUnverifiedUsersService';
 
-export const deleteUnverifiedUsersController = async (req: Request, res: Response): Promise<void> => {
+export const removeUnverifiedUsersController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const deletedCount = await deleteUnverifiedUsersService();
+        const deletedCount = await removeUnverifiedUsersService();
         
         res.status(200).json({
             message: `${deletedCount} usuarios no verificados eliminados exitosamente`

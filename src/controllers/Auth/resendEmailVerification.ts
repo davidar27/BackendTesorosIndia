@@ -3,6 +3,7 @@ import { sendVerificationEmail } from '@/services/Auth/sendVerificationEmail';
 import { findByEmailUserService } from '@/services/User/findByEmailUserService';
 import { UserRole } from '@/models/Auth/Auth';
 import { generateVerificationToken } from '@/helpers/Tokens/generateVerificationToken';
+import { User } from '@/models/User/User';
 
 function isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,6 +34,13 @@ export const resendVerificationEmail = async (req: Request, res: Response) => {
             return res.status(404).json({
                 error: 'Usuario no encontrado',
                 details: 'No se encontró un usuario con ese email'
+            });
+        }
+
+        if ('errorType' in user) {
+            return res.status(400).json({
+                error: 'Usuario no verificado',
+                details: user.message
             });
         }
 

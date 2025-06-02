@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { createUserService } from '@/services/User/createUserService';
 import { User } from '@/models/User/User';
+import { createClientService } from '@/services/User/createClientService';
 
 export const createUserController = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -20,7 +20,7 @@ export const createUserController = async (req: Request, res: Response): Promise
             phone
         });
 
-        const newUser = await createUserService(userData);
+        const newUser = await createClientService(userData);
         res.status(201).json({
             message: 'Usuario creado exitosamente',
             user: newUser
