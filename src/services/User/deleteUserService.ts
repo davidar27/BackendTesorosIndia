@@ -1,10 +1,30 @@
-import { deleteUserRepository } from "@/repositories/User/deleteUserRepository";
+import db from '@/config/db';
 
-export const deleteUserService = async (gUseId: number) => {
+export const deleteUserService = async (userId: number): Promise<void> => {
+    const connection = await db.getConnection();
+    
     try {
-        await deleteUserRepository(gUseId);
-        return { message: 'Usuario eliminado correctamente' };
+        await connection.beginTransaction();
+
+        const [user]: any = await connection.execute(
+            'SELECT usuario_id FROM usuario WHERE usuario_id = ?',
+            [userId]
+        );
+
+        if (!user[0]) {
+            throw new Error('Usuario no encontrado');
+        }
+
+        await connection.execute(
+            'DELETE FROM usuario WHERE usuario_id = ?',
+            [userId]
+        );
+
+        await connection.commit();
     } catch (error) {
-        throw new Error('Error al eliminar el usuario');
+        await connection.rollback();
+        throw error;
+    } finally {
+        connection.release();
     }
 };

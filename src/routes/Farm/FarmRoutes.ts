@@ -9,11 +9,13 @@ import { getFarmByIdController } from "@/controllers/Farm/getFarmByIdController"
 import { getAllFarmController } from "@/controllers/Farm/getAllFarmController";
 import { getFarmsByCategoryController } from "@/controllers/Farm/getFarmsByCategoryController";
 import { getMyFarmController } from "@/controllers/Farm/getMyFarmController";
+import { getAllNamesFarmController } from "@/controllers/Farm/getAllNamesFarmController";
 
 const router = express.Router();
 
 // Rutas públicas de fincas
 router.get('/', getAllFarmController);
+router.get('/nombre', getAllNamesFarmController);
 router.get('/:id', getFarmByIdController);
 router.get('/categorias/:categoryId', getFarmsByCategoryController);
 

@@ -1,41 +1,53 @@
 import { User } from '@/models/User/User';
+import { findByEmailUserService } from './findByEmailUserService';
 import db from '@/config/db';
+import bcrypt from 'bcryptjs';
 
-export const updateUserService = async (userData: User): Promise<User> => {
+export const createUserService = async (userData: User): Promise<User> => {
     const connection = await db.getConnection();
     
     try {
+        // Verificar si el email ya existe
+        const existingUser = await findByEmailUserService(userData.email);
+        if (existingUser) {
+            throw new Error('El correo electrónico ya está registrado');
+        }
+
         await connection.beginTransaction();
 
-        // Actualizar usuario
-        await connection.execute(
-            `UPDATE usuario 
-             SET nombre = ?, telefono = ?, imagen = ?, descripcion = ?, direccion = ?
-             WHERE usuario_id = ?`,
+        // Encriptar contraseña
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(userData.password, salt);
+
+        // Insertar usuario
+        const [result]: any = await connection.execute(
+            `INSERT INTO usuario (nombre, correo, contraseña, telefono, rol, verificado, imagen, descripcion, direccion) 
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 userData.name,
+                userData.email,
+                hashedPassword,
                 userData.phone,
+                userData.role,
+                userData.verified,
                 userData.image || null,
                 userData.description || null,
-                userData.address || null,
-                userData.userId
+                userData.address || null
             ]
         );
 
-        // Obtener el usuario actualizado
+        const userId = result.insertId;
+
+        // Obtener el usuario creado
         const [rows]: any = await connection.execute(
             `SELECT usuario_id, nombre, correo, telefono, rol, verificado, imagen, descripcion, direccion 
              FROM usuario WHERE usuario_id = ?`,
-            [userData.userId]
+            [userId]
         );
 
         await connection.commit();
 
-        if (!rows[0]) {
-            throw new Error('Usuario no encontrado');
-        }
-
-        // Crear y retornar una nueva instancia de User con los datos actualizados
+        // Crear y retornar una nueva instancia de User con los datos de la base de datos
         const userFromDb = rows[0];
         return new User({
             userId: userFromDb.usuario_id,
@@ -48,7 +60,7 @@ export const updateUserService = async (userData: User): Promise<User> => {
             image: userFromDb.imagen || '',
             description: userFromDb.descripcion,
             address: userFromDb.direccion,
-            token_version: userData.token_version
+            token_version: 0
         });
     } catch (error) {
         await connection.rollback();
@@ -56,4 +68,4 @@ export const updateUserService = async (userData: User): Promise<User> => {
     } finally {
         connection.release();
     }
-};
+}; 

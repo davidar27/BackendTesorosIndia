@@ -1,24 +1,35 @@
 import { Request, Response } from 'express';
-import { findByEmailUserService } from '@/services/User/findByEmailUserService';
+import { createUserService } from '@/services/User/createUserService';
 import { User } from '@/models/User/User';
-import { registerEntrepreneurService } from '@/services/User/registerEntrepreneurService';
 
-
-export const createEntrepreneurController = async (req: Request, res: Response) => {
+export const createEntrepreneurController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email, password, phone, name_farm } = req.body;
-        const role = "emprendedor"; 
-        const existingUser = await findByEmailUserService(email);
-        if (existingUser) {
-            return res.status(400).json({ error: 'El correo electrónico ya está registrado.' });
+        const { name, email, password, phone, description } = req.body;
+
+        if (!name || !email || !password || !phone) {
+            res.status(400).json({ 
+                error: 'Faltan campos requeridos (nombre, email, contraseña, teléfono)' 
+            });
+            return;
         }
-        const newUser = new User(name, email, password, phone, true, role);
-        const newFarm = { name: name_farm };
 
-        await registerEntrepreneurService(newUser, newFarm);
+        const userData = User.createEntrepreneur({
+            name,
+            email,
+            password,
+            phone,
+            description: description?.trim() || undefined
+        });
 
-        return res.status(201).json({ message: 'El registro del emprendedor ha sido exitoso' });
-    } catch (error) {
-        res.status(500).json({ error: 'Error al crear el emprendedor' });
+        const newUser = await createUserService(userData);
+        res.status(201).json({
+            message: 'Emprendedor creado exitosamente',
+            user: newUser
+        });
+    } catch (error: any) {
+        console.error('Error en createEntrepreneurController:', error);
+        res.status(500).json({ 
+            error: error.message || 'Error al crear el emprendedor' 
+        });
     }
 };

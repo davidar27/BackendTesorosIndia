@@ -1,10 +1,22 @@
-import { deleteUnverifiedUsers } from "@/repositories/User/deleteUnverifiedUsers ";
+import db from '@/config/db';
 
-export const removeUnverifiedUsers = async (): Promise<void> => {
+export const deleteUnverifiedUsersService = async (): Promise<number> => {
+    const connection = await db.getConnection();
+    
     try {
-        await deleteUnverifiedUsers();
-        console.log('[CRON] Unverified users successfully deleted.');
+        await connection.beginTransaction();
+
+        // Eliminar usuarios no verificados
+        const [result]: any = await connection.execute(
+            'DELETE FROM usuario WHERE verificado = false AND rol = "cliente"'
+        );
+
+        await connection.commit();
+        return result.affectedRows;
     } catch (error) {
-        console.error('[CRON] Failed to delete unverified users:', error);
+        await connection.rollback();
+        throw error;
+    } finally {
+        connection.release();
     }
 };

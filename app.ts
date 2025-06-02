@@ -34,16 +34,18 @@ app.use(express.json());
 
 // 🟢 Rutas
 app.use('/usuario', userRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 // app.use('/carrito', cartRoutes);
-app.use('/api/productos', productRoutes);
-app.use('/api/fincas', farmRoutes);
-app.use('/api/dashboard', dashboardRoutes);
+app.use('/productos', productRoutes);
+app.use('/fincas', farmRoutes);
+app.use('/dashboard', dashboardRoutes);
 /* app.use('/pagos', payRoutes ); 
 app.use('/paquete', /* packRoutes );   */
-app.use('/api/comentarios', reviewsRoutes);
+app.use('/comentarios', reviewsRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+

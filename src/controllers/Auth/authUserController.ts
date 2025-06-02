@@ -45,7 +45,6 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         });
 
     } catch (error: any) {
-        console.error("Login error:", error);
         res.clearCookie('access_token');
         res.clearCookie('refresh_token');
 

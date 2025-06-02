@@ -10,21 +10,23 @@ import { recoverPasswordController } from '@/controllers/Auth/recoverPasswordCon
 import { resetPasswordController } from '@/controllers/Auth/resetPasswordController';
 import resetPasswordValidation from '@/middleware/Auth/resetPasswordValidation';
 import { checkVerification } from '@/controllers/Auth/checkVerificationController';
+import { registerUserController } from '@/controllers/Auth/registerUserController';
 
 const router = express.Router();
 
 // Rutas de autenticación
 router.post('/iniciar-sesion', authInputValidator.validatorParams, authInputValidator.validator, authUserController);
-router.post('/registro', authInputValidator.validatorParams, authInputValidator.validator, authUserController);
-router.post('/verificacion/correo', verifyEmailController);
+router.post('/registro', authInputValidator.validatorParams, authInputValidator.validator, registerUserController);
+router.get('/verificacion/correo', verifyEmailController);
 router.get('/verificacion', checkVerification);
 router.post('/password/recuperar', recoverPasswordController);
 router.put('/password/restablecer', resetPasswordValidation.validatorParam, resetPasswordValidation.validator, resetPasswordController);
 
 // Rutas auxiliares de autenticación
-router.post('/logout', logoutController);
-router.get('/verificar-token', verifyTokenController);
-router.post('/refrescar-token', refreshToken);
-router.post('/reenviar-correo-verificacion', resendVerificationEmail);
+router.post('/cerrar-sesion', logoutController);
+router.get('/token/verificar', verifyTokenController);
+router.post('/token/refrescar', refreshToken);
+router.post('/verificacion/correo/reenviar', resendVerificationEmail);
+router.post('/password/correo/reenviar', recoverPasswordController);
 
 export default router;
