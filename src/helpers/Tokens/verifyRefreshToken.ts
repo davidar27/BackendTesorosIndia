@@ -12,11 +12,12 @@ export const verifyRefreshToken = async (token: string): Promise<{ userId: numbe
         });
     }
 
-    const data = verifyTokenPayload<TokenPayload>(token, REFRESH_TOKEN_SECRET, {
-        redirectOnExpire: '/auth/login'
-    });
 
+    const data = verifyTokenPayload<TokenPayload>(token, REFRESH_TOKEN_SECRET, {
+        redirectOnExpire: '/auth/iniciar-sesion'
+    });
     const user = await findByIdUserService(data.data.userId);
+    console.log(user);
     if (!user) {
         throw new AuthError('Usuario no encontrado', {
             status: 404,

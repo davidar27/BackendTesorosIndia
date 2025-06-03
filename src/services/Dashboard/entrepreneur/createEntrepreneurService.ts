@@ -35,7 +35,7 @@ export const createEntrepreneurService = async (entrepreneurData: CreateEntrepre
         const createdUser = await findEntrepreneurByIdRepository(emprendedorId);
         
         if (!createdUser) {
-            throw new Error('Error al crear el emprendedor');
+            throw new Error('El correo electrónico ya está registrado');
         }
         
         return createdUser;

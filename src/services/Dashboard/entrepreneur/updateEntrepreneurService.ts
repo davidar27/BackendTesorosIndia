@@ -1,17 +1,18 @@
-import { User, EntrepreneurProps } from '@/models/User/User';
+import { EntrepreneurProps } from '@/models/User/User';
 import { findByIdUserService } from '../../User/findByIdUserService';
 import { updateEntrepreneurRepository } from '@/repositories/Dashboard/entreprenaur/updateEntrepreneurRepository';
 
 interface UpdateEntrepreneurData {
     userId: number;
     name?: string;
+    email?: string;
     phone?: string;
     image?: string;
     description?: string;
     name_farm?: string;
 }
 
-export const updateEntrepreneurService = async (userData: UpdateEntrepreneurData): Promise<User> => {
+export const updateEntrepreneurService = async (userData: UpdateEntrepreneurData): Promise<Record<string, any>> => {
     try {
         const currentUser = await findByIdUserService(userData.userId);
         if (!currentUser) {
@@ -22,24 +23,22 @@ export const updateEntrepreneurService = async (userData: UpdateEntrepreneurData
             throw new Error('El usuario no es un emprendedor');
         }
 
-        console.log('Update Data:', userData);
-        console.log('Current User:', currentUser);
+        const changedFields: Partial<EntrepreneurProps> = {};
+        if (userData.name && userData.name !== currentUser.name) changedFields.name = userData.name;
+        if (userData.email && userData.email !== currentUser.email) changedFields.email = userData.email;
+        if (userData.phone && userData.phone !== currentUser.phone) changedFields.phone = userData.phone;
+        if (userData.image !== undefined && userData.image !== currentUser.image) changedFields.image = userData.image ? `/images/${userData.image}` : '';
+        if (userData.description !== undefined && userData.description !== currentUser.description) changedFields.description = userData.description;
+        if (userData.name_farm && userData.name_farm !== currentUser.name_farm) changedFields.name_farm = userData.name_farm;
 
-        const updateProps: Partial<EntrepreneurProps> = {};
-        if (userData.name) updateProps.name = userData.name;
-        if (userData.phone) updateProps.phone = userData.phone;
-        if (userData.image !== undefined) {
-            updateProps.image = userData.image ? `/images/${userData.image}` : '';
+        if (Object.keys(changedFields).length === 0) {
+            throw new Error('No hay cambios para actualizar');
         }
-        if (userData.description !== undefined) updateProps.description = userData.description;
-        if (userData.name_farm) updateProps.name_farm = userData.name_farm;
 
-        console.log('Update Props:', updateProps);
+        currentUser.update(changedFields);
 
-        currentUser.update(updateProps);
-
-        const updatedUser = await updateEntrepreneurRepository(currentUser);
-        return updatedUser;
+        await updateEntrepreneurRepository(currentUser, changedFields);
+        return changedFields;
     } catch (error) {
         throw error;
     }

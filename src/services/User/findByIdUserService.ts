@@ -1,11 +1,9 @@
 import { User } from '@/models/User/User';
-import { findEntrepreneurByIdRepository } from '@/repositories/Dashboard/entreprenaur/findEntrepreneurByIdRepository';
+import { findUserByIdRepository } from '@/repositories/User/findUserByIdRepository';
 
 export const findByIdUserService = async (userId: number): Promise<User | null> => {
-    try {
-        console.log(userId);
-        
-        const user = await findEntrepreneurByIdRepository(userId);
+    try {        
+        const user = await findUserByIdRepository(userId);
         return user;
     } catch (error) {
         throw error;

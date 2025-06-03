@@ -25,7 +25,6 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
   credentials: true,
   optionsSuccessStatus: 200,
-  exposedHeaders: ['Set-Cookie']
 }));
 
 // Configuración de cookies

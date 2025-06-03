@@ -43,6 +43,10 @@ export const updateEntrepreneursController = async (req: Request, res: Response)
             updateData.name = req.body.name.trim();
         }
         
+        if (req.body.email?.trim()) {
+            updateData.email = req.body.email.trim();
+        }
+
         if (req.body.phone?.trim()) {
             updateData.phone = req.body.phone.trim();
         }
@@ -57,6 +61,8 @@ export const updateEntrepreneursController = async (req: Request, res: Response)
         
         if (req.body.name_farm) {
             const trimmedName = req.body.name_farm.trim();
+            console.log(trimmedName);
+            
             
             if (!trimmedName) {
                 res.status(400).json({ error: 'El nombre de la finca no puede estar vacío' });
@@ -70,14 +76,14 @@ export const updateEntrepreneursController = async (req: Request, res: Response)
             return;
         }
 
-        const updatedUser = await updateEntrepreneurService({
+        const changedFields = await updateEntrepreneurService({
             ...updateData,
             userId: currentUser.userId
         });
 
         res.status(200).json({
             message: 'Emprendedor actualizado exitosamente',
-            user: updatedUser
+            updatedFields: changedFields
         });
     } catch (error: any) {
         console.error('Error en updateEntrepreneurController:', error);

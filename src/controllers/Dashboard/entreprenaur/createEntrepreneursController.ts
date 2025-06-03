@@ -34,10 +34,16 @@ export const createEntrepreneursController = async (req: Request, res: Response)
             message: 'Emprendedor creado exitosamente',
             user: newUser
         });
+
     } catch (error: any) {
-        console.error('Error en createEntrepreneurController:', error);
-        res.status(500).json({ 
-            error: error.message || 'Error al crear el emprendedor' 
-        });
+        if (error.message === 'El correo electrónico ya está registrado') {
+            res.status(409).json({
+                message: 'El correo electrónico ya está registrado',
+            });
+        } else {
+            res.status(500).json({
+                error: error.message || 'Error al crear el emprendedor' 
+            });
+        }
     }
 };
