@@ -1,4 +1,5 @@
 import { UserRole } from '@/models/Auth/Auth';
+import crypto from 'crypto';
 
 export const TOKEN_EXPIRATION = {
     ACCESS: '5m',

@@ -39,6 +39,7 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         res.cookie('access_token', accessToken, cookieOptionsLogin);
         res.cookie('refresh_token', refreshToken, cookieOptionsRefresh);
 
+
         return res.status(200).json({
             status,
             user: { userId, name, role, token_version },

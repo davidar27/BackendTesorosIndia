@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Estructura del proyecto BackendTesorosIndia, desarrollado con Node.js y Express.",
   "main": "index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "concurrently \"npm:watch\" \"npm:serve\"",
