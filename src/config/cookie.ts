@@ -24,7 +24,7 @@ export const cookieOptionsRefresh: CookieOptions = {
     domain: isProduction ? '.up.railway.app' : undefined
 };
 
-export const cookieOptionsLogout = {
+export const cookieOptionsLogout: CookieOptions = {
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? 'none' : 'lax',
