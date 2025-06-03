@@ -8,7 +8,11 @@ import { cookieOptionsLogin, cookieOptionsRefresh } from "@/config/cookie";
 
 export const authUserController = async (req: Request, res: Response): Promise<Response> => {
     try {
+        console.log('Environment:', process.env.NODE_ENV);
+        console.log('Request headers:', req.headers);
+        
         const { email, password } = req.body;
+        console.log('Login attempt for email:', email);
 
         if (!email || !password) {
             return res.status(400).json({
@@ -20,6 +24,7 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         }
 
         const login = await authUserService(new UserAuth(email, password));
+        console.log('Login successful for user:', login.name);
 
         const { userId, role, name, token_version, status } = login;
 
@@ -36,8 +41,14 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         const accessToken = generateAccessToken(userId!, name!, role as UserRole, token_version!);
         const refreshToken = generateRefreshToken(userId!, name!, role as UserRole, token_version!);
 
+        console.log('Cookie options login:', cookieOptionsLogin);
+        console.log('Cookie options refresh:', cookieOptionsRefresh);
+
         res.cookie('access_token', accessToken, cookieOptionsLogin);
         res.cookie('refresh_token', refreshToken, cookieOptionsRefresh);
+
+        console.log('Cookies set successfully');
+        console.log('Response headers:', res.getHeaders());
 
         return res.status(200).json({
             status,
@@ -45,6 +56,9 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         });
 
     } catch (error: any) {
+        console.error('Authentication error:', error);
+        console.error('Stack trace:', error.stack);
+        
         res.clearCookie('access_token');
         res.clearCookie('refresh_token');
 
