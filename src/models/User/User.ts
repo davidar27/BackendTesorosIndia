@@ -23,7 +23,7 @@ interface ClientProps extends BaseUserProps {
 // Propiedades específicas para emprendedores
 export interface EntrepreneurProps extends BaseUserProps {
     role: 'emprendedor';
-    name_farm: string;
+    name_experience: string;
     description?: string;
     address?: never;
 }
@@ -107,9 +107,9 @@ export class User {
     // Getters condicionales basados en el rol
 
 
-    get name_farm(): string | undefined {
+    get name_experience(): string | undefined {
         if (this._data.role === 'cliente') return undefined;
-        return 'name_farm' in this._data ? this._data.name_farm : undefined;
+        return 'name_experience' in this._data ? this._data.name_experience : undefined;
     }
 
     get description(): string | undefined {
@@ -169,10 +169,10 @@ export class User {
             (this._data as ClientProps).address = props.address.trim();
         }
 
-        if (this._data.role === 'emprendedor' && 'name_farm' in props) {
-            const name_farm = props.name_farm as string;
-            if (!name_farm?.trim()) throw new Error('nombre de finca inválida');
-            (this._data as EntrepreneurProps).name_farm = name_farm.trim();
+        if (this._data.role === 'emprendedor' && 'name_experience' in props) {
+            const name_experience = props.name_experience as string;
+            if (!name_experience?.trim()) throw new Error('nombre de experiencia inválida');
+            (this._data as EntrepreneurProps).name_experience = name_experience.trim();
         }
 
         // if (this._data.role === 'emprendedor' && 'description' in props) {

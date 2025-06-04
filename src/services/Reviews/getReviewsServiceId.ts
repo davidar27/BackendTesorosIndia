@@ -1,5 +1,5 @@
 import { getReviewsByFincaRepositoryId } from "@/repositories/Reviews/getReviewsRepositoryId";
 
-export const getReviewsByFincaServiceId = async (finca_id: number) => {
-    return await getReviewsByFincaRepositoryId(finca_id);
+export const getReviewsByFincaServiceId = async (experiencie_id: number) => {
+    return await getReviewsByFincaRepositoryId(experiencie_id);
 };

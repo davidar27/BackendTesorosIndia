@@ -26,9 +26,9 @@ export const findByEmailRepository = async (email: string): Promise<User | Verif
             u.descripcion,
             u.direccion,
             u.token_version,
-            f.nombre as name_farm
+            f.nombre as name_experience
         FROM usuario u
-        LEFT JOIN finca f ON u.usuario_id = f.emprendedor_id
+        LEFT JOIN experiencia f ON u.usuario_id = f.emprendedor_id
         WHERE u.correo = ?
     `;
 
@@ -77,7 +77,7 @@ export const findByEmailRepository = async (email: string): Promise<User | Verif
                 return new User({
                     ...baseUserData,
                     role: 'emprendedor',
-                    name_farm: row.name_farm || 'Granja sin nombre',
+                    name_experience: row.name_experience || 'Granja sin nombre',
                     description: row.descripcion || undefined
                 });
             default:

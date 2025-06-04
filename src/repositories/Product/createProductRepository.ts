@@ -12,15 +12,15 @@ export async function createProductRepository(product: Product): Promise<number>
         throw new Error("Este producto ya ha sido registrado por el emprendedor.");
     }
 
-    // Obtener finca_id desde emprendedor_id
-    const fincaSql = `SELECT finca_id FROM finca WHERE usuario_id = ?`;
+    // Obtener experiencie_id desde emprendedor_id
+    const fincaSql = `SELECT experiencie_id FROM experiencia WHERE usuario_id = ?`;
     const [fincaResult]: any = await db.execute(fincaSql, [product.emprendedor_id]);
 
     if (fincaResult.length === 0) {
-        throw new Error("No se encontró una finca asociada a este emprendedor.");
+        throw new Error("No se encontró una experiencia asociada a este emprendedor.");
     }
 
-    const finca_id = fincaResult[0].finca_id;
+    const experiencie_id = fincaResult[0].experiencie_id;
 
     // Llamar al Stored Procedure
     const spCall = `CALL sp_crear_producto(?, ?, ?, ?)`;
@@ -28,7 +28,7 @@ export async function createProductRepository(product: Product): Promise<number>
         product.nombre,
         product.descripcion || null,
         product.precio || null,
-        finca_id
+        experiencie_id
     ];
 
     const [spResult]: any = await db.execute(spCall, spValues);

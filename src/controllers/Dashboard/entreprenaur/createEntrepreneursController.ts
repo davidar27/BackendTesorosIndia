@@ -6,9 +6,9 @@ import { generateVerificationToken } from '@/helpers/Tokens/generateVerification
 
 export const createEntrepreneursController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, email, password, phone, name_farm } = req.body;
+        const { name, email, password, phone, name_experience } = req.body;
 
-        if (!name || !email || !password || !phone || !name_farm) {
+        if (!name || !email || !password || !phone || !name_experience) {
             res.status(400).json({ 
                 error: 'Faltan campos requeridos (nombre, email, contraseña, teléfono, nombre de granja)' 
             });
@@ -20,7 +20,7 @@ export const createEntrepreneursController = async (req: Request, res: Response)
             email,
             password,
             phone,
-            name_farm
+            name_experience
         });
 
         const entrepreneurData = {
@@ -28,7 +28,7 @@ export const createEntrepreneursController = async (req: Request, res: Response)
             email: userData.email,
             password: userData.password,
             phone: userData.phone,
-            name_farm,
+            name_experience,
         };
 
         const newUser: User = await createEntrepreneurService(entrepreneurData);

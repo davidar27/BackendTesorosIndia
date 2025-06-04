@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { updateClientService } from '@/services/User/updateClientService';
 import { findByIdUserService } from '@/services/User/findByIdUserService';
-import { uploadToAzureService } from '@/services/Farm/uploadToAzureService';
+import { uploadToAzureService } from '@/services/Azure/uploadToAzureService';
 
 export const updateClientController = async (req: Request, res: Response): Promise<void> => {
     try {

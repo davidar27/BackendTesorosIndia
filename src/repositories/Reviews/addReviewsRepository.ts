@@ -1,11 +1,11 @@
 import db from '@/config/db';
 
 export const createReviewsRepository = async (reviewsData: any) => {
-    const { finca_id, usuario_id, valoracion, comentario, infringe_normas } = reviewsData;
+    const { experiencie_id, usuario_id, valoracion, comentario, infringe_normas } = reviewsData;
 
     const query = `
         INSERT INTO servicio 
-        (finca_id, usuario_id, valoracion, comentario, infringe_normas)
+        (experiencie_id, usuario_id, valoracion, comentario, infringe_normas)
         VALUES (?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
         valoracion = VALUES(valoracion),
@@ -14,7 +14,7 @@ export const createReviewsRepository = async (reviewsData: any) => {
     `;
 
     const values = [
-        finca_id,
+        experiencie_id,
         usuario_id,
         valoracion,
         comentario,

@@ -32,7 +32,7 @@ export const findEntrepreneurByIdRepository = async (userId: number): Promise<Us
             role: 'emprendedor',
             verified: Boolean(row.verificado),
             image: row.imagen || '',
-            name_farm: row.name_farm || '',
+            name_experience: row.name_experience || '',
             description: row.descripcion || undefined,
             token_version: row.token_version || 0
         });

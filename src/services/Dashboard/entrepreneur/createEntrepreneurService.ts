@@ -10,7 +10,7 @@ interface CreateEntrepreneurData {
     email: string;
     password: string;
     phone: string;
-    name_farm: string;
+    name_experience: string;
 }
 
 export const createEntrepreneurService = async (entrepreneurData: CreateEntrepreneurData): Promise<User> => {
@@ -28,7 +28,7 @@ export const createEntrepreneurService = async (entrepreneurData: CreateEntrepre
             email: entrepreneurData.email,
             password: hashedPassword,
             phone: entrepreneurData.phone,
-            name_farm: entrepreneurData.name_farm,
+            name_experience: entrepreneurData.name_experience,
         });
 
         const { emprendedorId } = await createEntrepreneurRepository(userToCreate);

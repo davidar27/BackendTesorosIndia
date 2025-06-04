@@ -3,11 +3,11 @@ import { createReviewsService } from '@/services/Reviews/createReviewsService';
 
 export const createRviewsController = async (req: Request, res: Response) => {
     try {
-        const { finca_id, valoracion, comentario } = req.body;
+        const { experiencie_id, valoracion, comentario } = req.body;
         const usuario_id = req.body.userId;
 
         const newReviews = {
-            finca_id: parseInt(finca_id),
+            experiencie_id: parseInt(experiencie_id),
             usuario_id,
             valoracion: Math.min(Math.max(parseInt(valoracion), 1), 10), 
             comentario: comentario || null,
