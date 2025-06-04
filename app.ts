@@ -9,7 +9,7 @@ import './src/controllers/User/removeUnverifiedUsersController';
 import userRoutes from "@/routes/User/userRoutes";
 import authRoutes from "@/routes/Auth/authRoutes";
 import productRoutes from "@/routes/Product/productRoutes";
-import farmRoutes from "@/routes/Farm/FarmRoutes";
+import experienceRoutes from "@/routes/Experience/ExperienceRoutes";
 import reviewsRoutes from "@/routes/Comments/reviewsRoutes";
 import dashboardRoutes from "@/routes/Dashboard/dashboardRoutes";
 import imageRoutes from "@/routes/Azure/imageRoutes";
@@ -37,7 +37,7 @@ app.use('/usuario', userRoutes);
 app.use('/auth', authRoutes);
 // app.use('/carrito', cartRoutes);
 app.use('/productos', productRoutes);
-app.use('/fincas', farmRoutes);
+app.use('/experiencias', experienceRoutes);
 app.use('/dashboard', dashboardRoutes);
 /* app.use('/pagos', payRoutes ); 
 app.use('/paquete', /* packRoutes );   */

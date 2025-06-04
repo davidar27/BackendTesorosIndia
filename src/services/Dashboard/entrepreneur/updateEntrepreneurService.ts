@@ -9,7 +9,7 @@ interface UpdateEntrepreneurData {
     phone?: string;
     image?: string;
     description?: string;
-    name_farm?: string;
+    name_experience?: string;
 }
 
 export const updateEntrepreneurService = async (userData: UpdateEntrepreneurData): Promise<Record<string, any>> => {
@@ -29,7 +29,7 @@ export const updateEntrepreneurService = async (userData: UpdateEntrepreneurData
         if (userData.phone && userData.phone !== currentUser.phone) changedFields.phone = userData.phone;
         if (userData.image !== undefined && userData.image !== currentUser.image) changedFields.image = userData.image ? `/images/${userData.image}` : '';
         if (userData.description !== undefined && userData.description !== currentUser.description) changedFields.description = userData.description;
-        if (userData.name_farm && userData.name_farm !== currentUser.name_farm) changedFields.name_farm = userData.name_farm;
+        if (userData.name_experience && userData.name_experience !== currentUser.name_experience) changedFields.name_experience = userData.name_experience;
 
         if (Object.keys(changedFields).length === 0) {
             throw new Error('No hay cambios para actualizar');

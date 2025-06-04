@@ -30,10 +30,10 @@ export const updateEntrepreneurRepository = async (userData: User, changedFields
             );
         }
 
-        if (changedFields.name_farm) {
+        if (changedFields.name_experience) {
             await connection.execute(
-                `UPDATE finca SET nombre = ? WHERE emprendedor_id = ?`,
-                [changedFields.name_farm, userData.userId]
+                `UPDATE experiencia SET nombre = ? WHERE emprendedor_id = ?`,
+                [changedFields.name_experience, userData.userId]
             );
         }
 

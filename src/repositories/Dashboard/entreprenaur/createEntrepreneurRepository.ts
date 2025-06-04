@@ -23,15 +23,15 @@ async function createEntrepreneurRepository(newUser: User) {
                 newUser.status = 'Pendiente'
             ]
         );
-        const name_farm = newUser.name_farm
+        const name_experience = newUser.name_experience
 
         const emprendedorId = usuarioResult.insertId;
 
         await connection.execute(
-            `INSERT INTO finca (nombre, emprendedor_id)
+            `INSERT INTO experiencia (nombre, emprendedor_id)
        VALUES (?, ?)`,
             [
-                name_farm,
+                name_experience,
                 emprendedorId,
             ]
         );

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { findByIdUserService } from '@/services/User/findByIdUserService';
-import { uploadToAzureService } from '@/services/Farm/uploadToAzureService';
+import { uploadToAzureService } from '@/services/Azure/uploadToAzureService';
 import { updateEntrepreneurService } from '@/services/Dashboard/entrepreneur/updateEntrepreneurService';
-import { deleteFromAzureService } from '@/services/Farm/deleteFromAzureService';
+import { deleteFromAzureService } from '@/services/Azure/deleteFromAzureService';
 
 export const updateEntrepreneursController = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -59,16 +59,16 @@ export const updateEntrepreneursController = async (req: Request, res: Response)
             updateData.description = req.body.description || ' ';
         }
         
-        if (req.body.name_farm) {
-            const trimmedName = req.body.name_farm.trim();
+        if (req.body.name_experience) {
+            const trimmedName = req.body.name_experience.trim();
             console.log(trimmedName);
             
             
             if (!trimmedName) {
-                res.status(400).json({ error: 'El nombre de la finca no puede estar vacío' });
+                res.status(400).json({ error: 'El nombre de la experiencia no puede estar vacío' });
                 return;
             }
-            updateData.name_farm = trimmedName;
+            updateData.name_experience = trimmedName;
         }
 
         if (!currentUser.userId) {

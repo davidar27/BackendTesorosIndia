@@ -11,9 +11,9 @@ export const getEntrepreneursRepository = async (): Promise<User[]> => {
             DATE_FORMAT(u.fecha_registro, '%d/%m/%Y') AS joinDate,
             u.estado AS status,
             u.imagen AS image,
-            f.nombre AS name_farm
+            f.nombre AS name_experience
         FROM usuario u
-        LEFT JOIN finca f ON u.usuario_id = f.emprendedor_id
+        LEFT JOIN experiencia f ON u.usuario_id = f.emprendedor_id
         WHERE u.rol = 'emprendedor'
         ORDER BY u.fecha_registro DESC
     `;

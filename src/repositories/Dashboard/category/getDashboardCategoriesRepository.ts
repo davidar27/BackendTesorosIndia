@@ -8,7 +8,7 @@ export const getDashboardCategoriesRepository = async () => {
             c.descripcion AS description,
             c.estado AS status,
             DATE_FORMAT(c.fecha_creacion, '%d/%m/%Y') AS created_at,
-            (SELECT COUNT(*) FROM finca f WHERE f.categoria_id = c.categoria_id) as total_farms
+            (SELECT COUNT(*) FROM experiencia f WHERE f.categoria_id = c.categoria_id) as total_experiences
         FROM categoria c
         ORDER BY c.fecha_creacion DESC
     `;
