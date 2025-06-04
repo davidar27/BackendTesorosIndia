@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import { User } from '@/models/User/User';
 import { createEntrepreneurService } from '@/services/Dashboard/entrepreneur/createEntrepreneurService';
+import { sendVerificationEmail } from '@/services/Auth/sendVerificationEmail';
+import { generateVerificationToken } from '@/helpers/Tokens/generateVerificationToken';
 
 export const createEntrepreneursController = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -29,11 +31,35 @@ export const createEntrepreneursController = async (req: Request, res: Response)
             name_farm,
         };
 
-        const newUser = await createEntrepreneurService(entrepreneurData);
-        res.status(201).json({
+        const newUser: User = await createEntrepreneurService(entrepreneurData);
+        let responsePayload: any = {
             message: 'Emprendedor creado exitosamente',
             user: newUser
-        });
+        };
+        let statusCode = 201;
+
+        if (typeof newUser.userId === 'number') {
+            // @ts-ignore: UserRole está bien tipado
+            const verificationToken = generateVerificationToken(newUser.userId, newUser.role);
+            try {
+                await sendVerificationEmail(newUser.email, verificationToken);
+            } catch (emailError) {
+                responsePayload = {
+                    message: 'Emprendedor registrado pero hubo un problema al enviar el email de verificación.',
+                    warning: 'No se pudo enviar el email de verificación. Por favor, intenta solicitar un nuevo email de verificación más tarde.',
+                    user: {
+                        userId: newUser.userId,
+                        email: newUser.email,
+                        name: newUser.name
+                    }
+                };
+            }
+        } else {
+            statusCode = 500;
+            responsePayload = { error: 'No se pudo generar el token de verificación: userId indefinido.' };
+        }
+
+        res.status(statusCode).json(responsePayload);
 
     } catch (error: any) {
         if (error.message === 'El correo electrónico ya está registrado') {
