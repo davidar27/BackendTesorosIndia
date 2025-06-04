@@ -24,7 +24,7 @@ export const generateSasUrl = async (blobName: string): Promise<string> => {
         const sasOptions = {
             containerName: 'multimedia',
             blobName: blobName,
-            permissions: BlobSASPermissions.parse('r'), // Usar BlobSASPermissions en lugar de string
+            permissions: BlobSASPermissions.parse('r'),
             startsOn: new Date(),
             expiresOn: new Date(new Date().valueOf() + 3600 * 1000), // 1 hora de validez
             protocol: SASProtocol.Https

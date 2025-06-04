@@ -9,6 +9,7 @@ import { getDashboardCategoriesController } from "@/controllers/Dashboard/catego
 import { createEntrepreneursController } from "@/controllers/Dashboard/entreprenaur/createEntrepreneursController";
 import { updateEntrepreneursController } from "@/controllers/Dashboard/entreprenaur/updateEntrepreneursController";
 import { uploadSingleFile } from "@/config/multerConfig";
+import { desactivateEntrepreneurController } from "@/controllers/Dashboard/entreprenaur/desactivateEntrepreneurController";
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.get('/fincas', authMiddlewareToken, checkRole('administrador'), getDashbo
 router.get('/emprendedores', authMiddlewareToken, checkRole('administrador'), getEntrepreneursController);
 router.post('/emprendedores/crear', authMiddlewareToken, checkRole('administrador'), createEntrepreneursController);
 router.put('/emprendedores/actualizar/:userId', authMiddlewareToken, checkRole('administrador'), uploadSingleFile, updateEntrepreneursController);
+router.put('/emprendedores/desactivar/:userId', authMiddlewareToken, checkRole('administrador'), desactivateEntrepreneurController);
 
 router.get('/paquetes', authMiddlewareToken, checkRole('administrador'), getDashboardPackagesController);
 router.get('/categorias', authMiddlewareToken, checkRole('administrador'), getDashboardCategoriesController);
