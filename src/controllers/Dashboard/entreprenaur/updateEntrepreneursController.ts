@@ -61,7 +61,6 @@ export const updateEntrepreneursController = async (req: Request, res: Response)
         
         if (req.body.name_experience) {
             const trimmedName = req.body.name_experience.trim();
-            console.log(trimmedName);
             
             
             if (!trimmedName) {

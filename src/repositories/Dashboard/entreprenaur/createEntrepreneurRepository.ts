@@ -11,8 +11,8 @@ async function createEntrepreneurRepository(newUser: User) {
         
 
         const [usuarioResult]: any = await connection.execute(
-            `INSERT INTO usuario (nombre, correo, contraseña, telefono, verificado, rol, estado)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO usuario (nombre, correo, contraseña, telefono, verificado, rol)
+       VALUES (?, ?, ?, ?, ?, ?)`,
             [
                 newUser.name,
                 newUser.email,
@@ -20,7 +20,6 @@ async function createEntrepreneurRepository(newUser: User) {
                 newUser.phone,
                 newUser.verified,
                 newUser.role,
-                newUser.status = 'Pendiente'
             ]
         );
         const name_experience = newUser.name_experience
