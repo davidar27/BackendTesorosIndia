@@ -5,7 +5,7 @@ import { CookieOptions } from 'express';
 export const cookieOptionsLogin: CookieOptions = {
     httpOnly: true,
     secure: isProduction,
-    sameSite: 'none',
+    sameSite: isProduction ? 'none' : 'lax',
     maxAge: 1000 * 60 * 5, // 5 minutos
     path: '/',
 };
@@ -13,7 +13,7 @@ export const cookieOptionsLogin: CookieOptions = {
 export const cookieOptionsRefresh: CookieOptions = {
     httpOnly: true,
     secure: isProduction,
-    sameSite: 'none',
+    sameSite: isProduction ? 'none' : 'lax',
     path: '/',
     maxAge: 1000 * 60 * 60 * 24 * 7, // 7 días
 };
@@ -21,6 +21,6 @@ export const cookieOptionsRefresh: CookieOptions = {
 export const cookieOptionsLogout: CookieOptions = {
     httpOnly: true,
     secure: isProduction,
-    sameSite: 'none',
+    sameSite: isProduction ? 'none' : 'lax',
     path: '/',
 };
