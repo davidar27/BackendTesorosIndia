@@ -5,12 +5,10 @@ export const getDashboardCategoriesRepository = async () => {
         SELECT 
             c.categoria_id AS id,
             c.nombre AS name,
-            c.descripcion AS description,
             c.estado AS status,
-            DATE_FORMAT(c.fecha_creacion, '%d/%m/%Y') AS created_at,
-            (SELECT COUNT(*) FROM experiencia f WHERE f.categoria_id = c.categoria_id) as total_experiences
+            (SELECT COUNT(*) FROM servicio_categoria sc WHERE sc.categoria_id = c.categoria_id) as productsCount
         FROM categoria c
-        ORDER BY c.fecha_creacion DESC
+        ORDER BY c.nombre DESC;
     `;
     const [rows]: any = await db.execute(sql);
     return rows;

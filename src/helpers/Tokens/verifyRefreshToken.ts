@@ -17,7 +17,6 @@ export const verifyRefreshToken = async (token: string): Promise<{ userId: numbe
         redirectOnExpire: '/auth/iniciar-sesion'
     });
     const user = await findByIdUserService(data.data.userId);
-    console.log(user);
     if (!user) {
         throw new AuthError('Usuario no encontrado', {
             status: 404,
