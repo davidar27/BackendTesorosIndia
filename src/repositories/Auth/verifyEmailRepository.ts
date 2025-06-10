@@ -2,7 +2,7 @@ import db from '@/config/db';
 
 export const verifyEmailRepository = async (userId: number): Promise<boolean> => {
     try {
-        const sql = `UPDATE usuario SET verificado = 1, estado = 'Activo' WHERE usuario_id = ?`;
+        const sql = `UPDATE usuario SET verificado = 1, estado = 'activo' WHERE usuario_id = ?`;
         const values = [userId];
 
         const [result]: any = await db.execute(sql, values);

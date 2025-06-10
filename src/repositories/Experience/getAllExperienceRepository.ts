@@ -10,7 +10,7 @@ export const getAllExperienceRepository = async (): Promise<Experience> => {
     e.ubicacion AS location,
     e.fecha_creacion AS created_at,
     e.estado AS status,
-    u.nombre AS entrepreneur_id
+    u.nombre AS name_entrepreneur
     FROM experiencia e
     LEFT JOIN usuario u ON e.emprendedor_id = u.usuario_id;`;
     const [rows]: any = await db.execute(sql);
