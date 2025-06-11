@@ -2,7 +2,6 @@ import express from "express";
 import { authMiddlewareToken } from "@/middleware/Auth/authMiddlewareToken";
 import { checkRole } from "@/middleware/Auth/checkRole";
 import { uploadFiles } from "@/config/multerConfig";
-import { createExperienceController } from "@/controllers/Experience/createExperienceController";
 import { updateExperienceController } from "@/controllers/Experience/updateExperienceController";
 import { deleteExperienceController } from "@/controllers/Experience/deleteExperienceController";
 import { getExperienceByIdController } from "@/controllers/Experience/getExperienceByIdController";
@@ -22,7 +21,6 @@ router.get('/categorias/:categoryId', getExperiencesByCategoryController);
 // Rutas privadas de experiencias
 router.get('/mi-experiencia', authMiddlewareToken, checkRole('emprendedor'), getMyExperienceController);
 
-router.post("/crear", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), createExperienceController);
 router.put("/actualizar/:id", uploadFiles, authMiddlewareToken, checkRole('emprendedor'), updateExperienceController);
 router.delete("/eliminar/:id", authMiddlewareToken, checkRole('emprendedor'), deleteExperienceController);
 
