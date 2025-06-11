@@ -11,7 +11,6 @@ export const changeStatusService = async (
 ) => {
     const exists = await findByIdGenericService(id, entityType);
     if (!exists) throw new Error(`${entityType} no encontrado`);
-    console.log("Service status", status);
 
     await changeStatusRepository(id, status, entityType);
     return { 

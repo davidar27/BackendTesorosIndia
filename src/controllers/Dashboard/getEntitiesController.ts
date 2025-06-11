@@ -13,7 +13,6 @@ export const getEntitiesController = async (req: Request, res: Response): Promis
 
     try {
         const entities = await getEntitiesService(entityType as EntityType);
-        console.log(entities);
         res.status(200).json(entities);
     } catch (error: any) {
         res.status(500).json({
