@@ -26,7 +26,6 @@ router.get('/:entityType', authMiddlewareToken, checkRole('administrador'), getE
 
 
 
-router.get('/emprendedores', authMiddlewareToken, checkRole('administrador'), getEntrepreneursController);
 router.post('/emprendedores/crear', authMiddlewareToken, checkRole('administrador'), createEntrepreneursController);
 router.put('/emprendedores/actualizar/:userId', authMiddlewareToken, checkRole('administrador'), uploadSingleFile, updateEntrepreneursController);
 router.delete('/emprendedores/eliminar/:userId', authMiddlewareToken, checkRole('administrador'), deleteEntrepreneurController);
