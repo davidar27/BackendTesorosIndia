@@ -1,4 +1,4 @@
-import { findByIdGenericService } from "@/repositories/Dashboard/findByIdGenericService";
+import { findByIdGenericService } from "@/services/Dashboard/findByIdGenericService";
 import { changeStatusRepository } from "@/repositories/Dashboard/changeStatusRepository";
 
 type EntityType = 'entrepreneur' | 'experience' | 'category' | 'package';
