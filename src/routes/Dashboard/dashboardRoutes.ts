@@ -3,7 +3,6 @@ import { authMiddlewareToken } from "@/middleware/Auth/authMiddlewareToken";
 import { checkRole } from "@/middleware/Auth/checkRole";
 import { getDashboardStatsController } from "@/controllers/Dashboard/getDashboardStatsController";
 import { getDashboardExperiencesController } from "@/controllers/Dashboard/experience/getDashboardExperiencesController";
-import { getEntrepreneursController } from "@/controllers/Dashboard/entreprenaur/getEntrepreneursController";
 import { getDashboardPackagesController } from "@/controllers/Dashboard/packages/getDashboardPackagesController";
 import { getDashboardCategoriesController } from "@/controllers/Dashboard/category/getDashboardCategoriesController";
 import { createEntrepreneursController } from "@/controllers/Dashboard/entreprenaur/createEntrepreneursController";
@@ -26,7 +25,6 @@ router.get('/:entityType', authMiddlewareToken, checkRole('administrador'), getE
 
 
 
-router.get('/emprendedores', authMiddlewareToken, checkRole('administrador'), getEntrepreneursController);
 router.post('/emprendedores/crear', authMiddlewareToken, checkRole('administrador'), createEntrepreneursController);
 router.put('/emprendedores/actualizar/:userId', authMiddlewareToken, checkRole('administrador'), uploadSingleFile, updateEntrepreneursController);
 router.delete('/emprendedores/eliminar/:userId', authMiddlewareToken, checkRole('administrador'), deleteEntrepreneurController);
