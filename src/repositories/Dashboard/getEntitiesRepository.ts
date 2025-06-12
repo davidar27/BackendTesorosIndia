@@ -36,7 +36,7 @@ const ENTITY_CONFIGS: Record<string, EntityConfig> = {
         table: 'servicio',
         idColumn: 'servicio_id',
         imageColumn: 'imagen',
-        extraFields: 'CONCAT("$", FORMAT(precio, 0, "es_CO")) as price, capacidad as capacity, duracion as duration, descripcion as description',
+        extraFields: 'CONCAT( FORMAT(precio, 0, "es_CO")) as price, capacidad as capacity, duracion as duration, descripcion as description',
         defaultOrder: 'servicio.fecha_registro DESC'
     }
     
