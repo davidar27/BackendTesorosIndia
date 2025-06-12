@@ -3,7 +3,6 @@ import { authMiddlewareToken } from "@/middleware/Auth/authMiddlewareToken";
 import { checkRole } from "@/middleware/Auth/checkRole";
 import { getDashboardStatsController } from "@/controllers/Dashboard/getDashboardStatsController";
 import { getDashboardExperiencesController } from "@/controllers/Dashboard/experience/getDashboardExperiencesController";
-import { getEntrepreneursController } from "@/controllers/Dashboard/entreprenaur/getEntrepreneursController";
 import { getDashboardPackagesController } from "@/controllers/Dashboard/packages/getDashboardPackagesController";
 import { getDashboardCategoriesController } from "@/controllers/Dashboard/category/getDashboardCategoriesController";
 import { createEntrepreneursController } from "@/controllers/Dashboard/entreprenaur/createEntrepreneursController";
