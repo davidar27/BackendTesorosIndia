@@ -2,7 +2,7 @@ import db from '@/config/db';
 
 export const getCategoriesRepository = async () => {
     const sql = `
-        SELECT u.nombre, u.edad, u.profesion
+        SELECT u.usuario_id AS id, u.nombre AS name, u.edad AS age, u.profesion AS role
         FROM usuario u
         WHERE rol = 'emprendedor';
     `;
