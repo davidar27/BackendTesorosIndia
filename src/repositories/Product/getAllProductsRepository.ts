@@ -4,11 +4,12 @@ import { Product } from '@/models/Product/Product';
 export async function getAllProductsRepository(): Promise<Product[]> {
     const sql = `
         SELECT 
-            s.nombre,
-            s.precio,
-            s.imagen,
-            COALESCE(ROUND(AVG(v.puntuacion), 2), 0) as puntuacion,
-            GROUP_CONCAT(DISTINCT c.nombre SEPARATOR ';') AS categoria
+            s.servicio_id AS id,
+            s.nombre AS name,
+            s.precio AS price,
+            s.imagen AS image,
+            COALESCE(ROUND(AVG(v.puntuacion), 2), 0) as rating,
+            GROUP_CONCAT(DISTINCT c.nombre SEPARATOR ';') AS category
         FROM servicio s
         LEFT JOIN experiencia e ON s.experiencia_id = e.experiencia_id
         LEFT JOIN valoracion v ON e.experiencia_id = v.experiencia_id
@@ -19,7 +20,8 @@ export async function getAllProductsRepository(): Promise<Product[]> {
             s.nombre, 
             s.precio, 
             s.imagen,
-            c.nombre
+            c.nombre,
+            s.servicio_id
         ORDER BY s.nombre ASC;
     `;
     const [rows]: any = await db.execute(sql);
