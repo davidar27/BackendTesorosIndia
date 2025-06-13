@@ -7,22 +7,23 @@ export const changeStatusRepository = async (
 ) => {
     let tableName: string;
     let idColumn: string;
+    console.log(entityType);
 
 
     switch (entityType) {
-        case 'entrepreneur':
+        case 'emprendedores':
             tableName = 'usuario';
             idColumn = 'usuario_id';
             break;
-        case 'experience':
+        case 'experiencias':
             tableName = 'experiencia';
             idColumn = 'experiencia_id';
             break;
-        case 'category':
+        case 'categorias':
             tableName = 'categoria';
             idColumn = 'categoria_id';
             break;
-        case 'package':
+        case 'paquetes':
             tableName = 'paquete';
             idColumn = 'paquete_id';
             break;

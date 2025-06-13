@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import { changeStatusService } from '@/services/Dashboard/generic/changeStatusService';
 
-type Status = 'activo' | 'inactivo' | 'pendiente';
+export type EntityType = 'emprendedores' | 'experiencias' | 'categorias' | 'paquetes';
+export type Status = 'activo' | 'inactivo' | 'pendiente';
 
 export const changeStatusController = async (req: Request, res: Response) => {
-    const { id } = req.params;        
-    const { status, entityType } = req.body; 
+    const { id, entityType } = req.params;        
+    const { status } = req.body; 
     const statusEnum = {
         active: 'activo',
         inactive: 'inactivo',
@@ -18,7 +19,7 @@ export const changeStatusController = async (req: Request, res: Response) => {
     }
 
     try {
-        const updated = await changeStatusService(Number(id), mappedStatus as Status, entityType);
+        const updated = await changeStatusService(Number(id), mappedStatus as Status, entityType as EntityType);
         return res.status(200).json(updated);
     } catch (error: any) {
         if (error.message.includes('Data truncated')) {
