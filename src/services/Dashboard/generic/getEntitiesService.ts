@@ -1,4 +1,4 @@
-import { getEntitiesRepository } from "@/repositories/Dashboard/getEntitiesRepository";
+import { getEntitiesRepository } from "@/repositories/Dashboard/generic/getEntitiesRepository";
 
 type EntityType = 'emprendedores' | 'experiencias' | 'categorias' | 'paquetes';
 

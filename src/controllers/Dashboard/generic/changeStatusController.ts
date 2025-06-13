@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { changeStatusService } from '@/services/Dashboard/changeStatusService';
+import { changeStatusService } from '@/services/Dashboard/generic/changeStatusService';
 
 type Status = 'activo' | 'inactivo' | 'pendiente';
 

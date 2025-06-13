@@ -1,5 +1,5 @@
-import { findByIdGenericService } from "@/services/Dashboard/findByIdGenericService";
-import { changeStatusRepository } from "@/repositories/Dashboard/changeStatusRepository";
+import { findByIdGenericService } from "@/services/Dashboard/generic/findByIdGenericService";
+import { changeStatusRepository } from "@/repositories/Dashboard/generic/changeStatusRepository";
 
 type EntityType = 'entrepreneur' | 'experience' | 'category' | 'package';
 type Status = 'activo' | 'inactivo' | 'pendiente';

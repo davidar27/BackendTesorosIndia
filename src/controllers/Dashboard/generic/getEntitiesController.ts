@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getEntitiesService } from '@/services/Dashboard/getEntitiesService';
+import { getEntitiesService } from '@/services/Dashboard/generic/getEntitiesService';
 
 type EntityType = 'emprendedores' | 'experiencias' | 'categorias' | 'paquetes';
 
