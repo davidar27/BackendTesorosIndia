@@ -17,7 +17,7 @@ const router = express.Router();
 router.get('/estadisticas', authMiddlewareToken, checkRole('administrador'), getDashboardStatsController);
 
 
-router.patch('/estado/:id', authMiddlewareToken, checkRole('administrador'), changeStatusController);
+router.patch('/estado/:entityType/:id', authMiddlewareToken, checkRole('administrador'), changeStatusController);
 router.get('/:entityType', authMiddlewareToken, checkRole('administrador'), getEntitiesController);
 router.put('/actualizar/:entityType/:userId', authMiddlewareToken, checkRole('administrador'), uploadSingleFile, updateGenericController);
 

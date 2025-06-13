@@ -1,8 +1,6 @@
 import { findByIdGenericService } from "@/services/Dashboard/generic/findByIdGenericService";
 import { changeStatusRepository } from "@/repositories/Dashboard/generic/changeStatusRepository";
-
-type EntityType = 'entrepreneur' | 'experience' | 'category' | 'package';
-type Status = 'activo' | 'inactivo' | 'pendiente';
+import { EntityType, Status } from "@/controllers/Dashboard/generic/changeStatusController";
 
 export const changeStatusService = async (
     id: number, 
