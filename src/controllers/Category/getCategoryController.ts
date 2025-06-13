@@ -7,7 +7,7 @@ export const getCategoriesController = async (req: Request, res: Response): Prom
         res.status(200).json(categories);
     } catch (error: any) {
         res.status(500).json({ 
-            error: error.message || "Error al obtener las categorías del dashboard" 
+            error: error.message || "Error al obtener las categorías" 
         });
     }
 }; 
