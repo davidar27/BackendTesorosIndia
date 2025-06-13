@@ -4,7 +4,7 @@ import { Product } from '@/models/Product/Product';
 export async function getAllProductsRepository(): Promise<Product[]> {
     const sql = `
         SELECT 
-            s.id_servicio AS id,
+            s.servicio_id AS id,
             s.nombre AS name,
             s.precio AS price,
             s.imagen AS image,
@@ -20,7 +20,8 @@ export async function getAllProductsRepository(): Promise<Product[]> {
             s.nombre, 
             s.precio, 
             s.imagen,
-            c.nombre
+            c.nombre,
+            s.servicio_id
         ORDER BY s.nombre ASC;
     `;
     const [rows]: any = await db.execute(sql);
