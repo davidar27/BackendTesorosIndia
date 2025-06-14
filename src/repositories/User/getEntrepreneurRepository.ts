@@ -1,8 +1,8 @@
 import db from '@/config/db';
 
-export const getCategoriesRepository = async () => {
+export const getEntrepreneursRepository = async () => {
     const sql = `
-        SELECT u.usuario_id AS id, u.nombre AS name, u.edad AS age, u.profesion AS role
+        SELECT u.usuario_id AS id, u.nombre AS name, u.edad AS age, u.profesion AS role, u.imagen AS image
         FROM usuario u
         WHERE rol = 'emprendedor';
     `;

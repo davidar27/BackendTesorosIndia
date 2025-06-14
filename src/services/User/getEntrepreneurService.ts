@@ -1,4 +1,4 @@
-import { getEntrepreneursRepository } from "@/repositories/Dashboard/entreprenaur/getEntrepreneursRepository";
+import { getEntrepreneursRepository } from "@/repositories/User/getEntrepreneurRepository";
 
 export const getEntrepreneurService = async () => {
     return await getEntrepreneursRepository();
