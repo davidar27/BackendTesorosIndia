@@ -1,4 +1,5 @@
 import { getEntitiesRepository } from "@/repositories/Dashboard/generic/getEntitiesRepository";
+import { formatImageUrl } from "@/helpers/User/formatImageUrl";
 
 type EntityType = 'emprendedores' | 'experiencias' | 'categorias' | 'paquetes';
 
@@ -14,10 +15,3 @@ export const getEntitiesService = async (entityType: EntityType) => {
     }
 };
 
-// Helper para formatear URLs de imágenes
-const formatImageUrl = (imagePath: string): string => {
-    if (imagePath.startsWith('http') || imagePath.startsWith('/')) {
-        return imagePath;
-    }
-    return `/images/${imagePath}`;
-};
