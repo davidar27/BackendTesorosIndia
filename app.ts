@@ -10,6 +10,7 @@ import userRoutes from "@/routes/User/userRoutes";
 import authRoutes from "@/routes/Auth/authRoutes";
 import productRoutes from "@/routes/Product/productRoutes";
 import categoryRoutes from "@/routes/Category/categoryRoutes";
+import packageRoutes from "@/routes/Package/packageRoutes";
 import experienceRoutes from "@/routes/Experience/ExperienceRoutes";
 import reviewsRoutes from "@/routes/Comments/reviewsRoutes";
 import dashboardRoutes from "@/routes/Dashboard/dashboardRoutes";
@@ -41,8 +42,8 @@ app.use('/productos', productRoutes);
 app.use('/categorias', categoryRoutes);
 app.use('/experiencias', experienceRoutes);
 app.use('/dashboard', dashboardRoutes);
-/* app.use('/pagos', payRoutes ); 
-app.use('/paquete', /* packRoutes );   */
+/* app.use('/pagos', payRoutes ); */
+app.use('/paquetes', packageRoutes );
 app.use('/comentarios', reviewsRoutes);
 app.use('/images', imageRoutes);
 
