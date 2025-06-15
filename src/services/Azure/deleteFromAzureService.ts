@@ -2,8 +2,6 @@ import { containerClient } from "@/config/azure";
 
 export const deleteFromAzureService = async (fileUrl: string) => {
     try {
-        // Extraer el nombre del blob de la URL
-        // La URL puede ser /images/[blobname] o el nombre del blob directamente
         const blobName = fileUrl.startsWith('/images/') 
             ? fileUrl.replace('/images/', '')
             : fileUrl.split('/multimedia/').pop() || fileUrl;

@@ -15,4 +15,5 @@ export const getEntrepreneurService = async () => {
         ...entreprenaur,
         image: entreprenaur.image ? formatImageUrl(entreprenaur.image) : null
     })); 
+
 }; 

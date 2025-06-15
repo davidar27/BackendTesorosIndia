@@ -7,12 +7,10 @@ export const getAllNamesExperienceController = async (req: Request, res: Respons
     try {
         const experiences = await getAllNamesExperienceServices();
         return res.status(200).json({
-            status: 'success',
             experiences: experiences
         });
     } catch (error) {
         return res.status(500).json({
-            status: 'error',
             message: 'Error al listar experiencias'
         });
     }

@@ -7,6 +7,6 @@ export const getEntrepreneursRepository = async () => {
         WHERE u.rol = 'emprendedor'
         AND estado = 'activo';
     `;
-    const [rows]: any = await db.execute(sql);
+    const [rows]: any = await db.execute(sql);    
     return rows;
 }; 

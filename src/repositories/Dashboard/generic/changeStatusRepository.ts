@@ -7,7 +7,6 @@ export const changeStatusRepository = async (
 ) => {
     let tableName: string;
     let idColumn: string;
-    console.log(entityType);
 
 
     switch (entityType) {
