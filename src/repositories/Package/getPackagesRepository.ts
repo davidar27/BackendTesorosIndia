@@ -5,7 +5,7 @@ export const getPacksRepository = async () => {
         SELECT 
             s.nombre AS name,
             s.descripcion AS description,
-            s.precio AS price,
+            CONCAT( FORMAT(s.precio, 0, "es_CO")) as price,
             s.imagen AS image,
             s.incluye_comida AS has_food
         FROM servicio s
