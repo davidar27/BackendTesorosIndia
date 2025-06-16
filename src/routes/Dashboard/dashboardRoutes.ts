@@ -10,6 +10,7 @@ import { deleteEntrepreneurController } from "@/controllers/Dashboard/entreprena
 import { changeStatusController } from "@/controllers/Dashboard/generic/changeStatusController";
 import { getEntitiesController } from "@/controllers/Dashboard/generic/getEntitiesController";
 import { updateGenericController } from "@/controllers/Dashboard/generic/updateGenericController";
+import { createGenericController } from "@/controllers/Dashboard/generic/createGenericController";
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get('/estadisticas', authMiddlewareToken, checkRole('administrador'), get
 router.patch('/estado/:entityType/:id', authMiddlewareToken, checkRole('administrador'), changeStatusController);
 router.get('/:entityType', authMiddlewareToken, checkRole('administrador'), getEntitiesController);
 router.put('/actualizar/:entityType/:userId', authMiddlewareToken, checkRole('administrador'), uploadSingleFile, updateGenericController);
-
+router.post('/:entityType', authMiddlewareToken, checkRole('administrador'), uploadSingleFile, createGenericController);
 
 
 router.post('/emprendedores/crear', authMiddlewareToken, checkRole('administrador'), createEntrepreneursController);
