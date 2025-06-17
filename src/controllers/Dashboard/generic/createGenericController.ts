@@ -7,13 +7,19 @@ interface EntityConfig {
     requiredFields?: string[];
     allowedFields?: string[];
     customValidations?: (data: any) => Promise<void>;
+    defaultValues?: { [key: string]: any };
 }
 
 const entityConfigs: { [key: string]: EntityConfig } = {
     emprendedores: {
-        imageField: 'image',
-        requiredFields: ['name', 'email', 'phone', 'name_experience'],
-        allowedFields: ['name', 'email', 'phone', 'name_experience', 'image'],
+        imageField: 'imagen',
+        requiredFields: ['name', 'email', 'phone', 'name_experience', 'password'],
+        allowedFields: ['name', 'email', 'phone', 'name_experience', 'password','image','joinDate','status','verified'],
+        defaultValues: {
+            role: 'emprendedor',
+            verified: true,
+            status: 'inactive'
+        },
         customValidations: async (data: any) => {
             if (!data.name_experience?.trim()) {
                 throw new Error('El nombre de la experiencia es requerido');
@@ -56,11 +62,13 @@ export const createGenericController = async (req: Request, res: Response): Prom
             entityType
         };
 
-        // Procesar campos del body
+        if (config.defaultValues) {
+            Object.assign(createData, config.defaultValues);
+        }
+
         if (config.allowedFields) {
             Object.entries(req.body).forEach(([key, value]) => {
                 if (config.allowedFields?.includes(key) && value !== undefined) {
-                    // Si es una URL de imagen, asegurarse de que tenga el formato correcto
                     if (key === config.imageField && typeof value === 'string') {
                         if (!value.startsWith('/images/')) {
                             value = `/images/${value}`;
@@ -71,7 +79,6 @@ export const createGenericController = async (req: Request, res: Response): Prom
             });
         }
 
-        // Manejar la imagen si está configurada
         if (req.file && config.imageField) {
             const imageUrl = await uploadToAzureService(req.file);
 
@@ -84,7 +91,6 @@ export const createGenericController = async (req: Request, res: Response): Prom
             }
         }
 
-        // Validar campos requeridos
         if (config.requiredFields) {
             for (const field of config.requiredFields) {
                 if (!createData[field]) {
@@ -94,18 +100,13 @@ export const createGenericController = async (req: Request, res: Response): Prom
             }
         }
 
-        // Ejecutar validaciones personalizadas
         if (config.customValidations) {
             await config.customValidations(createData);
         }
 
-        // Crear la entidad
-        const createdEntity = await createGenericService(createData);
+        const entity = await createGenericService(createData);
 
-        res.status(201).json({
-            message: `${entityType} creado exitosamente`,
-            data: createdEntity
-        });
+        res.status(201).json(entity);
     } catch (error: any) {
         console.error(`Error en createGenericController para ${req.params.entityType}:`, error);
         res.status(500).json({ 

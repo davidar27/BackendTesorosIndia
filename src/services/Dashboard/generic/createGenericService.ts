@@ -1,4 +1,5 @@
 import { createGenericRepository } from '@/repositories/Dashboard/generic/createGenericRepository';
+import bcrypt from 'bcryptjs';
 
 interface CreateGenericData {
     entityType: string;
@@ -7,15 +8,15 @@ interface CreateGenericData {
 
 export const createGenericService = async (data: CreateGenericData): Promise<Record<string, any>> => {
     try {
-        // Validar que se proporcionen los datos necesarios
         if (!data.entityType) {
             throw new Error('Tipo de entidad no especificado');
         }
+        const salt = await bcrypt.genSalt(12);
+        const hashedPassword = await bcrypt.hash(data.password, salt);
+        data.password = hashedPassword;
+        const entity = await createGenericRepository(data);
 
-        // Crear la entidad usando el repositorio genérico
-        const createdEntity = await createGenericRepository(data);
-        
-        return createdEntity;
+        return entity;
     } catch (error) {
         throw error;
     }

@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import cors from 'cors';
 import cookieParser from "cookie-parser";
-import './src/controllers/User/removeUnverifiedUsersController';
 
 import userRoutes from "@/routes/User/userRoutes";
 import authRoutes from "@/routes/Auth/authRoutes";
