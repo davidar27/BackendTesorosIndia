@@ -2,7 +2,6 @@ import express from "express";
 import { authMiddlewareToken } from "@/middleware/Auth/authMiddlewareToken";
 import { checkRole } from "@/middleware/Auth/checkRole";
 import { getDashboardStatsController } from "@/controllers/Dashboard/getDashboardStatsController";
-import { getDashboardPackagesController } from "@/controllers/Dashboard/packages/getDashboardPackagesController";
 import { getDashboardCategoriesController } from "@/controllers/Dashboard/category/getDashboardCategoriesController";
 import { createEntrepreneursController } from "@/controllers/Dashboard/entreprenaur/createEntrepreneursController";
 import { uploadSingleFile } from "@/config/multerConfig";
@@ -28,7 +27,6 @@ router.post('/emprendedores/crear', authMiddlewareToken, checkRole('administrado
 router.delete('/emprendedores/eliminar/:userId', authMiddlewareToken, checkRole('administrador'), deleteEntrepreneurController);
 
 
-router.get('/paquetes', authMiddlewareToken, checkRole('administrador'), getDashboardPackagesController);
 router.get('/categorias', authMiddlewareToken, checkRole('administrador'), getDashboardCategoriesController);
 
 export default router; 
