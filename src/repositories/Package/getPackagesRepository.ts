@@ -9,7 +9,7 @@ export const getPacksRepository = async () => {
             s.imagen AS image,
             s.incluye_comida AS has_food
         FROM servicio s
-        WHERE s.tipo = 'paquete';
+        WHERE s.tipo = 'paquete' AND s.estado = 'activo';
     `;
     const [rows]: any = await db.execute(sql);
     return rows;
