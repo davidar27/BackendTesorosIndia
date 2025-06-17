@@ -6,7 +6,7 @@ export async function getAllProductsRepository(): Promise<Product[]> {
         SELECT 
             s.servicio_id AS id,
             s.nombre AS name,
-            s.precio AS price,
+            CONCAT(FORMAT(precio, 0, "es_CO")) as price,
             s.imagen AS image,
             COALESCE(ROUND(AVG(v.puntuacion), 2), 0) as rating,
             GROUP_CONCAT(DISTINCT c.nombre SEPARATOR ';') AS category
