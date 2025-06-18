@@ -4,8 +4,12 @@ export interface Product {
     descripcion?: string;
     precio?: number;
     stock?: number;
-    categoria_id?: number;
-    emprendedor_id: number;
-    fecha_creacion?: Date;
+    categoria?: string;
+    categoria_id?: string;
+    emprendedor_id?: string;
+    experiencia_id?: number;
+    fecha_registro?: Date;
     estado?: string;
+    puntuacion?: number;
+    imagen?: string;
 }

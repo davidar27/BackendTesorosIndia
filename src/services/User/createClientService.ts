@@ -18,7 +18,7 @@ export const createClientService = async (clientData: CreateClientData): Promise
             throw new Error('El correo electrónico ya está registrado');
         }
 
-        const salt = await bcrypt.genSalt(10);
+        const salt = await bcrypt.genSalt(12);
         const hashedPassword = await bcrypt.hash(clientData.password, salt);
 
         const userToCreate = User.createClient({

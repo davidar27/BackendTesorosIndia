@@ -9,10 +9,22 @@ import { getAllExperienceController } from "@/controllers/Experience/getAllExper
 import { getExperiencesByCategoryController } from "@/controllers/Experience/getExperiencesByCategoryController";
 import { getMyExperienceController } from "@/controllers/Experience/getMyExperienceController";
 import { getAllNamesExperienceController } from "@/controllers/Experience/getAllNamesExperienceController";
+import { getLocationExperiencesController } from "@/controllers/Experience/getLocationExperiencesController";
+import { getInfoExperienceController } from "@/controllers/Experience/getInfoExperienceController";
+import { getExperienceMembersController } from "@/controllers/Experience/getExperienceMembersController";
+import { getProductsExperienceController } from "@/controllers/Experience/getProductsExperienceController";
+import { getReviewsExperienceController } from "@/controllers/Experience/getReviewsExperienceController";
 
 const router = express.Router();
 
 // Rutas públicas de experiencias
+router.get('/mapa', getLocationExperiencesController);
+
+router.get('/informacion/:id_experience', getInfoExperienceController);
+router.get('/miembros/:id_experience', getExperienceMembersController);
+router.get('/productos/:id_experience', getProductsExperienceController);
+router.get('/valoraciones/:id_experience', getReviewsExperienceController);
+
 router.get('/', getAllExperienceController);
 router.get('/nombre?', getAllNamesExperienceController);
 router.get('/:id', getExperienceByIdController);
