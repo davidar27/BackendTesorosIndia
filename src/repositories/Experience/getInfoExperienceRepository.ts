@@ -7,7 +7,7 @@ export const getInfoExperienceRepository = async (id_experience: number) => {
             e.tipo AS type,
             e.descripcion AS description,
             e.historia AS history
-        FROM experiencia e;
+        FROM experiencia e
         WHERE e.experiencia_id = ?;
     `;
     const [rows]: any = await db.execute(sql, [id_experience]);
