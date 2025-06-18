@@ -12,6 +12,7 @@ import { getAllNamesExperienceController } from "@/controllers/Experience/getAll
 import { getLocationExperiencesController } from "@/controllers/Experience/getLocationExperiencesController";
 import { getInfoExperienceController } from "@/controllers/Experience/getInfoExperienceController";
 import { getExperienceMembersController } from "@/controllers/Experience/getExperienceMembersController";
+import { getProductsExperienceController } from "@/controllers/Experience/getProductsExperienceController";
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ const router = express.Router();
 router.get('/mapa', getLocationExperiencesController);
 router.get('/:id_experience', getInfoExperienceController);
 router.get('/miembros/:id_experience', getExperienceMembersController);
+router.get('/productos/:id_experience', getProductsExperienceController);
 router.get('/', getAllExperienceController);
 router.get('/nombre?', getAllNamesExperienceController);
 router.get('/:id', getExperienceByIdController);
