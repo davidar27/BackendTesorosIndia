@@ -21,9 +21,9 @@ const ENTITY_CONFIGS: Record<string, EntityConfig> = {
     experiencias: {
         table: 'experiencia',
         idColumn: 'experiencia_id',
-        imageColumn: 'logo',
-        extraJoins: 'LEFT JOIN usuario ON emprendedor_id = usuario.usuario_id',
-        extraFields: 'ubicacion as location, tipo as type, logo, usuario.nombre as name_entrepreneur ',
+        imageColumn: 'imagen',
+        extraJoins: 'LEFT JOIN usuario ON experiencia.emprendedor_id = usuario.usuario_id',
+        extraFields: 'ubicacion as location, tipo as type, usuario.nombre as name_entrepreneur',
         defaultOrder: 'experiencia.fecha_registro DESC'
     },
     categorias: {
@@ -32,15 +32,13 @@ const ENTITY_CONFIGS: Record<string, EntityConfig> = {
         extraFields: '(SELECT COUNT(*) FROM servicio_categoria sc WHERE sc.categoria_id = categoria.categoria_id) as productsCount',
         defaultOrder: 'categoria.fecha_registro DESC'
     },
-    paquetes:{
+    paquetes: {
         table: 'servicio',
         idColumn: 'servicio_id',
         imageColumn: 'imagen',
         extraFields: 'CONCAT( FORMAT(precio, 0, "es_CO")) as price, capacidad as capacity, duracion as duration, descripcion as description',
         defaultOrder: 'servicio.fecha_registro DESC'
     }
-    
-    // Añadir más configuraciones según necesites
 };
 
 export const getEntitiesRepository = async (entityType: string): Promise<any[]> => {
@@ -59,7 +57,7 @@ export const getEntitiesRepository = async (entityType: string): Promise<any[]> 
         FROM ${config.table}
         ${config.extraJoins || ''}
         ${entityType === 'emprendedores' ? "WHERE usuario.rol = 'emprendedor'" : ''}
-        ${entityType === 'paquetes' ? "WHERE servicio.tipo = 'paquete'" : '' }
+        ${entityType === 'paquetes' ? "WHERE servicio.tipo = 'paquete'" : ''}
         ORDER BY ${config.defaultOrder || 'id DESC'}
     `;
 

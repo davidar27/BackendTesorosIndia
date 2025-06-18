@@ -1,7 +1,7 @@
 export interface Experience {
     name_experience: string;
     descripcion?: string;
-    logo?: string;
+    image?: string;
     location?: string;
     status?: string;
     type?: string;

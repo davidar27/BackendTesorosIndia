@@ -28,7 +28,8 @@ const ENTITY_CONFIGS: Record<string, EntityConfig> = {
             role: 'rol',
             password: 'contraseña',
             verified: 'verificado',
-            status: 'estado'
+            status: 'estado',
+            experience_id: 'experiencia_id'
         },
         selectFields: [
             'usuario.usuario_id As id',
@@ -37,29 +38,22 @@ const ENTITY_CONFIGS: Record<string, EntityConfig> = {
             'usuario.telefono As phone',
             'usuario.imagen As image',
             'usuario.estado As status',
+            'usuario.experiencia_id As experience_id',
             "DATE_FORMAT(usuario.fecha_registro, '%d/%m/%Y') AS joinDate"
         ],
-        extraJoins: 'LEFT JOIN experiencia ON usuario.usuario_id = experiencia.emprendedor_id',
-        extraFields: 'experiencia.nombre As name_experience',
-        relatedCreates: {
-            table: 'experiencia',
-            idField: 'experiencia_id',
-            referenceField: 'emprendedor_id',
-            fieldMappings: {
-                name_experience: 'nombre'
-            }
-        }
+        extraJoins: 'LEFT JOIN experiencia ON usuario.experiencia_id = experiencia.experiencia_id',
+        extraFields: 'experiencia.nombre As name_experience'
     },
     experiencias: {
         table: 'experiencia',
         idColumn: 'experiencia_id',
-        imageColumn: 'logo',
+        imageColumn: 'imagen',
         fieldMappings: {
             name: 'nombre',
             type: 'tipo',
             location: 'ubicacion',
             description: 'descripcion',
-            image: 'logo'
+            image: 'imagen'
         },
         selectFields: [
             'experiencia.experiencia_id As id',
@@ -67,7 +61,7 @@ const ENTITY_CONFIGS: Record<string, EntityConfig> = {
             'experiencia.tipo As type',
             'experiencia.ubicacion As location',
             'experiencia.descripcion As description',
-            'experiencia.logo As image',
+            'experiencia.imagen As image',
             "DATE_FORMAT(experiencia.fecha_registro, '%d/%m/%Y') AS joinDate"
         ]
     },
@@ -111,7 +105,6 @@ const ENTITY_CONFIGS: Record<string, EntityConfig> = {
 };
 export const createGenericRepository = async (data: any): Promise<Record<string, any>> => {
     const config = ENTITY_CONFIGS[data.entityType];
-    console.log(config);
     if (!config) {
         throw new Error(`Tipo de entidad no soportado: ${data.entityType}`);
     }
@@ -124,8 +117,6 @@ export const createGenericRepository = async (data: any): Promise<Record<string,
         const fields: string[] = [];
         const values: any[] = [];
         const placeholders: string[] = [];
-        console.log(values);
-        
 
         if (data.entityType === 'emprendedores') {
             data.status = 'inactivo';
@@ -152,33 +143,6 @@ export const createGenericRepository = async (data: any): Promise<Record<string,
         
         const [result] = await connection.execute(query, values);
         const insertId = (result as any).insertId;
-
-        if (config.relatedCreates) {
-            const relatedFields: string[] = [];
-            const relatedValues: any[] = [];
-            const relatedPlaceholders: string[] = [];
-
-            Object.entries(data).forEach(([key, value]) => {
-                const dbField = config.relatedCreates?.fieldMappings[key];
-                if (dbField) {
-                    relatedFields.push(dbField);
-                    relatedValues.push(value);
-                    relatedPlaceholders.push('?');
-                }
-            });
-
-            relatedFields.push(config.relatedCreates.referenceField);
-            relatedValues.push(insertId);
-            relatedPlaceholders.push('?');
-
-            const relatedQuery = `
-                INSERT INTO ${config.relatedCreates.table} 
-                (${relatedFields.join(', ')}) 
-                VALUES (${relatedPlaceholders.join(', ')})
-            `;
-
-            await connection.execute(relatedQuery, relatedValues);
-        }
 
         await connection.commit();
 
