@@ -20,7 +20,7 @@ const router = express.Router();
 // Rutas públicas de experiencias
 router.get('/mapa', getLocationExperiencesController);
 
-router.get('/:id_experience', getInfoExperienceController);
+router.get('/informacion/:id_experience', getInfoExperienceController);
 router.get('/miembros/:id_experience', getExperienceMembersController);
 router.get('/productos/:id_experience', getProductsExperienceController);
 router.get('/valoraciones/:id_experience', getReviewsExperienceController);
