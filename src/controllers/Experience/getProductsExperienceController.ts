@@ -8,7 +8,7 @@ export const getProductsExperienceController = async (req: Request, res: Respons
         res.status(200).json(products);
     } catch (error: any) {
         res.status(500).json({
-            error: error.message || "Error al obtener las categorías"
+            error: error.message || "Error al obtener los productos de la experiencia"
         });
     }
 }; 
