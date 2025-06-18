@@ -11,12 +11,14 @@ import { getMyExperienceController } from "@/controllers/Experience/getMyExperie
 import { getAllNamesExperienceController } from "@/controllers/Experience/getAllNamesExperienceController";
 import { getLocationExperiencesController } from "@/controllers/Experience/getLocationExperiencesController";
 import { getInfoExperienceController } from "@/controllers/Experience/getInfoExperienceController";
+import { getExperienceMembersController } from "@/controllers/Experience/getExperienceMembersController";
 
 const router = express.Router();
 
 // Rutas públicas de experiencias
 router.get('/mapa', getLocationExperiencesController);
 router.get('/:id_experience', getInfoExperienceController);
+router.get('/miembros/:id_experience', getExperienceMembersController);
 router.get('/', getAllExperienceController);
 router.get('/nombre?', getAllNamesExperienceController);
 router.get('/:id', getExperienceByIdController);
