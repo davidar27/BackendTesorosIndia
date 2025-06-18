@@ -78,9 +78,7 @@ export const updateGenericRepository = async (
         throw new Error(`Tipo de entidad no soportado: ${entityType}`);
     }
 
-    console.log('Changed Fields:', changedFields);
-    console.log('Entity:', entity);
-    console.log('Mapping:', mapping);
+  
 
     const connection = await db.getConnection();
 
@@ -94,7 +92,6 @@ export const updateGenericRepository = async (
             if (field === 'userId' || field === 'entityType') return;
             
             const dbField = mapping.fieldMappings[field];
-            console.log(`Processing field: ${field}, value: ${value}, dbField: ${dbField}`);
             
             if (dbField) {
                 setClauses.push(`${dbField} = ?`);
@@ -102,14 +99,9 @@ export const updateGenericRepository = async (
             }
         });
 
-        console.log('Set Clauses:', setClauses);
-        console.log('Values:', values);
 
         if (setClauses.length > 0) {
-            const query = `UPDATE ${mapping.table} SET ${setClauses.join(', ')} WHERE ${mapping.idField} = ?`;
-            console.log('Update Query:', query);
-            console.log('Query Values:', [...values, entity[mapping.idField]]);
-            
+            const query = `UPDATE ${mapping.table} SET ${setClauses.join(', ')} WHERE ${mapping.idField} = ?`;            
             await connection.execute(query, [...values, entity[mapping.idField]]);
         }
 

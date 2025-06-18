@@ -14,4 +14,4 @@ export const uploadFiles = upload.fields([
 ]);
 
 // Para subida de un solo archivo
-export const uploadSingleFile = upload.single('image');
+export const uploadSingleFile = upload.single('file');
