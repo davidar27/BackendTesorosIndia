@@ -24,9 +24,9 @@ const entityConfigs: { [key: string]: EntityConfig } = {
         }
     },
     experiencias: {
-        imageField: 'logo',
+        imageField: 'image',
         requiredFields: ['userId'],
-        allowedFields: ['name', 'description', 'logo', 'type', 'location']
+        allowedFields: ['name', 'description', 'image', 'type', 'location']
     },
     categorias: {
         imageField: 'image',
@@ -42,7 +42,14 @@ const entityConfigs: { [key: string]: EntityConfig } = {
 
 export const updateGenericController = async (req: Request, res: Response): Promise<void> => {
     try {
+        console.log('UpdateGenericController - Request body:', req.body);
+        console.log('UpdateGenericController - Request params:', req.params);
+        console.log('UpdateGenericController - Request file:', req.file);
+        console.log('UpdateGenericController - Request headers:', req.headers);
+        console.log('UpdateGenericController - Content-Type:', req.headers['content-type']);
+
         const { userId, entityType } = req.params;
+        console.log('UserId:', userId, 'EntityType:', entityType);
 
         if (!userId) {
             res.status(401).json({ error: 'Usuario no autenticado' });
@@ -65,10 +72,12 @@ export const updateGenericController = async (req: Request, res: Response): Prom
             userId: Number(userId),
             entityType
         };
+        console.log('Initial updateData:', updateData);
 
+        // Handle regular object data
         if (config.allowedFields) {
             Object.entries(req.body).forEach(([key, value]) => {
-                if (config.allowedFields?.includes(key) && value !== undefined) {
+                if (config.allowedFields?.includes(key) && value !== undefined && value !== null) {
                     if (key === config.imageField && typeof value === 'string') {
                         if (!value.startsWith('/images/')) {
                             value = `/images/${value}`;
@@ -79,8 +88,20 @@ export const updateGenericController = async (req: Request, res: Response): Prom
             });
         }
 
+        console.log('UpdateData after processing body:', updateData);
+
+        // Handle file upload
         if (req.file && config.imageField) {
+            console.log('Processing file upload');
+            console.log('File details:', {
+                fieldname: req.file.fieldname,
+                originalname: req.file.originalname,
+                mimetype: req.file.mimetype,
+                size: req.file.size
+            });
+            
             const imageUrl = await uploadToAzureService(req.file);
+            console.log('Image URL from Azure:', imageUrl);
 
             if (imageUrl) {
                 if (currentEntity[config.imageField]) {
@@ -99,6 +120,8 @@ export const updateGenericController = async (req: Request, res: Response): Prom
             }
         }
 
+        console.log('Final updateData:', updateData);
+
         if (config.requiredFields) {
             for (const field of config.requiredFields) {
                 if (!updateData[field]) {
@@ -113,6 +136,7 @@ export const updateGenericController = async (req: Request, res: Response): Prom
         }
 
         const changedFields = await updateGenericService(updateData);
+        console.log('Changed fields from service:', changedFields);
 
         res.status(200).json({
             message: `${entityType} actualizado exitosamente`,

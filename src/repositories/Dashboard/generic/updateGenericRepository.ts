@@ -23,6 +23,7 @@ const entityMappings: EntityMapping = {
             email: 'correo',
             phone: 'telefono',
             image: 'imagen',
+            experience_id: 'experiencia_id'
         },
         relatedUpdates: {
             table: 'experiencia',
@@ -41,7 +42,7 @@ const entityMappings: EntityMapping = {
             type: 'tipo',
             location: 'ubicacion',
             description: 'descripcion',
-            image: 'logo'
+            image: 'imagen'
         }
     },
     categorias: {
@@ -77,32 +78,41 @@ export const updateGenericRepository = async (
         throw new Error(`Tipo de entidad no soportado: ${entityType}`);
     }
 
+    console.log('Changed Fields:', changedFields);
+    console.log('Entity:', entity);
+    console.log('Mapping:', mapping);
+
     const connection = await db.getConnection();
 
     try {
         await connection.beginTransaction();
 
-        // Actualizar la entidad principal
         const setClauses: string[] = [];
         const values: any[] = [];
 
-        // Filtrar solo los campos que existen en el mapeo
         Object.entries(changedFields).forEach(([field, value]) => {
-            if (field === 'userId' || field === 'entityType') return; // Ignorar campos especiales
+            if (field === 'userId' || field === 'entityType') return;
             
             const dbField = mapping.fieldMappings[field];
+            console.log(`Processing field: ${field}, value: ${value}, dbField: ${dbField}`);
+            
             if (dbField) {
                 setClauses.push(`${dbField} = ?`);
                 values.push(value);
             }
         });
 
+        console.log('Set Clauses:', setClauses);
+        console.log('Values:', values);
+
         if (setClauses.length > 0) {
             const query = `UPDATE ${mapping.table} SET ${setClauses.join(', ')} WHERE ${mapping.idField} = ?`;
+            console.log('Update Query:', query);
+            console.log('Query Values:', [...values, entity[mapping.idField]]);
+            
             await connection.execute(query, [...values, entity[mapping.idField]]);
         }
 
-        // Manejar actualizaciones relacionadas (como el nombre de la experiencia)
         if (mapping.relatedUpdates) {
             const relatedSetClauses: string[] = [];
             const relatedValues: any[] = [];
@@ -127,6 +137,7 @@ export const updateGenericRepository = async (
 
         await connection.commit();
     } catch (error) {
+        console.error('Error in updateGenericRepository:', error);
         await connection.rollback();
         throw error;
     } finally {
