@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { cartMiddleware } from '@/middleware/cart/cartMiddleware';
-import { addProductController } from '@/controllers/Cart/addProductController';
-import { updateQuantityController } from '@/controllers/Cart/updateQuantityController';
-import { deleteProductController } from '@/controllers/Cart/deleteProductController';
+import { addProductCartController } from '@/controllers/Cart/addProductController';
+import { updateQuantityCartController } from '@/controllers/Cart/updateQuantityController';
+import { deleteProductCartController } from '@/controllers/Cart/deleteProductController';
 import { emptyCartController } from '@/controllers/Cart/emptyCartController';
 import { getCartController } from '@/controllers/Cart/getCartController';
 import { authMiddlewareToken } from '@/middleware/Auth/authMiddlewareToken';
@@ -10,19 +10,10 @@ import { checkRole } from '@/middleware/Auth/checkRole';
 
 const router = Router();
 
-// Agregar producto al carrito 
-router.post('/add', authMiddlewareToken, checkRole('cliente'), cartMiddleware, addProductController);
-
-// Actualizar cantidad de un producto 
-router.put('/update', authMiddlewareToken, checkRole('cliente'), cartMiddleware, updateQuantityController);
-
-// Eliminar un producto del carrito
-router.delete('/remove', authMiddlewareToken, checkRole('cliente'), cartMiddleware, deleteProductController);
-
-// Vaciar el carrito del cliente
-router.delete('/clear', authMiddlewareToken, checkRole('cliente'), emptyCartController);
-
-// Consultar el contenido del carrito
-router.get('/get', authMiddlewareToken, checkRole('cliente'), getCartController);
+router.post('/agregar', authMiddlewareToken, checkRole('cliente'), cartMiddleware, addProductCartController);
+router.put('/actualizar', authMiddlewareToken, checkRole('cliente'), cartMiddleware, updateQuantityCartController);
+router.delete('/eliminar', authMiddlewareToken, checkRole('cliente'), cartMiddleware, deleteProductCartController);
+router.delete('/vaciar', authMiddlewareToken, checkRole('cliente'), emptyCartController);
+router.get('/obtener', authMiddlewareToken, checkRole('cliente'), getCartController);
 
 export default router;

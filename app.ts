@@ -14,7 +14,9 @@ import experienceRoutes from "@/routes/Experience/ExperienceRoutes";
 import reviewsRoutes from "@/routes/Comments/reviewsRoutes";
 import dashboardRoutes from "@/routes/Dashboard/dashboardRoutes";
 import imageRoutes from "@/routes/Azure/imageRoutes";
-// import cartRoutes from "./src/routes/Cart/cartRoutes"
+import cartRoutes from "@/routes/cart/cartRoutes"
+
+
 
 dotenv.config();
 
@@ -36,7 +38,7 @@ app.use(express.json());
 // 🟢 Rutas
 app.use('/usuario', userRoutes);
 app.use('/auth', authRoutes);
-// app.use('/carrito', cartRoutes);
+app.use('/carrito',cartRoutes );
 app.use('/productos', productRoutes);
 app.use('/categorias', categoryRoutes);
 app.use('/experiencias', experienceRoutes);

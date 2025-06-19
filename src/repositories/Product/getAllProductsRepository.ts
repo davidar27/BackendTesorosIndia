@@ -9,11 +9,13 @@ export async function getAllProductsRepository(): Promise<Product[]> {
             CONCAT(FORMAT(precio, 0, "es_CO")) as price,
             s.imagen AS image,
             COALESCE(ROUND(AVG(v.puntuacion), 2), 0) as rating,
-            GROUP_CONCAT(DISTINCT c.nombre SEPARATOR ';') AS category
+            GROUP_CONCAT(DISTINCT c.nombre SEPARATOR ';') AS category,
+            s.experiencia_id as experience_id
         FROM servicio s
         LEFT JOIN valoracion v ON s.servicio_id = v.producto_id
         LEFT JOIN servicio_categoria sc ON sc.servicio_id = s.servicio_id
         LEFT JOIN categoria c ON c.categoria_id = sc.categoria_id
+        LEFT JOIN experiencia e ON e.experiencia_id = s.experiencia_id
         WHERE s.estado = 'activo' AND s.tipo = 'producto'
         GROUP BY 
             s.nombre, 
