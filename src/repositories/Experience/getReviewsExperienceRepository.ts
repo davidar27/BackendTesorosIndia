@@ -16,6 +16,6 @@ export const getReviewsExperienceRepository = async (experience_id: number) => {
         WHERE e.experiencia_id = ?
         ORDER BY v.fecha_creacion DESC;
     `;
-    const [rows]: any = await db.execute(sql, experience_id);
+    const [rows]: any = await db.execute(sql, [experience_id]);
     return rows;
 }; 

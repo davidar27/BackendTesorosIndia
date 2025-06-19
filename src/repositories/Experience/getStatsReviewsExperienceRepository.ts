@@ -15,6 +15,6 @@ export const getStatsReviewsExperienceRepository = async (experience_id: number)
         WHERE e.experiencia_id = ?
         GROUP BY e.experiencia_id;
     `;
-    const [rows]: any = await db.execute(sql, experience_id);
+    const [rows]: any = await db.execute(sql, [experience_id]);
     return rows;
 }; 

@@ -4,5 +4,5 @@ import { getStatsReviewsExperienceRepository } from "@/repositories/Experience/g
 export const getReviewsExperienceService = async (experience_id: number) => {
     const stats = await getStatsReviewsExperienceRepository(experience_id);
     const reviews = await getReviewsExperienceRepository(experience_id);
-    return { stats: stats, reviews: reviews }
+    return { stats: stats[0], reviews: reviews }
 }; 

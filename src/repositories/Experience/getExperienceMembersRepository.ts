@@ -11,6 +11,6 @@ export const getExperienceMembersRepository = async (experience_id: number) => {
         JOIN experiencia e ON i.experiencia_id = e.experiencia_id
         WHERE e.experiencia_id = ?;
     `;
-    const [rows]: any = await db.execute(sql, experience_id);
+    const [rows]: any = await db.execute(sql, [experience_id]);
     return rows;
 }; 
