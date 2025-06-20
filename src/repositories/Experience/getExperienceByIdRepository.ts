@@ -5,9 +5,7 @@ export const getExperienceByIdRepository = async (id: number, entrepreneur_id: n
         SELECT * FROM experiencia 
         WHERE experiencia_id = ? AND emprendedor_id = ?
     `;
-
     const values = [id, entrepreneur_id];
-
     try {
         const [rows]: any = await db.execute(query, values);
         return rows[0] || null;
