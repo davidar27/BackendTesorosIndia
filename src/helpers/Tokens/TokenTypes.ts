@@ -1,5 +1,6 @@
-import { UserRole } from '@/models/Auth/Auth';
+import { TokenData } from '@/models/Auth/Auth';
 import crypto from 'crypto';
+import { TokenPayload } from '@/models/Auth/Auth';
 
 export const TOKEN_EXPIRATION = {
     ACCESS: '5m',
@@ -7,20 +8,6 @@ export const TOKEN_EXPIRATION = {
     VERIFICATION: '24h',
     PASSWORD_RESET: '1h'
 } as const;
-
-export interface TokenData {
-    userId: number;
-    name?: string;
-    role?: UserRole;
-    email?: string;
-}
-
-export interface TokenPayload {
-    data: TokenData;
-    jti: string;
-    token_version: number;
-    purpose?: string;
-}
 
 export const createTokenPayload = (data: TokenData, token_version: number, purpose?: string): TokenPayload => {
     if (!data.userId) {

@@ -31,9 +31,9 @@ export const refreshTokenService = async (refreshToken: string) => {
         });
     }
 
-    const newAccessToken = generateAccessToken(Number(userId), user.name, user.role as UserRole, user.token_version);
-    const newRefreshToken = generateRefreshToken(Number(userId), user.name, user.role as UserRole, user.token_version);
-    
+    const newAccessToken = generateAccessToken(Number(userId), user.name, user.role as UserRole, user.token_version, user.experience_id, user.image);
+    const newRefreshToken = generateRefreshToken(Number(userId), user.name, user.role as UserRole, user.token_version, user.experience_id, user.image);
+
     return {
         accessToken: newAccessToken,
         refreshToken: newRefreshToken,

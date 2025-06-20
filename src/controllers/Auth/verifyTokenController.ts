@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { verifyTokenPayload } from '@/helpers/Tokens/verifyTokenPayload';
 import { ACCESS_TOKEN_SECRET } from '@/helpers/Tokens/TokenSecrets';
+import { findByIdUserService } from '@/services/User/findByIdUserService';
 
 export const verifyTokenController = async (req: Request, res: Response) => {
     try {
@@ -14,10 +15,28 @@ export const verifyTokenController = async (req: Request, res: Response) => {
         }
 
         const payload = verifyTokenPayload(token, ACCESS_TOKEN_SECRET);
+        
+        const user = await findByIdUserService(payload.data.userId);
+        
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'Usuario no encontrado'
+            });
+        }
 
         return res.json({
             success: true,
-            user: payload,
+            user: {
+                userId: user.userId,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                image: user.image,
+                experience_id: user.experience_id,
+                verified: user.verified,
+                status: user.status
+            },
             code: 'VALITED_TOKEN'
         });
 

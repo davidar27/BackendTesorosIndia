@@ -26,6 +26,6 @@ export const verifyRefreshToken = async (token: string): Promise<{ userId: numbe
 
     return {
         userId: data.data.userId,
-        token_version: user.token_version
+        token_version: data.token_version
     };
 };
