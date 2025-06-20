@@ -6,6 +6,8 @@ dotenv.config();
 interface Data {
     userId: number;
     role: "cliente" | "administrador" | "emprendedor";
+    experience_id?: number;
+    image?: string;
 }
 
 interface JwtPayload {
@@ -60,7 +62,7 @@ export const authMiddlewareToken = async (req: Request, res: Response, next: Nex
             return res.status(401).json({
                 message: "Token expired",
                 error: error.message,
-                redirectTo: "/login"
+                redirectTo: "/iniciar-sesion"
             });
         }
 

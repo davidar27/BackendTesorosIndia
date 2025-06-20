@@ -11,6 +11,7 @@ interface BaseUserProps {
     status?:string,
     image?: string;
     token_version?: number;
+
 }
 
 // Propiedades específicas para clientes
@@ -26,6 +27,7 @@ export interface EntrepreneurProps extends BaseUserProps {
     name_experience: string;
     description?: string;
     address?: never;
+    experience_id?: number;
 }
 
 // Propiedades específicas para administradores
@@ -101,8 +103,14 @@ export class User {
     get verified(): boolean { return this._data.verified || false; }
     get role(): UserRole { return this._data.role; }
     get image(): string { return this._data.image || ''; }
-    get status(): string { return this._data.status || ''}
+    get status(): string { return this._data.status || ''; }
     get token_version(): number { return this._data.token_version || 0; }
+    get experience_id(): number | undefined { 
+        if (this._data.role === 'emprendedor') {
+            return 'experience_id' in this._data ? this._data.experience_id : undefined;
+        }
+        return undefined;
+    }
 
     // Getters condicionales basados en el rol
 

@@ -4,12 +4,24 @@ import UserAuth from '@/models/Auth/userAuth';
 import { loginResult } from '@/models/Auth/Auth';
 
 export const authUserRepository = async (user: UserAuth): Promise<loginResult> => {
-    const sql = `SELECT usuario_id, contraseña, rol, nombre, verificado, token_version FROM usuario WHERE correo = ?`;
+    const sql = `SELECT 
+    u.usuario_id,
+    u.contraseña,
+    u.rol,
+    u.nombre,
+    u.verificado,
+    u.token_version,
+    u.imagen,
+    e.experiencia_id AS experience_id
+    FROM usuario u
+    LEFT JOIN experiencia e ON u.usuario_id = e.emprendedor_id
+    WHERE u.correo = ?;`;
     const values = [user.email];
 
     try {
         const result: any = await db.execute(sql, values);
         const userRecord = result[0][0];
+        
 
         if (!userRecord) {
             return {
@@ -46,7 +58,9 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
             userId: userRecord.usuario_id,
             role: userRecord.rol,
             name: userRecord.nombre,
-            token_version: userRecord.token_version
+            token_version: userRecord.token_version,
+            experience_id: userRecord.experience_id,
+            image: userRecord.imagen || ''
         };
 
     } catch (error) {
