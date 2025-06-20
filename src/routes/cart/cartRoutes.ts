@@ -16,4 +16,5 @@ router.delete('/eliminar', authMiddlewareToken, checkRole('cliente'), cartMiddle
 router.delete('/vaciar', authMiddlewareToken, checkRole('cliente'), emptyCartController);
 router.get('/obtener', authMiddlewareToken, checkRole('cliente'), getCartController);
 
+
 export default router;
