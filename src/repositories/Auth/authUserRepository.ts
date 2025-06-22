@@ -12,6 +12,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
     u.verificado,
     u.token_version,
     u.imagen,
+    u.estado,
     e.experiencia_id AS experience_id
     FROM usuario u
     LEFT JOIN experiencia e ON u.usuario_id = e.emprendedor_id
@@ -21,7 +22,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
     try {
         const result: any = await db.execute(sql, values);
         const userRecord = result[0][0];
-        
+
 
         if (!userRecord) {
             return {
@@ -31,7 +32,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
                 errorType: "general",
             };
         }
-
+        
         if (!userRecord.verificado) {
             return {
                 logged: false,
@@ -40,6 +41,16 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
                 errorType: "unverified",
                 userId: userRecord.usuario_id
             };
+        }
+        
+        if (userRecord.estado !== 'activo') {
+            return {
+                logged: false,
+                status: "Cuenta Inactiva",
+                message: "Por motivos de la empresa tu cuenta a sido suspendida",
+                errorType: "inactive",
+                userId: userRecord.usuario_id
+            }
         }
 
         const passwordMatch = await bcrypt.compare(user.password, userRecord.contraseña);
