@@ -8,7 +8,7 @@ export const updateInfoExperienceController = async (req: Request, res: Response
     try {
         const { experience_id } = req.params;
         const { description, history } = req.body;
-        const entrepreneur_id = req.body.user_id;
+        const entrepreneur_id = req.body.userId;
         const image: any = req.file;
         const experience = await getExperienceByIdService(Number(experience_id), entrepreneur_id);
         if (!experience) {

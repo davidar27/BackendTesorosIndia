@@ -1,19 +1,39 @@
 import db from '@/config/db';
+import { calculatePriceWithTax } from '@/helpers/price/calculatePriceWithTax';
 
-export const getCartRepository = async (user_id: number): Promise<any[]> => {
+
+
+export const getCartRepository = async (userId: number): Promise<any[]> => {
     const [rows] = await db.query(
         `
-            SELECT 
-                c.carrito_id AS cart_id,
-                c.servicio_id AS product_id,
-                s.nombre AS name,
-                c.cantidad AS quantity,
-                s.precio AS price
-            FROM carrito c
-            JOIN servicio s ON c.servicio_id = s.servicio_id
-            WHERE c.cliente_id = ?;
-        `
-        [user_id]
+      SELECT 
+        c.carrito_id AS cartId,
+        c.servicio_id AS productId,
+        s.nombre AS name,
+        c.cantidad AS quantity,
+        s.precio AS price,
+        s.imagen as image,
+        s.stock
+      FROM carrito c
+      JOIN servicio s ON c.servicio_id = s.servicio_id
+      WHERE c.cliente_id = ?;
+    `,
+        [userId]
     );
-    return rows as any[];
+    console.log(rows);
+
+
+    const result = (rows as any[]).map(row => {
+        const price = Number(row.price);
+        return {
+            ...row,
+            priceWithTax: calculatePriceWithTax(price),
+        };
+    });
+
+
+    console.log(result);
+
+
+    return result;
 };
