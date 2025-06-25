@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import { getProductRepository } from '@/repositories/Cart/getProductRepository';
 
 export const cartMiddleware: any = async (req: Request, res: Response, next: NextFunction) => {
-    const { product_id, quantity } = req.body.productId || req.params.product_id;
+    const { productId, quantity } = req.body     
     try {
-        const product = await getProductRepository(product_id);
+        const product = await getProductRepository(productId);
         if (product.length === 0) {
             return res.status(404).json({ error: 'El producto no existe.' });
         }

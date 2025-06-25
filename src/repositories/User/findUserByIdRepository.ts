@@ -1,7 +1,7 @@
 import db from '@/config/db';
 import { User } from '@/models/User/User';
 
-export const findUserByIdRepository = async (userId: number): Promise<User | null> => {
+export const findUserByIdRepository = async (id: number): Promise<User | null> => {    
     const sql = `
         SELECT 
     u.usuario_id,
@@ -22,7 +22,7 @@ export const findUserByIdRepository = async (userId: number): Promise<User | nul
     `;
 
     try {
-        const [rows]: any = await db.execute(sql, [userId]);
+        const [rows]: any = await db.execute(sql, [id]);
         if (rows.length === 0) return null;
 
         const row = rows[0];

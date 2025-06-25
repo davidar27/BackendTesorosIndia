@@ -3,7 +3,7 @@ import { Product } from '@/models/Product/Product';
 
 export async function createProductRepository(product: Product): Promise<number> {
     // Verificar si el producto ya existe
-    const checkSql = `SELECT producto_id FROM producto WHERE nombre = ? AND emprendedor_id = ?`;
+    const checkSql = `SELECT servicio_id FROM servicio WHERE nombre = ? AND emprendedor_id = ? AND tipo = 'producto'`;
     const checkValues = [product.nombre, product.emprendedor_id];
 
     const [existing]: any = await db.execute(checkSql, checkValues);

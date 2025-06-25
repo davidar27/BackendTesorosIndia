@@ -1,13 +1,16 @@
 import db from '@/config/db';
+import { calculatePriceWithTax } from '@/helpers/price/calculatePriceWithTax';
 import { Product } from '@/models/Product/Product';
 
 export async function getAllProductsRepository(): Promise<Product[]> {
-    const sql = `
-        SELECT 
+    const [rows] = await db.query(
+        `
+      SELECT 
             s.servicio_id AS id,
             s.nombre AS name,
-            CONCAT(FORMAT(precio, 0, "es_CO")) as price,
+            s.precio AS price,
             s.imagen AS image,
+            s.stock,
             COALESCE(ROUND(AVG(v.puntuacion), 2), 0) as rating,
             GROUP_CONCAT(DISTINCT c.nombre SEPARATOR ';') AS category,
             s.experiencia_id as experience_id
@@ -24,7 +27,17 @@ export async function getAllProductsRepository(): Promise<Product[]> {
             c.nombre,
             s.servicio_id
         ORDER BY s.nombre ASC;
-    `;
-    const [rows]: any = await db.execute(sql);
-    return rows;
+        `
+    );
+
+    const result = (rows as any[]).map(row => {
+        const price = Number(row.price);
+        return {
+            ...row,
+            price,
+            priceWithTax: calculatePriceWithTax(price),
+        };
+    });
+
+    return result;
 }

@@ -7,11 +7,13 @@ import { changeStatusController } from "@/controllers/Dashboard/generic/changeSt
 import { getEntitiesController } from "@/controllers/Dashboard/generic/getEntitiesController";
 import { updateGenericController } from "@/controllers/Dashboard/generic/updateGenericController";
 import { createGenericController } from "@/controllers/Dashboard/generic/createGenericController";
+import { getDetailsController } from "@/controllers/Dashboard/packages/getPackagesController copy";
 
 const router = express.Router();
 
 // Rutas del dashboard (solo para administradores)
 router.get('/estadisticas', authMiddlewareToken, checkRole('administrador'), getDashboardStatsController);
+router.get('/detalles', authMiddlewareToken, checkRole('administrador'), getDetailsController);
 
 
 router.patch('/estado/:entityType/:id', authMiddlewareToken, checkRole('administrador'), changeStatusController);

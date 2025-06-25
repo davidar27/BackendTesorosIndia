@@ -5,20 +5,15 @@ import { uploadToAzureService } from '@/services/Azure/uploadToAzureService';
 
 export const updateClientController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userId = req.user?.userId;
-        if (!userId) {
+        const { id } = req.params;
+        if (!id) {
             res.status(401).json({ error: 'Usuario no autenticado' });
             return;
         }
 
-        const currentUser = await findByIdUserService(userId);
+        const currentUser = await findByIdUserService(Number(id));
         if (!currentUser) {
             res.status(404).json({ error: 'Usuario no encontrado' });
-            return;
-        }
-
-        if (currentUser.role !== 'cliente') {
-            res.status(403).json({ error: 'Acceso no autorizado' });
             return;
         }
 
@@ -31,7 +26,7 @@ export const updateClientController = async (req: Request, res: Response): Promi
         }
 
         const updateData = {
-            userId,
+            id,
             ...(req.body.name && { name: req.body.name }),
             ...(req.body.phone && { phone: req.body.phone }),
             ...(imageUrl && { image: imageUrl }),
@@ -46,8 +41,8 @@ export const updateClientController = async (req: Request, res: Response): Promi
         });
     } catch (error: any) {
         console.error('Error en updateClientController:', error);
-        res.status(500).json({ 
-            error: error.message || 'Error al actualizar el cliente' 
+        res.status(500).json({
+            error: error.message || 'Error al actualizar el cliente'
         });
     }
 }; 

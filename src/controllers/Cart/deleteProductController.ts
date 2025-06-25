@@ -3,8 +3,8 @@ import { deleteProductCartService } from '@/services/Cart/deleteProductCartServi
 
 export const deleteProductCartController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { user_id, product_id } = req.body;
-        const result = await deleteProductCartService(user_id, product_id);
+        const { userId, productId } = req.body;
+        const result = await deleteProductCartService(userId, productId);
         res.status(200).send(result);
     } catch (error) {
         res.status(400).send(error || "Error al eliminar el producto.");

@@ -15,6 +15,7 @@ import reviewsRoutes from "@/routes/Comments/reviewsRoutes";
 import dashboardRoutes from "@/routes/Dashboard/dashboardRoutes";
 import imageRoutes from "@/routes/Azure/imageRoutes";
 import cartRoutes from "@/routes/Cart/cartRoutes"
+import paymentRoutes from '@/routes/Payment/paymentRoutes';
 
 dotenv.config();
 
@@ -41,7 +42,7 @@ app.use('/productos', productRoutes);
 app.use('/categorias', categoryRoutes);
 app.use('/experiencias', experienceRoutes);
 app.use('/dashboard', dashboardRoutes);
-/* app.use('/pagos', payRoutes ); */
+app.use('/pagos', paymentRoutes);
 app.use('/paquetes', packageRoutes );
 app.use('/comentarios', reviewsRoutes);
 app.use('/images', imageRoutes);

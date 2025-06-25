@@ -1,18 +1,23 @@
 import db from '@/config/db';
 
-export const addProductCartRepository = async (user_id: number, product_id: number): Promise<any> => {
+export const addProductCartRepository = async (userId: number, productId: number): Promise<string> => {
     const [rows]: any[] = await db.query(
-        'SELECT * FROM carrito WHERE cliente_id = ? AND servicio_id = ?',
-        [user_id, product_id]
+        'SELECT cantidad FROM carrito WHERE cliente_id = ? AND servicio_id = ?',
+        [userId, productId]
     );
+
     if (rows.length > 0) {
-        return "El producto ya ha sido agregado previamente."
+        const nuevaCantidad = rows[0].cantidad + 1;
+        await db.query(
+            'UPDATE carrito SET cantidad = ? WHERE cliente_id = ? AND servicio_id = ?',
+            [nuevaCantidad, userId, productId]
+        );
+        return "Cantidad del producto actualizada en el carrito.";
     } else {
         await db.query(
             'INSERT INTO carrito (cliente_id, servicio_id, cantidad) VALUES (?, ?, ?)',
-            [user_id, product_id, 1]
+            [userId, productId, 1]
         );
-        return "El producto ha sido agregado."
+        return "El producto ha sido agregado al carrito.";
     }
 };
-2

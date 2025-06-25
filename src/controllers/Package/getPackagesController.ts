@@ -1,4 +1,4 @@
-import { getPacksService } from '@/services/Pack/getPackagesService';
+import { getPacksService } from '@/services/Package/getPackagesService';
 import { Request, Response } from 'express';
 
 export const getPacksController = async (req: Request, res: Response): Promise<void> => {

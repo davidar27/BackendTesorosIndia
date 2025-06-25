@@ -4,7 +4,7 @@ export const getReviewsExperienceRepository = async (experience_id: number) => {
     const sql = `
         SELECT 
             v.valoracion_id AS review_id,
-            u.usuario_id AS user_id,
+            u.usuario_id AS userId,
             u.nombre AS user_name,
             u.imagen AS user_image,
             v.fecha_creacion AS review_date,
