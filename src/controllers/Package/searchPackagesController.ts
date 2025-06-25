@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { searchExperiencesService } from '@/services/Experience/searchExperiencesService';
+import { searchPackagesService } from '@/services/Package/searchPackagesService';
 
-export const searchExperiencesController = async (req: Request, res: Response): Promise<void> => {
+export const searchPackagesController = async (req: Request, res: Response): Promise<void> => {
     try {
         const { q, search } = req.query;
         const query = typeof q === 'string' ? q : typeof search === 'string' ? search : null;
@@ -14,17 +14,17 @@ export const searchExperiencesController = async (req: Request, res: Response): 
             return;
         }
 
-        const experiences = await searchExperiencesService(query);
+        const packages = await searchPackagesService(query);
 
         res.status(200).json({
-           experiences
+            packages
         });
 
     } catch (error) {
-        console.error('Error en searchExperiencesController:', error);
+        console.error('Error en searchPackagesController:', error);
         res.status(500).json({
             success: false,
-            message: 'Error interno del servidor al buscar experiencias'
+            message: 'Error interno del servidor al buscar paquetes'
         });
     }
 }; 

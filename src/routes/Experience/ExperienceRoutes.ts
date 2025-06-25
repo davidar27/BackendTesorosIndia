@@ -29,10 +29,9 @@ router.get('/miembros/:id_experience', getExperienceMembersController);
 router.get('/productos/:id_experience', getProductsExperienceController);
 router.get('/valoraciones/:id_experience', getReviewsExperienceController);
 
-router.get('/', getAllExperienceController);
-router.get('/nombre?', getAllNamesExperienceController);
-router.get('/:id', getExperienceByIdController);
+router.get('/nombre', getAllNamesExperienceController);
 router.get('/categorias/:categoryId', getExperiencesByCategoryController);
+router.get('/:id', getExperienceByIdController);
 
 // Rutas privadas de experiencias
 router.get('/mi-experiencia', authMiddlewareToken, checkRole('emprendedor'), getMyExperienceController);
@@ -41,5 +40,6 @@ router.get('/mi-experiencia', authMiddlewareToken, checkRole('emprendedor'), get
 router.put("/actualizar-informacion/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), updateInfoExperienceController);
 router.delete("/eliminar/:id", authMiddlewareToken, checkRole('emprendedor'), deleteExperienceController);
 
+router.get('/', getAllExperienceController);
 
 export default router;

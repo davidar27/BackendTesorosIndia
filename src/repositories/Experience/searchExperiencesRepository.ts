@@ -9,7 +9,9 @@ export const searchExperiencesRepository = async (searchTerm: string): Promise<S
     const sql = `
         SELECT 
             experiencia_id AS id, 
-            nombre AS name_experience 
+            nombre AS name_experience,
+            imagen as image,
+            tipo as type
         FROM experiencia 
         WHERE estado = 'publicada' 
         AND nombre LIKE ? 
