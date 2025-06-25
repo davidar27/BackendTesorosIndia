@@ -11,9 +11,7 @@ export interface UserProfile {
     phone: string | null;
 }
 
-export const getProfileRepository = async (id: number): Promise<UserProfile | null> => {
-    console.log(id);
-    
+export const getProfileRepository = async (id: number): Promise<UserProfile | null> => {    
     const sql = `
     SELECT 
       u.usuario_id AS id,

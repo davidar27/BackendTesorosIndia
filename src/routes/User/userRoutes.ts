@@ -11,9 +11,9 @@ import { getProfileController } from '@/controllers/User/getProfileController';
 
 const router = express.Router();
 
-router.get('/emprendedores', getEntrepreneurController);
 
 router.get('/perfil/:id',getProfileController)
+
 router.put('/perfil/:id', authMiddlewareToken, uploadSingleFile, updateClientController);
 
 
@@ -21,5 +21,6 @@ router.put('/perfil/:id', authMiddlewareToken, uploadSingleFile, updateClientCon
 router.post('/registro', uploadFiles, register_validador.validatorParam, register_validador.validator, createUserController);
 router.delete('/eliminar/:id', authMiddlewareToken, checkRole('administrador'), deleteUserController);
 
+router.get('/emprendedores', getEntrepreneurController);
 
 export default router;

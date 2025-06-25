@@ -1,21 +1,20 @@
 import { Request, Response } from 'express';
 import { updateClientService } from '@/services/User/updateClientService';
-import { findByIdUserService } from '@/services/User/findByIdUserService';
 import { uploadToAzureService } from '@/services/Azure/uploadToAzureService';
 
 export const updateClientController = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        if (!id) {
+
+        const userId = Number(id);
+
+        
+        if (!userId) {
             res.status(401).json({ error: 'Usuario no autenticado' });
             return;
         }
 
-        const currentUser = await findByIdUserService(Number(id));
-        if (!currentUser) {
-            res.status(404).json({ error: 'Usuario no encontrado' });
-            return;
-        }
+        
 
         let imageUrl: string | undefined;
         if (req.file) {
@@ -26,7 +25,7 @@ export const updateClientController = async (req: Request, res: Response): Promi
         }
 
         const updateData = {
-            id,
+            userId: Number(userId),
             ...(req.body.name && { name: req.body.name }),
             ...(req.body.phone && { phone: req.body.phone }),
             ...(imageUrl && { image: imageUrl }),

@@ -24,6 +24,10 @@ export const findByIdGenericService = async (
             tableName = 'paquete';
             idColumn = 'paquete_id';
             break;
+        case 'cliente':
+            tableName = 'usuario';
+            idColumn = 'usuario_id';
+            break;
         default:
             throw new Error('Tipo de entidad no válido');
     }

@@ -4,7 +4,6 @@ import { Request, Response } from 'express';
 export const getProfileController = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
-        console.log(id);
 
         const profile = await getProfileService(Number(id));
 
