@@ -4,12 +4,12 @@ import { Request, Response } from 'express';
 
 export const updateMemberController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { experience_id } = req.params
+        const { member_id } = req.params
         const { age, description, profession, name } = req.body
         const member: Member = {
             age: age,
             description: description,
-            experience_id: parseInt(experience_id),
+            member_id: parseInt(member_id),
             name: name,
             profession: profession
         }
