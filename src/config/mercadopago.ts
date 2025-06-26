@@ -1,7 +1,5 @@
-import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { MercadoPagoConfig } from 'mercadopago';
 
-const mercadopagoClient = new MercadoPagoConfig({
-  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN || '',
+export const mercadopagoClient = new MercadoPagoConfig({
+    accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN || '',
 });
-
-export { mercadopagoClient, Preference };

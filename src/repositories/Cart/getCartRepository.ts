@@ -20,7 +20,6 @@ export const getCartRepository = async (userId: number): Promise<any[]> => {
     `,
         [userId]
     );
-    console.log(rows);
 
 
     const result = (rows as any[]).map(row => {
@@ -32,7 +31,6 @@ export const getCartRepository = async (userId: number): Promise<any[]> => {
     });
 
 
-    console.log(result);
 
 
     return result;
