@@ -15,6 +15,7 @@ import { getExperienceMembersController } from "@/controllers/Experience/getExpe
 import { getProductsExperienceController } from "@/controllers/Experience/getProductsExperienceController";
 import { getReviewsExperienceController } from "@/controllers/Experience/getReviewsExperienceController";
 import { searchExperiencesController } from "@/controllers/Experience/searchExperiencesController";
+import { addMemberController } from "@/controllers/Experience/Members/addMemberController";
 
 const router = express.Router();
 
@@ -38,6 +39,10 @@ router.get('/mi-experiencia', authMiddlewareToken, checkRole('emprendedor'), get
 
 // actualizar experiencia (proceso)
 router.put("/actualizar-informacion/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), updateInfoExperienceController);
+
+// rutas de integrantes
+router.post("/integrantes/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), addMemberController);
+
 router.delete("/eliminar/:id", authMiddlewareToken, checkRole('emprendedor'), deleteExperienceController);
 
 router.get('/', getAllExperienceController);
