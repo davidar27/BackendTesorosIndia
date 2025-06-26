@@ -1,8 +1,9 @@
-import { MercadoPagoConfig, Preference } from 'mercadopago';
+import {  Preference } from 'mercadopago';
 import { Request, Response } from 'express';
 import { mercadopagoClient } from '@/config/mercadopago';
 
 const FRONTEND_URL = process.env.FRONTEND_URL;
+    
 
 export const handlerPreference = async (req: Request, res: Response) => {
     try {
@@ -27,6 +28,7 @@ export const handlerPreference = async (req: Request, res: Response) => {
                     failure: `${FRONTEND_URL}/pago-fallido`,
                     pending: `${FRONTEND_URL}/pago-pendiente`
                 },
+                
                 auto_return: 'approved',
                 payment_methods: {
                     installments: 1,
