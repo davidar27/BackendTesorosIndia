@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import { webhookController } from '../../controllers/Payment/webhookController';
-import { createBrickPreferenceController } from '../../controllers/Payment/createBrickPreferenceController';
+import { handlerPreference } from '@/controllers/Payment/Preference'
 
 const router = Router();
+router.post('/preferencia', handlerPreference);
+// router.post('/webhook', webhookController);
 
-router.post('/webhook', webhookController);
-router.post('/preferencia', createBrickPreferenceController);
+
+
 
 export default router; 
