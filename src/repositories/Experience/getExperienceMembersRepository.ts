@@ -6,7 +6,8 @@ export const getExperienceMembersRepository = async (experience_id: number) => {
             i.nombre AS name,
             i.profesion AS profession,
             i.edad AS age,
-            i.descripcion AS description
+            i.descripcion AS description,
+            i.imagen AS image
         FROM integrantes i
         JOIN experiencia e ON i.experiencia_id = e.experiencia_id
         WHERE e.experiencia_id = ?;
