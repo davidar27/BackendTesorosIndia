@@ -8,6 +8,7 @@ export const updateMemberRepository = async (member: Member) => {
             nombre = ?,
             descripcion = ?,
             profesion = ?,
+            imagen = ?,
             edad = ?
         WHERE 
             integrante_id = ?
@@ -16,6 +17,7 @@ export const updateMemberRepository = async (member: Member) => {
         member.name,
         member.description,
         member.profession,
+        member.image,
         member.age,
         member.member_id
     ];

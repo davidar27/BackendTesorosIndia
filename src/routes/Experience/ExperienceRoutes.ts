@@ -45,7 +45,7 @@ router.put("/actualizar-informacion/:experience_id", uploadSingleFile, authMiddl
 // rutas de integrantes
 router.post("/miembros/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), addMemberController);
 router.put("/miembros/:member_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), updateMemberController);
-router.delete("/miembros/:member_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), deleteMemberController);
+router.delete("/miembros/:member_id", authMiddlewareToken, checkRole('emprendedor'), deleteMemberController);
 
 router.delete("/eliminar/:id", authMiddlewareToken, checkRole('emprendedor'), deleteExperienceController);
 

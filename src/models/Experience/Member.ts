@@ -3,6 +3,7 @@ export interface Member {
     name?: string;
     description?: string;
     age?: number;
+    image?: string;
     profession?: string;
     experience_id?: number;
 }

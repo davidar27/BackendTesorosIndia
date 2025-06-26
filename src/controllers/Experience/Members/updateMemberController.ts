@@ -1,4 +1,5 @@
 import { Member } from '@/models/Experience/Member';
+import { uploadToAzureService } from '@/services/Azure/uploadToAzureService';
 import { updateMemberService } from '@/services/Experience/Member/updateMemberService';
 import { Request, Response } from 'express';
 
@@ -6,11 +7,19 @@ export const updateMemberController = async (req: Request, res: Response): Promi
     try {
         const { member_id } = req.params
         const { age, description, profession, name } = req.body
+        let imageUrl: string | undefined;
+        if (req.file) {
+            const uploadedUrl = await uploadToAzureService(req.file);
+            if (uploadedUrl) {
+                imageUrl = uploadedUrl;
+            }
+        }
         const member: Member = {
             age: age,
             description: description,
             member_id: parseInt(member_id),
             name: name,
+            image: imageUrl,
             profession: profession
         }
         await updateMemberService(member);
