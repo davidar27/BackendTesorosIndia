@@ -11,9 +11,11 @@ export const createGenericService = async (data: CreateGenericData): Promise<Rec
         if (!data.entityType) {
             throw new Error('Tipo de entidad no especificado');
         }
-        const salt = await bcrypt.genSalt(12);
-        const hashedPassword = await bcrypt.hash(data.password, salt);
-        data.password = hashedPassword;
+        if (data.entityType === 'emprendedores') {
+            const salt = await bcrypt.genSalt(12);
+            const hashedPassword = await bcrypt.hash(data.password, salt);
+            data.password = hashedPassword;
+        }
         const entity = await createGenericRepository(data);
 
         return entity;

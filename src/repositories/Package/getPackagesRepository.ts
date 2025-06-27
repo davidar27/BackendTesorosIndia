@@ -6,9 +6,8 @@ export const getPackagesRepository = async () => {
             s.servicio_id AS package_id,
             s.nombre AS name,
             s.descripcion AS description,
-            CONCAT( FORMAT(s.precio, 0, "es_CO")) as price,
-            s.imagen AS image,
-            s.incluye_comida AS has_food
+            s.precio AS price,
+            s.imagen AS image
         FROM servicio s
         WHERE s.tipo = 'paquete' AND s.estado = 'activo';
     `;

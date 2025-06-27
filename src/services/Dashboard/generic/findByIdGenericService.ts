@@ -21,8 +21,8 @@ export const findByIdGenericService = async (
             idColumn = 'categoria_id';
             break;
         case 'paquetes':
-            tableName = 'paquete';
-            idColumn = 'paquete_id';
+            tableName = 'servicio';
+            idColumn = 'servicio_id';
             break;
         case 'cliente':
             tableName = 'usuario';

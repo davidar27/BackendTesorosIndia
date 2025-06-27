@@ -55,8 +55,8 @@ const entityMappings: EntityMapping = {
         }
     },
     paquetes: {
-        table: 'paquete',
-        idField: 'paquete_id',
+        table: 'servicio',
+        idField: 'servicio_id',
         fieldMappings: {
             name: 'nombre',
             description: 'descripcion',

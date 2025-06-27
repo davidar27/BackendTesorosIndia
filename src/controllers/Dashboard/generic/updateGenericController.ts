@@ -42,10 +42,7 @@ const entityConfigs: { [key: string]: EntityConfig } = {
 
 export const updateGenericController = async (req: Request, res: Response): Promise<void> => {
     try {
-
-
         const { userId, entityType } = req.params;
-
         if (!userId) {
             res.status(401).json({ error: 'Usuario no autenticado' });
             return;

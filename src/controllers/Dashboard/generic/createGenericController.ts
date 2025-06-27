@@ -38,8 +38,8 @@ const entityConfigs: { [key: string]: EntityConfig } = {
     },
     paquetes: {
         imageField: 'image',
-        requiredFields: ['name', 'price'],
-        allowedFields: ['name', 'description', 'image', 'price']
+        requiredFields: ['name', 'description', 'image', 'pricePerPerson','duration','capacity','selectedDetails','selectedExperiences','unavailableDates'],
+        allowedFields: ['name', 'description', 'image', 'pricePerPerson','duration','capacity','selectedDetails','selectedExperiences','unavailableDates']
     }
 };
 
