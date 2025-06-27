@@ -5,7 +5,7 @@ export const getPackageRepository = async (package_id: number) => {
         SELECT
             s.servicio_id AS package_id,
             s.imagen AS image,
-            CONCAT( FORMAT(s.precio, 0, "es_CO")) as price,
+            s.precio AS price,
             s.nombre AS name,
             s.descripcion AS description,
             s.capacidad AS capacity,
