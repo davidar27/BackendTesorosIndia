@@ -8,13 +8,10 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 export const handlerPreference = async (req: Request, res: Response) => {
     try {
         const data = req.body;
-
         if (!data) {
             return res.status(400).json({ error: 'No se proporcionaron datos' });
         }
-
         const preference = new Preference(mercadopagoClient);
-
         const response = await preference.create({
             body: {
                 items: data.items.map((item: any) => ({                    
@@ -28,7 +25,6 @@ export const handlerPreference = async (req: Request, res: Response) => {
                     failure: `${FRONTEND_URL}/pago-fallido`,
                     pending: `${FRONTEND_URL}/pago-pendiente`
                 },
-                
                 auto_return: 'approved',
                 payment_methods: {
                     installments: 1,
@@ -36,7 +32,6 @@ export const handlerPreference = async (req: Request, res: Response) => {
                 },
             }            
         });
-
         return res.status(200).json({
             preferenceId: response.id,
             init_point: response.init_point,
