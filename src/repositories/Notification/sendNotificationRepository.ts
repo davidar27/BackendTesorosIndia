@@ -1,5 +1,5 @@
 import db from "@/config/db";
-import { NotificationModel } from "@/models/Notification/notification";
+import { NotificationModel } from "@/models/Notification/Notification";
 
 export const sendNotificationsRepository = async (notification: NotificationModel) => {
     const sql = `
