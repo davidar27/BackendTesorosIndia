@@ -3,13 +3,12 @@ import db from '@/config/db';
 export const getPackageDetailsRepository = async (package_id: number) => {
     const sql = `
         SELECT
-            e.experiencia_id AS experience_id,
-            e.nombre AS name,
-            s.servicio_id AS package_id
-        FROM experiencia e
-        JOIN experiencia_paquete ep ON e.experiencia_id = ep.experiencia_id
-        JOIN servicio s ON ep.paquete_id = s.servicio_id
-        WHERE s.estado = 'activo' AND s.tipo = 'paquete' AND e.estado = 'publicada' AND s.servicio_id = ?
+            d.detalle_id AS detail_id,
+            d.descripcion AS detail
+        FROM detalle d
+        JOIN servicio_detalle sd ON d.detalle_id = sd.detalle_id
+        JOIN servicio s ON sd.servicio_id = s.servicio_id
+        WHERE s.tipo = 'paquete' AND s.estado = 'activo' AND s.servicio_id = ?
     `;
     const [rows]: any = await db.execute(sql, [package_id]);
     return rows;
