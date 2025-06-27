@@ -5,8 +5,10 @@ export const getPackagesRepository = async () => {
         SELECT 
             s.servicio_id AS package_id,
             s.nombre AS name,
-            s.descripcion AS description,
+            s.descripcion AS description, 
             s.precio AS price,
+            s.duracion AS duration,
+            s.capacidad AS capacity,
             s.imagen AS image
         FROM servicio s
         WHERE s.tipo = 'paquete' AND s.estado = 'activo';
