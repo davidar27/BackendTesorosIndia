@@ -1,6 +1,6 @@
 import db from '@/config/db';
 
-export const getPacksRepository = async () => {
+export const getPackagesRepository = async () => {
     const sql = `
         SELECT 
             s.nombre AS name,

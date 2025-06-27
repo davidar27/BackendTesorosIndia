@@ -1,11 +1,11 @@
 import express from "express";
-import { getPacksController } from "@/controllers/Package/getPackagesController";
+import { getPackagesController } from "@/controllers/Package/getPackagesController";
 import { searchPackagesController } from "@/controllers/Package/searchPackagesController";
-import { getPackageController } from "@/controllers/Package/getPackController";
+import { getPackageController } from "@/controllers/Package/getPackageController";
 const router = express.Router();
 
 router.get("/buscar", searchPackagesController);
-router.get("/", getPacksController);
+router.get("/", getPackagesController);
 router.get("/:package_id", getPackageController);
 
 export default router;

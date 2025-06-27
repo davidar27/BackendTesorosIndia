@@ -1,5 +1,5 @@
-import { getPacksRepository } from "@/repositories/Package/getPackagesRepository";
+import { getPackagesRepository } from "@/repositories/Package/getPackagesRepository";
 
-export const getPacksService = async () => {
-    return await getPacksRepository();
+export const getPackagesService = async () => {
+    return await getPackagesRepository();
 }; 
