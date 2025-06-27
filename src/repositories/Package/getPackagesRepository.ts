@@ -3,6 +3,7 @@ import db from '@/config/db';
 export const getPacksRepository = async () => {
     const sql = `
         SELECT 
+            s.servicio_id AS package_id,
             s.nombre AS name,
             s.descripcion AS description,
             CONCAT( FORMAT(s.precio, 0, "es_CO")) as price,

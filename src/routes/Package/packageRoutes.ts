@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get("/buscar", searchPackagesController);
 router.get("/", getPacksController);
-router.get("/:package_id", getPackageController);
+router.get("/:id", getPackageController);
 
 export default router;
