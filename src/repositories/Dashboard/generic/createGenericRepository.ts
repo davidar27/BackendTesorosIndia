@@ -108,7 +108,9 @@ const ENTITY_CONFIGS: Record<string, EntityConfig> = {
             'servicio.duracion As duration',
             'servicio.capacidad As capacity',
             'servicio.fechas_no_disponibles As unavailableDates',
-            'servicio.tipo As type'
+            'servicio.tipo As type',
+            'servicio.estado As status',
+            "DATE_FORMAT(servicio.fecha_registro, '%d/%m/%Y') AS joinDate"
         ],
         extraJoins: 'LEFT JOIN experiencia_paquete ON servicio.servicio_id = experiencia_paquete.paquete_id LEFT JOIN servicio_detalle ON servicio.servicio_id = servicio_detalle.servicio_id',
         extraFields: 'experiencia_paquete.experiencia_id As experience_id, experiencia_paquete.paquete_id As package_id,servicio_detalle.servicio_id As service_id, servicio_detalle.detalle_id As detail_id',
