@@ -1,4 +1,4 @@
-import { NotificationModel } from "@/models/Notification/notification";
+import { NotificationModel } from "@/models/Notification/Notification";
 import { sendNotificationsRepository } from "@/repositories/Notification/sendNotificationRepository";
 import { sendNotificationEmailService } from "./sendNotificationEmailService";
 import { User } from "@/models/User/User";

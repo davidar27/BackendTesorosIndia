@@ -1,6 +1,6 @@
 import { TransactionalEmailsApi, SendSmtpEmail } from '@getbrevo/brevo';
 import { config } from '@/config/email';
-import { NotificationModel } from '@/models/Notification/notification';
+import { NotificationModel } from '@/models/Notification/Notification';
 
 const apiInstance = new TransactionalEmailsApi();
 apiInstance.setApiKey(0, config.BREVO_API_KEY || '');
