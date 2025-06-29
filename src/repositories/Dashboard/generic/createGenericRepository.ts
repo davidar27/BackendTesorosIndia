@@ -233,7 +233,6 @@ export const createGenericRepository = async (data: any): Promise<Record<string,
                                 VALUES (${relatedPlaceholders.join(', ')})
                             `;
 
-                            console.log('Executing related query:', relatedQuery, 'with values:', relatedValues);
                             await connection.execute(relatedQuery, relatedValues);
                         }
                     }
