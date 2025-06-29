@@ -9,7 +9,8 @@ export const getPackagesRepository = async () => {
             s.precio AS price,
             s.duracion AS duration,
             s.capacidad AS capacity,
-            s.imagen AS image
+            s.imagen AS image,
+            s.fechas_no_disponibles AS unavailableDates
         FROM servicio s
         WHERE s.tipo = 'paquete' AND s.estado = 'activo';
     `;
