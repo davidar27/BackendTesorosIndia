@@ -17,6 +17,7 @@ import imageRoutes from "@/routes/Azure/imageRoutes";
 import cartRoutes from "@/routes/Cart/cartRoutes"
 import paymentRoutes from '@/routes/Payment/paymentRoutes';
 import notificationRoutes from '@/routes/Notification/notificationRoutes';
+import hostelRoutes from '@/routes/Hostel/hostelRoutes';
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.use('/pagos', paymentRoutes);
 app.use('/paquetes', packageRoutes );
 app.use('/comentarios', reviewsRoutes);
 app.use('/notificaciones', notificationRoutes);
+app.use('/hostales', hostelRoutes);
 app.use('/images', imageRoutes);
 
 const PORT = 3000;
