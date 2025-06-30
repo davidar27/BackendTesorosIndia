@@ -3,8 +3,8 @@ import { Request, Response } from 'express';
 
 export const getReservesByUserController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { userId: id_user } = req.body
-        const reserves = await getReservesByUserService(id_user);
+        const { userId: user_id } = req.body
+        const reserves = await getReservesByUserService(user_id);
         res.status(200).json(reserves);
     } catch (error: any) {
         res.status(500).json({

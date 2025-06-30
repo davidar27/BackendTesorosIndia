@@ -1,6 +1,6 @@
 import db from '@/config/db';
 
-export const getReservesByUserRepository = async (id_user: number) => {
+export const getReservesByUserRepository = async (user_id: number) => {
     const sql = `
         SELECT
             rp.reserva_id AS reserve_id,
@@ -14,6 +14,6 @@ export const getReservesByUserRepository = async (id_user: number) => {
         JOIN servicio s ON rp.habitacion_id = s.servicio_id
         WHERE rp.usuario_id = ?
     `;
-    const [rows]: any = await db.execute(sql, [id_user]);
+    const [rows]: any = await db.execute(sql, [user_id]);
     return rows;
 }; 

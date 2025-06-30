@@ -1,5 +1,5 @@
 import { getReservesByUserRepository } from "@/repositories/Reserve/getReservesByUserRepository";
 
-export const getReservesByUserService = async (id_user: number) => {
-    return await getReservesByUserRepository(id_user);
+export const getReservesByUserService = async (user_id: number) => {
+    return await getReservesByUserRepository(user_id);
 }; 
