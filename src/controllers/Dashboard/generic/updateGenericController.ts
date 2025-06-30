@@ -35,8 +35,8 @@ const entityConfigs: { [key: string]: EntityConfig } = {
     },
     paquetes: {
         imageField: 'image',
-        requiredFields: ['userId'],
-        allowedFields: ['name', 'description', 'image', 'price']
+        
+        allowedFields: ['package_id','name', 'description', 'image', 'pricePerPerson','duration','capacity','selectedDetails','selectedExperiences','unavailableDates']
     }
 };
 
@@ -80,15 +80,7 @@ export const updateGenericController = async (req: Request, res: Response): Prom
 
 
         if (req.file && config.imageField) {
-            console.log('File details:', {
-                fieldname: req.file.fieldname,
-                originalname: req.file.originalname,
-                mimetype: req.file.mimetype,
-                size: req.file.size
-            });
-            
             const imageUrl = await uploadToAzureService(req.file);
-
             if (imageUrl) {
                 if (currentEntity[config.imageField]) {
                     try {
@@ -119,6 +111,7 @@ export const updateGenericController = async (req: Request, res: Response): Prom
         if (config.customValidations) {
             await config.customValidations(updateData);
         }
+        
 
         const changedFields = await updateGenericService(updateData);
 

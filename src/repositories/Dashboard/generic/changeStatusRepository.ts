@@ -23,8 +23,8 @@ export const changeStatusRepository = async (
             idColumn = 'categoria_id';
             break;
         case 'paquetes':
-            tableName = 'paquete';
-            idColumn = 'paquete_id';
+            tableName = 'servicio';
+            idColumn = 'servicio_id';
             break;
         default:
             throw new Error('Tipo de entidad no válido');

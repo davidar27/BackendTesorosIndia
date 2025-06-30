@@ -1,6 +1,6 @@
 import db from '@/config/db';
 
-export const getPackageExperiencesRepository = async (package_id: number) => {
+export const getPackageExperiencesRepository = async (id: number) => {
     const sql = `
         SELECT
             e.experiencia_id AS experience_id,
@@ -11,6 +11,6 @@ export const getPackageExperiencesRepository = async (package_id: number) => {
         JOIN servicio s ON ep.paquete_id = s.servicio_id
         WHERE s.estado = 'activo' AND s.tipo = 'paquete' AND e.estado = 'publicada' AND s.servicio_id = ?
     `;
-    const [rows]: any = await db.execute(sql, [package_id]);
+    const [rows]: any = await db.execute(sql, [id]);
     return rows;
 }; 

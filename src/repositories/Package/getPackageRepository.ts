@@ -1,18 +1,21 @@
 import db from '@/config/db';
 
-export const getPackageRepository = async (package_id: number) => {
+export const getPackageRepository = async (id: number) => {
     const sql = `
         SELECT
-            s.servicio_id AS package_id,
+            s.servicio_id AS id,
             s.nombre AS name,
             s.descripcion AS description, 
             s.precio AS price,
             s.duracion AS duration,
             s.capacidad AS capacity,
-            s.imagen AS image
-        FROM servicio s
+            s.imagen AS image,
+            s.estado AS status,
+            DATE_FORMAT(s.fecha_registro, '%d/%m/%Y') AS joinDate,
+            s.fechas_no_disponibles AS unavailableDates
+            FROM servicio s
         WHERE s.tipo = 'paquete' AND s.estado = 'activo' AND s.servicio_id = ?
     `;
-    const [rows]: any = await db.execute(sql, [package_id]);
+    const [rows]: any = await db.execute(sql, [id]);
     return rows;
 }; 
