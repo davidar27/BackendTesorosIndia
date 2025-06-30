@@ -5,9 +5,10 @@ import { Request, Response } from 'express';
 export const reserveController = async (req: Request, res: Response): Promise<void> => {
     try {
         const { room_id } = req.params
-        const { reserve_date } = req.body
+        const { reserve_date, userId: user_id } = req.body
         const reserve: Reserve = {
             room_id: parseInt(room_id),
+            user_id: user_id,
             reserve_date: reserve_date,
             state: 'Pendiente'
         }
