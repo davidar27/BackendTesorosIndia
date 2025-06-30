@@ -18,6 +18,7 @@ import cartRoutes from "@/routes/Cart/cartRoutes"
 import paymentRoutes from '@/routes/Payment/paymentRoutes';
 import notificationRoutes from '@/routes/Notification/notificationRoutes';
 import hostelRoutes from '@/routes/Hostel/hostelRoutes';
+import reserveRoutes from '@/routes/Reserve/reserveRoutes';
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.use('/paquetes', packageRoutes );
 app.use('/comentarios', reviewsRoutes);
 app.use('/notificaciones', notificationRoutes);
 app.use('/hostales', hostelRoutes);
+app.use('/reservas', reserveRoutes);
 app.use('/images', imageRoutes);
 
 const PORT = 3000;

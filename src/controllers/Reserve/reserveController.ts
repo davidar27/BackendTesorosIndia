@@ -1,5 +1,5 @@
 import { Reserve } from '@/models/Reserve/Reserve';
-import { reserveService } from '@/services/Hostel/reserveService';
+import { reserveService } from '@/services/Reserve/reserveService';
 import { Request, Response } from 'express';
 
 export const reserveController = async (req: Request, res: Response): Promise<void> => {
