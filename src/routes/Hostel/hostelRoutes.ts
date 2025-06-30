@@ -5,6 +5,6 @@ import express from "express";
 const router = express.Router();
 
 router.get("/", getHostelsController);
-router.post("/reservar/:hostel_id", reserveController);
+router.post("/reservar/:room_id", reserveController);
 
 export default router;
