@@ -39,7 +39,7 @@ router.get('/:id', getExperienceByIdController);
 // Rutas privadas de experiencias
 router.get('/mi-experiencia', authMiddlewareToken, checkRole('emprendedor'), getMyExperienceController);
 
-// actualizar experiencia (proceso)
+// actualizar experiencia
 router.put("/actualizar-informacion/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), updateInfoExperienceController);
 
 // rutas de integrantes
