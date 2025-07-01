@@ -9,7 +9,7 @@ export const deleteExperienceController = async (req: Request, res: Response) =>
         const { id } = req.params;
         const entrepreneur_id = req.body.userId;
 
-        const Experience = await getExperienceByIdService(Number(id), entrepreneur_id);
+        const Experience = await getExperienceByIdService(Number(id));
         if (!Experience) {
             return res.status(404).json({ message: 'experiencia no encontrada' });
 
