@@ -1,43 +1,31 @@
 import db from '@/config/db';
+import { Review } from '@/models/Review/Review';
 
-export const updateReviewsRepository = async (
-    servicio_id: number,
-    usuario_id: number,
-    updateData: {
-        valoracion?: number;
-        comentario?: string;
-        infringe_normas?: boolean;
-    }
-) => {
+export const updateReviewsRepository = async (reviewData: Review) => {
+    const { review_id, user_id, rating, review } = reviewData;
     const updates = [];
     const values = [];
-
-    if (updateData.valoracion !== undefined) {
-        updates.push("valoracion = ?");
-        values.push(updateData.valoracion);
+    if (rating) {
+        updates.push("puntuacion = ?");
+        values.push(rating);
     }
-    if (updateData.comentario !== undefined) {
+    if (review) {
         updates.push("comentario = ?");
-        values.push(updateData.comentario);
+        values.push(review);
     }
-    if (updateData.infringe_normas !== undefined) {
-        updates.push("infringe_normas = ?");
-        values.push(updateData.infringe_normas ? 1 : 0);
-    }
-
-    if (updates.length === 0) {
-        throw new Error("No hay campos válidos para actualizar");
-    }
-
     const query = `
-        UPDATE servicio 
+        UPDATE valoraciones 
         SET ${updates.join(", ")}
-        WHERE servicio_id = ? AND usuario_id = ?
+        WHERE valoracion_id = ? AND usuario_id = ?
     `;
-
-    const [result]: any = await db.execute(query, [...values, servicio_id, usuario_id]);
-
-    if (result.affectedRows === 0) {
-        throw new Error("Valoración no encontrada o no autorizada");
+    try {
+        const [result]: any = await db.execute(query, [...values, review_id, user_id]);
+        if (result.affectedRows === 0) {
+            return "Valoración no encontrada o no autorizada.";
+        }
+        return "Valoración actualizada correctamente.";
+    } catch (error) {
+        console.error("Error en updateReviewsRepository:", error);
+        throw new Error("Error al actualizar la valoración en la base de datos");
     }
 };
