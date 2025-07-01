@@ -1,24 +1,31 @@
 import db from '@/config/db';
 
 export const updateInfoExperienceRepository = async (ExperienceData: any) => {
-    const { id, description, location, history, image, entrepreneur_id } = ExperienceData;
+    const { experience_id, description, location, story, image, entrepreneur_id, lat, lng } = ExperienceData;
+
     const query = `
         UPDATE experiencia 
         SET
             descripcion = ?, 
-            -- ubicacion = ?, 
+            ubicacion = ?, 
             historia = ?, 
-            imagen = ?
+            imagen = ?,
+            latitud = ?,
+            longitud = ?
         WHERE experiencia_id = ? AND emprendedor_id = ?
     `;
+
     const values = [
         description,
-        // location,
-        history,
+        location,
+        story,
         image,
-        id,
+        lat,
+        lng,
+        experience_id,
         entrepreneur_id
     ];
+
     try {
         const [result]: any = await db.execute(query, values);
         if (result.affectedRows === 0) {
@@ -26,7 +33,7 @@ export const updateInfoExperienceRepository = async (ExperienceData: any) => {
         }
         return result;
     } catch (error) {
-        console.error("Error en updateExperienceRepository:", error);
+        console.error("Error en updateInfoExperienceRepository:", error);
         throw new Error("Error al actualizar contenido en la base de datos");
     }
 };

@@ -7,36 +7,42 @@ import { updateInfoExperienceService } from '@/services/Experience/updateInfoExp
 export const updateInfoExperienceController = async (req: Request, res: Response) => {
     try {
         const { experience_id } = req.params;
-        const { description, history } = req.body;
+        const { description, story, location, lat, lng } = req.body;
         const entrepreneur_id = req.body.userId;
         const image: any = req.file;
-        const experience = await getExperienceByIdService(Number(experience_id), entrepreneur_id);
+
+        const experience = await getExperienceByIdService(parseInt(experience_id));
         if (!experience) {
-            return res.status(404).json({ message: 'experiencia no encontrada' });
+            return res.status(404).json({ message: 'Experience not found' });
         }
+
         let imageUrl: any;
         if (image) {
             await deleteFromAzureService(experience.image);
             imageUrl = await uploadToAzureService(image);
+        } else {
+            imageUrl = experience.image;
         }
-        else {
-            imageUrl = experience.image
-        }
+
         const updatedExperience = {
-            id: parseInt(experience_id),
+            experience_id: parseInt(experience_id),
             name: experience.name,
             description: description || experience.description,
-            history: history || experience.history,
-            // location: location || experience.location,
+            story: story || experience.story,
+            lat: lat || experience.lat,
+            lng: lng || experience.lng,
+            location: location || experience.location,
             entrepreneur_id: entrepreneur_id,
             image: imageUrl,
         };
-        await updateInfoExperienceService(updatedExperience);
+
+        const result = await updateInfoExperienceService(updatedExperience);
         res.status(200).json({
             experience: updatedExperience,
-            message: "Contenido actualizado correctamente"
+            message: "Experience updated successfully",
         });
     } catch (error) {
-        res.status(500).json({ mensaje: "Error al actualizar contenido" });
+        console.error(error);
+        res.status(500).json({ message: "Error updating experience" });
     }
 };
