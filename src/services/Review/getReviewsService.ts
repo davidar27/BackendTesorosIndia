@@ -1,4 +1,4 @@
-import { getReviewsByFincaRepository } from "@/repositories/Reviews/getReviewsRepository";
+import { getReviewsByFincaRepository } from "@/repositories/Review/getReviewsRepository";
 
 export const getReviewsByFincaService = async () => {
     return await getReviewsByFincaRepository();
