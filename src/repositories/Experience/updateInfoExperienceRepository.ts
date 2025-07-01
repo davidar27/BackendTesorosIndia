@@ -29,9 +29,9 @@ export const updateInfoExperienceRepository = async (ExperienceData: any) => {
     try {
         const [result]: any = await db.execute(query, values);
         if (result.affectedRows === 0) {
-            throw new Error("No se encontró el contenido o no tienes permisos");
+            return "No se encontró el contenido o no tienes permisos";
         }
-        return result;
+        return "Experiencia actualizada con exito";
     } catch (error) {
         console.error("Error en updateInfoExperienceRepository:", error);
         throw new Error("Error al actualizar contenido en la base de datos");

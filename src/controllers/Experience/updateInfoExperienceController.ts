@@ -7,7 +7,7 @@ import { updateInfoExperienceService } from '@/services/Experience/updateInfoExp
 export const updateInfoExperienceController = async (req: Request, res: Response) => {
     try {
         const { experience_id } = req.params;
-        const { description, story, location, lat, lng } = req.body;
+        const { name, description, story, location, lat, lng } = req.body;
         const entrepreneur_id = req.body.userId;
         const image: any = req.file;
 
@@ -26,7 +26,7 @@ export const updateInfoExperienceController = async (req: Request, res: Response
 
         const updatedExperience = {
             experience_id: parseInt(experience_id),
-            name: experience.name,
+            name: experience_id || experience.name,
             description: description || experience.description,
             story: story || experience.story,
             lat: lat || experience.lat,
@@ -39,7 +39,7 @@ export const updateInfoExperienceController = async (req: Request, res: Response
         const result = await updateInfoExperienceService(updatedExperience);
         res.status(200).json({
             experience: updatedExperience,
-            message: "Experience updated successfully",
+            message: result,
         });
     } catch (error) {
         console.error(error);
