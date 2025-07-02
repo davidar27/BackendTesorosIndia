@@ -7,5 +7,5 @@ import { findUserByIdRepository } from "@/repositories/User/findUserByIdReposito
 export const sendNotificationService = async (notification: NotificationModel) => {
     const user: User = await findUserByIdRepository(notification.user_id as number) as User
     await sendNotificationsRepository(notification);
-    await sendNotificationEmailService(user.email, notification, user.role)
+    await sendNotificationEmailService(user.email, notification)
 }; 

@@ -10,7 +10,7 @@ function isValidEmail(email: string): boolean {
     return emailRegex.test(email);
 }
 
-export const sendNotificationEmailService = async (email: string, notification: NotificationModel, role: string): Promise<void> => {
+export const sendNotificationEmailService = async (email: string, notification: NotificationModel): Promise<void> => {
     if (!email || !isValidEmail(email)) {
         throw new Error(`Email inválido: ${email}`);
     }
@@ -23,7 +23,7 @@ export const sendNotificationEmailService = async (email: string, notification: 
             email: email.trim(),
         }],
         subject: `${notification.message} - Tipo de notificacion: ${notification.type}`,
-        htmlContent: getHtmlTemplateByType(notification.type as any, role as string)
+        htmlContent: notification.content
     };
     try {
         await apiInstance.sendTransacEmail(emailData);
@@ -51,10 +51,3 @@ export const sendNotificationEmailService = async (email: string, notification: 
         }
     }
 };
-
-const getHtmlTemplateByType = (type: 'Cancelación' | 'Confirmación' | 'Reembolso' | 'General', role: string): string => {
-    if (type === "General") {
-        return "";
-    }
-    return "";
-}
