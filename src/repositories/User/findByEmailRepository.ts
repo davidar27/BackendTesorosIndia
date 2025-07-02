@@ -80,6 +80,11 @@ export const findByEmailRepository = async (email: string): Promise<User | Verif
                     name_experience: row.name_experience || 'Granja sin nombre',
                     description: row.descripcion || undefined
                 });
+            case 'administrador':
+                return new User({
+                    ...baseUserData,
+                    role: 'administrador',
+                });
             default:
                 throw new Error(`Rol de usuario no válido: ${row.rol}`);
         }
