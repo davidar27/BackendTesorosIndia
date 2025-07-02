@@ -11,7 +11,7 @@ export const recoverPasswordController = async (req: Request, res: Response) => 
 
         const user = await findByEmailUserService(email);
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(404).json({ message: 'Usuario no encontrado, puedes registrarte dando click en el boton de "¿No tienes una cuenta?"' });
         }
 
         const resetToken = generatePasswordResetToken(user.userId as number, user.email as string);

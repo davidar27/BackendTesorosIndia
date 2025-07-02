@@ -4,7 +4,6 @@ import updateUserPasswordService from '@/services/Auth/updateUserPasswordService
 import { verifyTokenPayload } from '@/helpers/Tokens/verifyTokenPayload';
 import { PASSWORD_RESET_SECRET } from '@/helpers/Tokens/TokenSecrets';
 import { TokenPayload } from '@/models/Auth/Auth';
-import { User } from '@/models/User/User';
 
 type PasswordResetToken = TokenPayload & {
     purpose: 'password_reset';
@@ -14,9 +13,11 @@ export const resetPasswordController = async (req: Request, res: Response) => {
     try {
         const token = req.query.token as string;
         const { password } = req.body;
-        
+
+        console.log("token", token);
+
         const data = verifyTokenPayload<PasswordResetToken>(
-            token, 
+            token,
             PASSWORD_RESET_SECRET,
             { requirePurpose: 'password_reset' }
         );
