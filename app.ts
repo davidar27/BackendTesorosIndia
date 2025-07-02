@@ -11,7 +11,7 @@ import productRoutes from "@/routes/Product/productRoutes";
 import categoryRoutes from "@/routes/Category/categoryRoutes";
 import packageRoutes from "@/routes/Package/packageRoutes";
 import experienceRoutes from "@/routes/Experience/ExperienceRoutes";
-import reviewsRoutes from "@/routes/Comments/reviewsRoutes";
+import reviewsRoutes from "@/routes/Review/reviewRoutes";
 import dashboardRoutes from "@/routes/Dashboard/dashboardRoutes";
 import imageRoutes from "@/routes/Azure/imageRoutes";
 import cartRoutes from "@/routes/Cart/cartRoutes"

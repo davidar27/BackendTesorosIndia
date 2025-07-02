@@ -4,7 +4,6 @@ import { checkRole } from "@/middleware/Auth/checkRole";
 import { uploadSingleFile } from "@/config/multerConfig";
 import { updateInfoExperienceController } from "@/controllers/Experience/updateInfoExperienceController";
 import { deleteExperienceController } from "@/controllers/Experience/deleteExperienceController";
-import { getExperienceByIdController } from "@/controllers/Experience/getExperienceByIdController";
 import { getAllExperienceController } from "@/controllers/Experience/getAllExperienceController";
 import { getExperiencesByCategoryController } from "@/controllers/Experience/getExperiencesByCategoryController";
 import { getMyExperienceController } from "@/controllers/Experience/getMyExperienceController";
@@ -27,19 +26,18 @@ router.get('/mapa', getLocationExperiencesController);
 // Ruta de búsqueda de experiencias
 router.get('/buscar', searchExperiencesController);
 
-router.get('/informacion/:id_experience', getInfoExperienceController);
-router.get('/miembros/:id_experience', getExperienceMembersController);
-router.get('/productos/:id_experience', getProductsExperienceController);
-router.get('/valoraciones/:id_experience', getReviewsExperienceController);
+router.get('/informacion/:experience_id', getInfoExperienceController);
+router.get('/miembros/:experience_id', getExperienceMembersController);
+router.get('/productos/:experience_id', getProductsExperienceController);
+router.get('/valoraciones/:experience_id', getReviewsExperienceController);
 
 router.get('/nombre', getAllNamesExperienceController);
 router.get('/categorias/:categoryId', getExperiencesByCategoryController);
-router.get('/:id', getExperienceByIdController);
 
 // Rutas privadas de experiencias
 router.get('/mi-experiencia', authMiddlewareToken, checkRole('emprendedor'), getMyExperienceController);
 
-// actualizar experiencia (proceso)
+// actualizar experiencia
 router.put("/actualizar-informacion/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), updateInfoExperienceController);
 
 // rutas de integrantes
