@@ -6,11 +6,12 @@ import { createTokenPayload, TOKEN_EXPIRATION } from '@/helpers/Tokens/TokenType
 export const getContentNotification = async (role: 'entrepreneur' | 'client', type: 'Cancelación' | 'Confirmación' | 'Reembolso' | 'General', user_id: number): Promise<string> => {
 
     // Variables que puedes definir según tus necesidades
-    const cancelRoute = ''; // Define tu ruta de cancelación
-    const confirmRoute = ''; // Define tu ruta de confirmación
+    const BACKEND_URL = process.env.BACKEND_URL
+    const cancelRoute = `${BACKEND_URL}/reservas/cancelar`; // Define tu ruta de cancelación
+    const confirmRoute = `${BACKEND_URL}/reservas/confirmar`; // Define tu ruta de confirmación
     const user: any = await findUserByIdRepository(user_id);
     const payload = createTokenPayload({ userId: user?.userId as number, email: user?.email, experience_id: user?.experience_id, image: user?.image, name: user?.name, role: user?.role }, user.token_version);
-    const userToken = generateToken(payload, ACCESS_TOKEN_SECRET, TOKEN_EXPIRATION.ACCESS);
+    const userToken = generateToken(payload, ACCESS_TOKEN_SECRET, TOKEN_EXPIRATION.VERIFICATION);
 
     // Determinar el contenido según el rol y tipo
     const getContent = () => {

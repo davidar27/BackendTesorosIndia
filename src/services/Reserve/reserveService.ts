@@ -13,6 +13,7 @@ export const reserveService = async (reserve: Reserve) => {
     const notificationEntrepreneur: NotificationModel = {
         type: "General",
         message: "Te han reservado una habitacion",
+        user_id: entrepreneur.user_id,
         content: content,
     }
     content = await getContentNotification("client", "General", client.usuario_id)
