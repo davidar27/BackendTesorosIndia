@@ -1,6 +1,6 @@
-import { getPackageDetailsRepository } from "@/repositories/Package/getPackageDetailsRepository";
-import { getPackageExperiencesRepository } from "@/repositories/Package/getPackageExperiencesRepository";
-import { getPackagesRepository } from "@/repositories/Package/getPackagesRepository";
+import { getPackageDetailsRepository } from "@/repositories/Dashboard/packages/getPackageDetailsRepository";
+import { getPackageExperiencesRepository } from "@/repositories/Dashboard/packages/getPackageExperiencesRepository";
+import { getPackagesRepository } from "@/repositories/Dashboard/packages/getPackagesRepository";
 
 export const getPackagesService = async () => {
     const packages = await getPackagesRepository();

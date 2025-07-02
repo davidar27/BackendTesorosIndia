@@ -2,15 +2,17 @@ import { Request, Response } from 'express';
 import { changeStatusService } from '@/services/Dashboard/generic/changeStatusService';
 
 export type EntityType = 'emprendedores' | 'experiencias' | 'categorias' | 'paquetes';
-export type Status = 'activo' | 'inactivo' | 'pendiente';
+export type Status = 'activo' | 'inactivo' | 'pendiente' | 'publicada' | 'borrador';
 
 export const changeStatusController = async (req: Request, res: Response) => {
-    const { id, entityType } = req.params;        
-    const { status } = req.body; 
+    const { id, entityType } = req.params;
+    const { status } = req.body;
     const statusEnum = {
         active: 'activo',
         inactive: 'inactivo',
-        pending: 'pendiente'
+        pending: 'pendiente',
+        published: 'publicada',
+        draft: 'borrador'
     }
     const mappedStatus = statusEnum[status as keyof typeof statusEnum];
 
