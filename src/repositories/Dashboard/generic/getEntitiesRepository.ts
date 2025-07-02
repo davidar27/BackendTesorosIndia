@@ -36,8 +36,9 @@ const ENTITY_CONFIGS: Record<string, EntityConfig> = {
         table: 'servicio',
         idColumn: 'servicio_id',
         imageColumn: 'imagen',
-        extraFields: 'CONCAT( FORMAT(precio, 0, "es_CO")) as price, capacidad as capacity, duracion as duration, descripcion as description',
-        defaultOrder: 'servicio.fecha_registro DESC'
+        extraFields: 'precio as price, capacidad as capacity, duracion as duration, descripcion as descriptio,fechas_no_disponibles As unavailableDates',
+        defaultOrder: 'servicio.fecha_registro DESC',
+        extraJoins: 'LEFT JOIN experiencia_paquete ON servicio.servicio_id = experiencia_paquete.paquete_id LEFT JOIN servicio_detalle ON servicio.servicio_id = servicio_detalle.servicio_id',
     }
 };
 

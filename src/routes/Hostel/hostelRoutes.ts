@@ -6,7 +6,7 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/", authMiddlewareToken, checkRole("cliente"), getHostelsController);
-router.get("/:hostel_id", authMiddlewareToken, checkRole("cliente"), getRoomsByHostelController);
+router.get("/", getHostelsController);
+router.get("/:hostel_id", getRoomsByHostelController);
 
 export default router;
