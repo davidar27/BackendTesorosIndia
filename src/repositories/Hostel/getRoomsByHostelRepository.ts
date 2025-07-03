@@ -1,6 +1,6 @@
 import db from '@/config/db';
 
-export const getRoomsByHostelRepository = async (id_hostel: number) => {
+export const getRoomsByHostelRepository = async (hostel_id: number) => {
     const sql = `
         SELECT
             s.servicio_id AS room_id,
@@ -15,6 +15,6 @@ export const getRoomsByHostelRepository = async (id_hostel: number) => {
         FROM servicio s
         WHERE s.tipo = 'habitacion' AND s.estado = 'activo' AND s.experiencia_id = ?
     `;
-    const [rows]: any = await db.execute(sql, id_hostel);
+    const [rows]: any = await db.execute(sql, [hostel_id]);
     return rows;
 }; 
