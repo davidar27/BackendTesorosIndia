@@ -5,7 +5,7 @@ import { createTokenPayload, TOKEN_EXPIRATION } from '@/helpers/Tokens/TokenType
 import { Reserve } from "@/models/Reserve/Reserve";
 import { getInfoReserveRepository } from "@/repositories/Reserve/getInfoReserveRepository";
 
-export const getContentReserveNotification = async (role: 'entrepreneur' | 'client', type: 'Cancelación' | 'Reembolso' | 'Reserva', reserve: Reserve, entrepreneur: any): Promise<string> => {
+export const getContentReserveNotification = async (role: 'entrepreneur' | 'client', type: 'Cancelacion' | 'Reembolso' | 'Reserva', reserve: Reserve, entrepreneur: any): Promise<string> => {
     const BACKEND_URL = process.env.BACKEND_URL
     const cancelRoute = `${BACKEND_URL}/reservas/cancelar`;
     const infoReserve = await getInfoReserveRepository(reserve.room_id as number)
@@ -18,13 +18,33 @@ export const getContentReserveNotification = async (role: 'entrepreneur' | 'clie
             return {
                 title: 'Nueva Reserva de Habitacion',
                 message: `Tienes una nueva reserva de habitacion.`,
-                showCancel: false
+                showCancel: false,
+                showRefund: false,
+                showCancelation: false,
             };
         } else if (role === 'client' && type === 'Reserva') {
             return {
                 title: 'Confirmación de Reserva',
                 message: `Tu reserva de habitación ha sido procesada exitosamente. Si necesitas cancelar tu reserva, puedes hacerlo utilizando el botón de abajo.`,
-                showCancel: true
+                showCancel: true,
+                showRefund: false,
+                showCancelation: false,
+            };
+        } else if (type === 'Cancelacion') {
+            return {
+                title: 'Cancelacion de Reserva',
+                message: `Has cancelado la reserva Si necesitas cancelar tu reserva, puedes hacerlo utilizando el botón de abajo.`,
+                showCancel: false,
+                showRefund: false,
+                showCancelation: true,
+            };
+        } else if(type === 'Reembolso'){
+            return {
+                title: 'Cancelacion de Reserva',
+                message: `Has cancelado la reserva Si necesitas cancelar tu reserva, puedes hacerlo utilizando el botón de abajo.`,
+                showCancel: false,
+                showCancelation: false,
+                showRefund: true,
             };
         }
     };
@@ -76,18 +96,24 @@ export const getContentReserveNotification = async (role: 'entrepreneur' | 'clie
                 <div style="text-align: center; margin: 30px 0;">
                     <a href="${cancelRoute}?token=${userToken}&reserve_id=${reserve.reserve_id}" 
                     style="display: inline-block; padding: 14px 28px; background-color: #dc3545; color: white; 
-                            text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 0 10px 10px 0;">
-                        ✗ Cancelar Reserva
-                        </a>
-                </div>
+                    text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 0 10px 10px 0;">
+                    ✗ Cancelar Reserva
+                    </a>
+                    </div>
             ` : ''}
             
-            <p style="color: #666666; font-size: 14px; line-height: 1.5; margin-bottom: 20px;">
-                ${role === 'entrepreneur'
-            ? ''
-            : 'Si tienes alguna pregunta sobre tu reserva o necesitas asistencia, no dudes en contactarnos. Recuerda rechazar la reserva en un tiempo prudente'}
-            </p>
+            ${content.showCancelation ? `
+                <p style="color: #333333; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
+                    <strong>Reserva cancelada</strong>
+                </p>
+            ` : ''}
+
+            ${content.showRefund ? `
+                <p style="color: #333333; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
+                    <strong>Reembolso</strong>
+                </p>
+            ` : ''}
             
             <div style="border-top: 1px solid #eaeaea; padding-top: 20px; text-align: center;">
                 <p style="color: #999999; font-size: 12px;">
