@@ -20,7 +20,7 @@ router.post('/registro', authInputValidator.validatorParams, authInputValidator.
 router.get('/verificacion/correo', verifyEmailController);
 router.get('/verificacion', checkVerification);
 router.post('/password/recuperar', recoverPasswordController);
-router.put('/password/restablecer', /* resetPasswordValidation.validatorParam, resetPasswordValidation.validator,  */resetPasswordController);
+router.put('/password/restablecer',  resetPasswordValidation.validatorParam, resetPasswordValidation.validator,  resetPasswordController);
 
 // Rutas auxiliares de autenticación
 router.post('/cerrar-sesion', logoutController);
