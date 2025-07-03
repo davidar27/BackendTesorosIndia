@@ -72,15 +72,16 @@ export const getContentReserveNotification = async (role: 'entrepreneur' | 'clie
                 Numero del cliente: ${user.phone}
             </p>
             
-            <div style="text-align: center; margin: 30px 0;">
-                ${content.showCancel ? `
-                <a href="${cancelRoute}?token=${userToken}&reserve_id=${reserve.reserve_id}" 
-                   style="display: inline-block; padding: 14px 28px; background-color: #dc3545; color: white; 
-                          text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;
-                          box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 0 10px 10px 0;">
-                    ✗ Cancelar Reserva
-                </a>` : ''}
-            </div>
+            ${content.showCancel ? `
+                <div style="text-align: center; margin: 30px 0;">
+                    <a href="${cancelRoute}?token=${userToken}&reserve_id=${reserve.reserve_id}" 
+                    style="display: inline-block; padding: 14px 28px; background-color: #dc3545; color: white; 
+                            text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: 0 10px 10px 0;">
+                        ✗ Cancelar Reserva
+                        </a>
+                </div>
+            ` : ''}
             
             <p style="color: #666666; font-size: 14px; line-height: 1.5; margin-bottom: 20px;">
                 ${role === 'entrepreneur'
