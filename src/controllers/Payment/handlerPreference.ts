@@ -31,9 +31,9 @@ export const handlerPreference = async (req: Request, res: Response) => {
                     }
                 },
                 back_urls: {
-                    success: `${FRONTEND_URL}/pago-exitoso`,
-                    failure: `${FRONTEND_URL}/pago-fallido`,
-                    pending: `${FRONTEND_URL}/pago-pendiente`
+                    success: `${FRONTEND_URL}/pago/exitoso`,
+                    failure: `${FRONTEND_URL}/pago/fallido`,
+                    pending: `${FRONTEND_URL}/pago/pendiente`
                 },
                 auto_return: 'approved',
                 payment_methods: {
