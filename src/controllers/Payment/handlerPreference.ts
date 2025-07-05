@@ -24,15 +24,11 @@ export const handlerPreference = async (req: Request, res: Response) => {
                 payer: {
                     name: data.payer.name,
                     surname: data.payer.surname,
-                    email: data.payer.email,
-                    address: {
-                        street_name: data.payer.address.street_name,
-                        street_number: data.payer.address.street_number,
-                        zip_code: data.payer.address.zip_code,
-                    }
+                    email: data.payer.email
                 },
-                metadata:{
-                    usuario_id: data.usuario_id,
+                metadata: {
+                    usuario_id: data.user_id,
+                    direccion: data.address
                 },
                 back_urls: {
                     success: `${FRONTEND_URL}/pago/exitoso`,
