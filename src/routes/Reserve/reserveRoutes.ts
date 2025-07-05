@@ -11,6 +11,7 @@ const router = express.Router();
 router.get("/cliente", authMiddlewareToken, checkRole("cliente"), getReservesByUserController);
 router.get("/hostal/:hostel_id", authMiddlewareToken, checkRole("emprendedor"), getReservesByHostelController);
 router.post("/reservar/:room_id", authMiddlewareToken, checkRole("cliente"), reserveController);
-router.put("/cancelar", authMiddlewareToken, checkRole("cliente"), cancelReserveController);
+// GET para permitir el consumo en correo mediante <a/>
+router.get("/cancelar", authMiddlewareToken, checkRole("cliente"), cancelReserveController);
 
 export default router;
