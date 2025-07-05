@@ -21,9 +21,8 @@ export const handlerPreference = async (req: Request, res: Response) => {
                     quantity: item.quantity,
                 })),
                 metadata: {
-                    user_id: data.user_id,
-                    address: data.address,
-                    email: data.email,
+                    user_id: data.metadata?.user_id,
+                    address: data.metadata?.address,
                     items: data.items.map((item: any) => ({
                         servicio_id: item.id,
                         cantidad: item.quantity,
