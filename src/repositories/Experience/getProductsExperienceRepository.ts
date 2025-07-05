@@ -5,7 +5,7 @@ export const getProductsExperienceRepository = async (experience_id: number) => 
         SELECT 
             s.servicio_id AS id,
             s.nombre AS name,
-            CONCAT(FORMAT(precio, 0, "es_CO")) as price,
+            s.precio As price,
             s.imagen AS image,
             COALESCE(ROUND(AVG(v.puntuacion), 2), 0) as rating,
             GROUP_CONCAT(DISTINCT c.nombre SEPARATOR ';') AS category

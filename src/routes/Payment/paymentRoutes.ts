@@ -1,10 +1,11 @@
 import { Router } from 'express';
-// import { webhookController } from '../../controllers/Payment/webhookController';
+import { paymentController } from '../../controllers/Payment/paymentController';
 import { handlerPreference } from '@/controllers/Payment/handlerPreference'
+
 
 const router = Router();
 router.post('/preferencia', handlerPreference);
-// router.post('/webhook', webhookController);
+router.post('/webhook', paymentController);
 
 
 
