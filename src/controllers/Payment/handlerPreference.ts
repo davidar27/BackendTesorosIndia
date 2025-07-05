@@ -21,14 +21,12 @@ export const handlerPreference = async (req: Request, res: Response) => {
                     quantity: item.quantity,
                 })),
                 metadata: {
-                    usuario_id: data.user_id,
+                    usuario_id: String(data.user_id),
                     correo: data.email,
                     direccion: data.address,
-                    items: data.items.map((item: any) => ({
-                        servicio_id: item.id,
-                        cantidad: item.quantity,
-                        precio_unitario: item.unit_price,
-                    })),
+                    servicio_ids: data.items.map((item: any) => item.id).join(','),
+                    cantidades: data.items.map((item: any) => item.quantity).join(','),
+                    precios_unitarios: data.items.map((item: any) => item.unit_price).join(','),
                 },
                 back_urls: {
                     success: `${FRONTEND_URL}/pago/exitoso`,
