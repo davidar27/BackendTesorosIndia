@@ -25,7 +25,9 @@ export const paymentController = async (req: Request, res: Response) => {
             status_detail,
             transaction_amount,
             payer: {
+                name: payer?.first_name,
                 email: payer?.email,
+                address: payer?.address
             },
             method: payment_method_id,
             metadata
