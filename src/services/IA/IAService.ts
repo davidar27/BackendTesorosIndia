@@ -56,10 +56,10 @@ type DataRequirement = {
     needsSales: boolean;
     responseType: 'GENERAL' | 'EXPERIENCE' | 'PRODUCT' | 'PACKAGE' | 'SALES';
 };
-type Roles = "cliente" | "emprendedor" | "administrador" | "ninguno"
+type Roles = "cliente" | "emprendedor" | "administrador" | "observador"
 
 class IAService {
-    static async getResponse(prompt: string, history: any[], role: Roles = "ninguno", id_user: number = 0) {
+    static async getResponse(prompt: string, history: any[], role: Roles = "observador", id_user: number = 0) {
         try {
             const dataRequirement = await this.analyzeDataRequirements(prompt, role);
             const contextData = await this.gatherRequiredData(dataRequirement, id_user, role);
@@ -71,7 +71,7 @@ class IAService {
         }
     }
 
-    static async analyzeDataRequirements(prompt: string, role: Roles | "ninguno"): Promise<DataRequirement> {
+    static async analyzeDataRequirements(prompt: string, role: Roles | "observador"): Promise<DataRequirement> {
         try {
             const analysisPrompt = `
                 Analiza la siguiente consulta y determina qué tipo de datos necesitas para responder correctamente en el contexto de Tesoros de la India.
@@ -130,7 +130,7 @@ class IAService {
         }
     }
 
-    static async gatherRequiredData(dataRequirement: DataRequirement, id_user: number, role: Roles | "ninguno") {
+    static async gatherRequiredData(dataRequirement: DataRequirement, id_user: number, role: Roles | "observador") {
         const contextData: any = {
             info: await this.formatObject({
                 appName: "Tesoros de la India",
