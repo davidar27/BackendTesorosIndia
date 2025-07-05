@@ -14,6 +14,7 @@ export const handlerPreference = async (req: Request, res: Response) => {
         const preference = new Preference(mercadopagoClient);
         const response = await preference.create({
             body: {
+                notification_url: FRONTEND_URL,
                 items: data.items.map((item: any) => ({
                     id: item.id,
                     title: item.title,
@@ -41,7 +42,7 @@ export const handlerPreference = async (req: Request, res: Response) => {
                     default_installments: 1,
                 },
 
-            
+
             }
         });
 
