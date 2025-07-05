@@ -13,9 +13,7 @@ export const resetPasswordController = async (req: Request, res: Response) => {
     try {
         const token = req.query.token as string;
         const { password } = req.body;
-
-        console.log("token", token);
-
+        
         const data = verifyTokenPayload<PasswordResetToken>(
             token,
             PASSWORD_RESET_SECRET,

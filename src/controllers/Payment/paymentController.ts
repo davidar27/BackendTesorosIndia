@@ -5,7 +5,10 @@ import { registrarFacturaConDetalles } from '@/services/payment/facturaService';
 
 export const paymentController = async (req: Request, res: Response) => {
     try {
-        console.log('🔔 Webhook recibido:\n', JSON.stringify(req.body, null, 2));
+        console.log('--- Webhook recibido ---');
+        console.log('Método:', req.method);
+        console.log('Headers:', req.headers);
+        console.log('Body:', JSON.stringify(req.body, null, 2));
 
         const type = req.body.type || req.query.type;
         const paymentId = req.body?.data?.id || req.query['data.id'];
@@ -64,6 +67,7 @@ export const paymentController = async (req: Request, res: Response) => {
         }
 
         if (status === 'approved') {
+            console.log('Intentando guardar en la base de datos...');
             if (typeof transaction_amount !== 'number') {
                 throw new Error('transaction_amount is missing or invalid');
             }
@@ -72,6 +76,7 @@ export const paymentController = async (req: Request, res: Response) => {
                 Number(metadata.user_id),
                 metadata.items
             );
+            console.log('¡Guardado exitoso en la base de datos!');
         }
 
         return res.status(200).send('OK');

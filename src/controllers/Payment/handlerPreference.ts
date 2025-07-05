@@ -44,8 +44,6 @@ export const handlerPreference = async (req: Request, res: Response) => {
             }
         });
 
-        console.log(response.id)
-
         return res.status(200).json({
             preferenceId: response.id,
             init_point: response.init_point,
