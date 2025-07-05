@@ -40,8 +40,12 @@ export const handlerPreference = async (req: Request, res: Response) => {
                     installments: 1,
                     default_installments: 1,
                 },
+
+            
             }
         });
+
+        console.log(response.id)
 
         return res.status(200).json({
             preferenceId: response.id,
