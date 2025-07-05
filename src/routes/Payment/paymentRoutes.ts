@@ -4,7 +4,9 @@ import { handlerPreference } from '@/controllers/Payment/handlerPreference'
 
 
 const router = Router();
+
 router.post('/preferencia', handlerPreference);
+
 router.post('/webhook', paymentController);
 
 

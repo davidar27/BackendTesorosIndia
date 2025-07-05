@@ -22,7 +22,7 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         const user = await authUserService(new UserAuth(email, password));
 
 
-        const { userId, role, name, token_version, address, status, experience_id, image } = user;
+        const { userId, role, name, token_version, status, experience_id, image, address } = user;
 
 
         const validRoles: UserRole[] = ["cliente", "administrador", "emprendedor"];

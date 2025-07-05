@@ -11,7 +11,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
     u.nombre,
     u.verificado,
     u.token_version,
-    u.address,
+    u.direccion,
     u.imagen,
     u.estado,
     e.experiencia_id AS experience_id
@@ -33,7 +33,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
                 errorType: "general",
             };
         }
-        
+
         if (!userRecord.verificado) {
             return {
                 logged: false,
@@ -43,7 +43,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
                 userId: userRecord.usuario_id
             };
         }
-        
+
         if (userRecord.estado !== 'activo') {
             return {
                 logged: false,
@@ -72,7 +72,8 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
             name: userRecord.nombre,
             token_version: userRecord.token_version,
             experience_id: userRecord.experience_id,
-            image: userRecord.imagen || ''
+            image: userRecord.imagen || '',
+            address: userRecord.direccion || ''
         };
 
     } catch (error) {
