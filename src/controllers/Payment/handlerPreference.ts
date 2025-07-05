@@ -14,7 +14,6 @@ export const handlerPreference = async (req: Request, res: Response) => {
         const preference = new Preference(mercadopagoClient);
         const response = await preference.create({
             body: {
-                notification_url: FRONTEND_URL,
                 items: data.items.map((item: any) => ({
                     id: item.id,
                     title: item.title,
@@ -28,7 +27,8 @@ export const handlerPreference = async (req: Request, res: Response) => {
                 },
                 metadata: {
                     usuario_id: data.user_id,
-                    direccion: data.address
+                    direccion: data.address,
+                    items: data.items,
                 },
                 back_urls: {
                     success: `${FRONTEND_URL}/pago/exitoso`,
