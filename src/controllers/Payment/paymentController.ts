@@ -9,6 +9,8 @@ export const paymentController = async (req: Request, res: Response) => {
         const type = req.body.type || req.query.type;
         const paymentId = req.body?.data?.id || req.query['data.id'];
 
+
+
         if (!paymentId || type !== 'payment') {
             console.log('ℹ️ Webhook ignorado: tipo o ID faltante');
             return res.status(200).send('Evento ignorado');
@@ -19,18 +21,24 @@ export const paymentController = async (req: Request, res: Response) => {
         const { id, status, status_detail, transaction_amount, payer, payment_method_id, date_created, transaction_details, external_reference, metadata } =
             await paymentInstance.get({ id: paymentId });
 
-        console.log('✅ Datos de pago recibidos:', {
-            id,
-            status,
-            status_detail,
-            transaction_amount,
-            payer: {
-                name: payer?.first_name,
-                email: payer?.email,
-            },
-            method: payment_method_id,
-            metadata
-        });
+
+        console.log('✅ Datos de pago recibidos:');
+        console.log('🔹 ID de pago:', id);
+        console.log('🔹 Estado:', status);
+        console.log('🔹 Detalle del estado:', status_detail);
+        console.log('🔹 Monto:', transaction_amount);
+        console.log('🔹 Método de pago:', payment_method_id);
+        console.log('🔹 Fecha de creación:', date_created);
+        console.log('🔹 External reference:', external_reference);
+        console.log('🔹 URL del comprobante:', transaction_details?.external_resource_url ?? 'No disponible');
+
+        console.log('👤 Datos del pagador:');
+        console.log('   - Nombre:', `${payer?.first_name ?? ''} ${payer?.last_name ?? ''}`.trim());
+        console.log('   - Email:', payer?.email ?? 'No disponible');
+
+        console.log('🧾 Metadata enviada:');
+        console.dir(metadata, { depth: null });
+
 
         // // Guardar o actualizar en la base de datos
         // await savePaymentToDatabase({

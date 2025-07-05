@@ -24,8 +24,11 @@ export const handlerPreference = async (req: Request, res: Response) => {
                     usuario_id: data.user_id,
                     correo: data.email,
                     direccion: data.address,
-                    servicio_id: data.item.id,
-                    cantidad: data.item.quantity
+                    items: data.items.map((item: any) => ({
+                        servicio_id: item.id,
+                        cantidad: item.quantity,
+                        precio_unitario: item.unit_price,
+                    })),
                 },
                 back_urls: {
                     success: `${FRONTEND_URL}/pago/exitoso`,
