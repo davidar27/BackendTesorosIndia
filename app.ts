@@ -19,6 +19,7 @@ import paymentRoutes from '@/routes/Payment/paymentRoutes';
 import notificationRoutes from '@/routes/Notification/notificationRoutes';
 import hostelRoutes from '@/routes/Hostel/hostelRoutes';
 import reserveRoutes from '@/routes/Reserve/reserveRoutes';
+import IARoutes from '@/routes/IA/IARoutes';
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ app.use('/comentarios', reviewsRoutes);
 app.use('/notificaciones', notificationRoutes);
 app.use('/hostales', hostelRoutes);
 app.use('/reservas', reserveRoutes);
+app.use('/IA', IARoutes);
 app.use('/images', imageRoutes);
 
 const PORT = 3000;
