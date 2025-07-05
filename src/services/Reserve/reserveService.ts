@@ -8,7 +8,6 @@ import { findUserByRoomRepository } from "@/repositories/User/findUserByRoomRepo
 
 export const reserveService = async (reserve: Reserve) => {
     const entrepreneur = await findUserByRoomRepository(reserve.room_id as number)
-    const client = await findUserByIdRepository(reserve.user_id as number) as any
     let content = await getContentReserveNotification("entrepreneur", "Reserva", reserve, entrepreneur)
     const notificationEntrepreneur: NotificationModel = {
         type: "General",
