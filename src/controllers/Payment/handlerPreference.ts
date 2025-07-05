@@ -20,15 +20,12 @@ export const handlerPreference = async (req: Request, res: Response) => {
                     unit_price: item.unit_price,
                     quantity: item.quantity,
                 })),
-                payer: {
-                    name: data.payer.name,
-                    surname: data.payer.surname,
-                    email: data.payer.email
-                },
                 metadata: {
                     usuario_id: data.user_id,
+                    correo: data.email,
                     direccion: data.address,
-                    items: data.items,
+                    servicio_id: data.item.id,
+                    cantidad: data.item.quantity
                 },
                 back_urls: {
                     success: `${FRONTEND_URL}/pago/exitoso`,
