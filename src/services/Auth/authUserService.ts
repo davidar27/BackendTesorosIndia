@@ -1,7 +1,6 @@
 import { authUserRepository } from '@/repositories/Auth/authUserRepository';
 import { loginResult } from '@/models/Auth/Auth';
 import UserAuth from '@/models/Auth/userAuth';
-import { findByIdGenericService } from '../Dashboard/generic/findByIdGenericService';
 
 export const authUserService = async (userAuth: UserAuth): Promise<loginResult> => {
     const result = await authUserRepository(userAuth);

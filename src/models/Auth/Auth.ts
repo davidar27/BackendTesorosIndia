@@ -22,6 +22,7 @@ export interface loginResult {
     userId?: number;
     role?: string;
     name?: string;
+    address?:string;
     token_version?: number;
     experience_id?: number;
     image?: string;

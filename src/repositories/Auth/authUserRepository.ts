@@ -11,6 +11,7 @@ export const authUserRepository = async (user: UserAuth): Promise<loginResult> =
     u.nombre,
     u.verificado,
     u.token_version,
+    u.address,
     u.imagen,
     u.estado,
     e.experiencia_id AS experience_id
