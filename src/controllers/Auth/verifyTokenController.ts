@@ -17,6 +17,8 @@ export const verifyTokenController = async (req: Request, res: Response) => {
         const payload = verifyTokenPayload(token, ACCESS_TOKEN_SECRET);
 
         const user = await findByIdUserService(payload.data.userId);
+        console.log(user);
+        
 
         if (!user) {
             return res.status(404).json({
