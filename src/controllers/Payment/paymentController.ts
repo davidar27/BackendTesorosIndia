@@ -32,12 +32,11 @@ export const paymentController = async (req: Request, res: Response) => {
         console.log('🔹 External reference:', external_reference);
         console.log('🔹 URL del comprobante:', transaction_details?.external_resource_url ?? 'No disponible');
 
-        console.log('👤 Datos del pagador:');
-        console.log('   - Nombre:', `${payer?.first_name ?? ''} ${payer?.last_name ?? ''}`.trim());
-        console.log('   - Email:', payer?.email ?? 'No disponible');
-
         console.log('🧾 Metadata enviada:');
         console.dir(metadata, { depth: null });
+        console.log(metadata.id)
+        console.log(metadata)
+
 
 
         // // Guardar o actualizar en la base de datos
