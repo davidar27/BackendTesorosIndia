@@ -5,8 +5,9 @@ export interface TokenData {
     name?: string;
     role?: UserRole;
     email?: string;
-    experience_id?:number;
+    experience_id?: number;
     image?: string;
+    address?: string;
 }
 
 export interface TokenPayload {
@@ -22,7 +23,7 @@ export interface loginResult {
     userId?: number;
     role?: string;
     name?: string;
-    address?:string;
+    address?: string;
     token_version?: number;
     experience_id?: number;
     image?: string;

@@ -15,9 +15,9 @@ export const verifyTokenController = async (req: Request, res: Response) => {
         }
 
         const payload = verifyTokenPayload(token, ACCESS_TOKEN_SECRET);
-        
+
         const user = await findByIdUserService(payload.data.userId);
-        
+
         if (!user) {
             return res.status(404).json({
                 success: false,
@@ -33,6 +33,7 @@ export const verifyTokenController = async (req: Request, res: Response) => {
                 email: user.email,
                 role: user.role,
                 image: user.image,
+                address: user.address,
                 experience_id: user.experience_id,
                 verified: user.verified,
                 status: user.status

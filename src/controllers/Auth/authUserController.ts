@@ -20,10 +20,10 @@ export const authUserController = async (req: Request, res: Response): Promise<R
         }
 
         const user = await authUserService(new UserAuth(email, password));
-        
+
 
         const { userId, role, name, token_version, address, status, experience_id, image } = user;
-        
+
 
         const validRoles: UserRole[] = ["cliente", "administrador", "emprendedor"];
         if (!validRoles.includes(role as UserRole)) {
@@ -35,8 +35,8 @@ export const authUserController = async (req: Request, res: Response): Promise<R
             });
         }
 
-        const accessToken = generateAccessToken(userId!, name!, role as UserRole, token_version!, experience_id, image);
-        const refreshToken = generateRefreshToken(userId!, name!, role as UserRole, token_version!, experience_id, image);
+        const accessToken = generateAccessToken(userId!, name!, role as UserRole, token_version!, experience_id, image, address,);
+        const refreshToken = generateRefreshToken(userId!, name!, role as UserRole, token_version!, experience_id, image, address);
 
         res.cookie('access_token', accessToken, cookieOptionsLogin);
         res.cookie('refresh_token', refreshToken, cookieOptionsRefresh);
