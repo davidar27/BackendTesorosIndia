@@ -12,11 +12,11 @@ export const reserveController = async (req: Request, res: Response): Promise<vo
             reserve_date: reserve_date,
             state: 'Pendiente'
         }
-        await reserveService(reserve);
-        res.status(200).json("Hostal reservado con exito.");
+        const result = await reserveService(reserve);
+        res.status(200).json(result);
     } catch (error: any) {
         res.status(500).json({
-            error: error.message || "Error al reservar el hostal."
+            error: error.message || "Error al reservar el habitacion."
         });
     }
 }; 
