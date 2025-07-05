@@ -16,7 +16,7 @@ export const paymentController = async (req: Request, res: Response) => {
 
         // Obtener datos completos del pago
         const paymentInstance = new Payment(mercadopagoClient);
-        const { id, status, status_detail, transaction_amount, payer, payment_method_id, date_created, transaction_details, external_reference } =
+        const { id, status, status_detail, transaction_amount, payer, payment_method_id, date_created, transaction_details, external_reference, metadata } =
             await paymentInstance.get({ id: paymentId });
 
         console.log('✅ Datos de pago recibidos:', {
@@ -26,10 +26,9 @@ export const paymentController = async (req: Request, res: Response) => {
             transaction_amount,
             payer: {
                 email: payer?.email,
-                first_name: payer?.first_name,
-                last_name: payer?.last_name,
             },
             method: payment_method_id,
+            metadata
         });
 
         // // Guardar o actualizar en la base de datos

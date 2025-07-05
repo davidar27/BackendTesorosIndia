@@ -31,6 +31,9 @@ export const handlerPreference = async (req: Request, res: Response) => {
                         zip_code: data.payer.address.zip_code,
                     }
                 },
+                metadata:{
+                    usuario_id: data.usuario_id,
+                },
                 back_urls: {
                     success: `${FRONTEND_URL}/pago/exitoso`,
                     failure: `${FRONTEND_URL}/pago/fallido`,
