@@ -35,15 +35,15 @@ export const getContentReserveNotification = async (role: 'entrepreneur' | 'clie
                 title: 'Cancelacion de Reserva',
                 message: `Has cancelado la reserva Si necesitas cancelar tu reserva, puedes hacerlo utilizando el botón de abajo.`,
                 showCancel: false,
-                showRefund: false,
                 showCancelation: true,
+                showRefund: true,
             };
         } else if(type === 'Reembolso'){
             return {
                 title: 'Cancelacion de Reserva',
                 message: `Has cancelado la reserva Si necesitas cancelar tu reserva, puedes hacerlo utilizando el botón de abajo.`,
                 showCancel: false,
-                showCancelation: false,
+                showCancelation: true,
                 showRefund: true,
             };
         }
@@ -74,7 +74,7 @@ export const getContentReserveNotification = async (role: 'entrepreneur' | 'clie
                 Nombre del Hostal Reservado: ${infoReserve.hostel_name}
                 Nombre de la Habitacion Reservada: ${infoReserve.room_name}
                 Cantidad maxima de personas para la habitacion: ${infoReserve.max_people}
-                Precio total de la reserva: ${infoReserve}
+                Precio total de la reserva: $${infoReserve.price} COP
                 Fecha de la reserva: ${reserve.reserve_date}
             </p>
             
@@ -112,6 +112,8 @@ export const getContentReserveNotification = async (role: 'entrepreneur' | 'clie
             ${content.showRefund ? `
                 <p style="color: #333333; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
                     <strong>Reembolso</strong>
+                    Se te ha reembolsado el 20% del precio de la reserva
+                    Cantidad Reembolsada: $${(infoReserve.price * 0.2)} COP
                 </p>
             ` : ''}
             

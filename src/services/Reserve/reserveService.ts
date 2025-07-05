@@ -2,13 +2,16 @@ import { Reserve } from "@/models/Reserve/Reserve";
 import { reserveRepository } from "@/repositories/Reserve/reserveRepository";
 import { sendNotificationService } from "../Notification/sendNotificationService";
 import { NotificationModel } from "@/models/Notification/Notification";
-import { findUserByIdRepository } from "@/repositories/User/findUserByIdRepository";
 import { getContentReserveNotification } from "@/helpers/Email/getContentReserveNotification";
 import { findUserByRoomRepository } from "@/repositories/User/findUserByRoomRepository";
 
 export const reserveService = async (reserve: Reserve) => {
+    const result = await reserveRepository(reserve);
+    if (!result.insertId) {
+        return "Habitacion no reservada"
+    }
+    reserve.reserve_id = result.insertId;
     const entrepreneur = await findUserByRoomRepository(reserve.room_id as number)
-    const client = await findUserByIdRepository(reserve.user_id as number) as any
     let content = await getContentReserveNotification("entrepreneur", "Reserva", reserve, entrepreneur)
     const notificationEntrepreneur: NotificationModel = {
         type: "General",
@@ -25,5 +28,5 @@ export const reserveService = async (reserve: Reserve) => {
     }
     await sendNotificationService(notificationEntrepreneur)
     await sendNotificationService(notificationClient)
-    await reserveRepository(reserve);
+    return "Habitacion reservada con exito."
 }; 
