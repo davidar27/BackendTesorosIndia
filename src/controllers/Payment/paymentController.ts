@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { mercadopagoClient } from '@/config/mercadopago';
 import { Payment } from 'mercadopago';
+import { registrarFacturaConDetalles } from '@/services/payment/facturaService';
 
 export const paymentController = async (req: Request, res: Response) => {
     try {
@@ -17,6 +18,9 @@ export const paymentController = async (req: Request, res: Response) => {
         const paymentInstance = new Payment(mercadopagoClient);
         const payment = await paymentInstance.get({ id: paymentId });
 
+
+
+
         const {
             id,
             status,
@@ -29,6 +33,7 @@ export const paymentController = async (req: Request, res: Response) => {
             external_reference,
             metadata,
         } = payment;
+
 
         console.log('✅ Datos de pago recibidos:');
         console.log('🔹 ID de pago:', id);
@@ -56,6 +61,17 @@ export const paymentController = async (req: Request, res: Response) => {
             });
         } else {
             console.log('❗ No se encontraron servicios en metadata.items');
+        }
+
+        if (status === 'approved') {
+            if (typeof transaction_amount !== 'number') {
+                throw new Error('transaction_amount is missing or invalid');
+            }
+            await registrarFacturaConDetalles(
+                transaction_amount,
+                Number(metadata.user_id),
+                metadata.items
+            );
         }
 
         return res.status(200).send('OK');
