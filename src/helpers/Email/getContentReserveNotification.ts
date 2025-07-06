@@ -108,7 +108,7 @@ export const getContentReserveNotification = async (role: 'entrepreneur' | 'clie
             ${content.showRefund ? `
                 <p style="color: #333333; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
                     <strong>Reembolso</strong>
-                    Se te ha reembolsado el 20% del precio de la reserva
+                    Se ha reembolsado el 20% del precio de la reserva
                     Cantidad Reembolsada: $${(infoReserve.price * 0.2)} COP
                 </p>
             ` : ''}

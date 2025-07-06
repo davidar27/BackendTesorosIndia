@@ -49,10 +49,12 @@ export const getContentBuyNotification = async (role: 'entrepreneur' | 'client',
     };
 
     const content: any = getContent();
+    let totalPrice = 0;
     const infoBuy = itemsBill.map(async (i: any) => {
         if (typeItem == "producto") {
             const entrepreneur = await findProductEntrepreneurRepository(i.item_id)
             if (role == "client") {
+                totalPrice += (i.price * i.quantity)
                 return `
                 Nombre del producto: ${i.name} 
                 Precio del producto: ${i.price} 
@@ -65,11 +67,12 @@ export const getContentBuyNotification = async (role: 'entrepreneur' | 'client',
                 `
             }
             if (entrepreneur_id == entrepreneur?.userId) {
+                totalPrice += (i.price * i.quantity)
                 return `
                 Nombre del producto: ${i.name} 
                 Precio del producto: ${i.price} 
                 Cantidad solicitada: ${i.quantity} 
-                Precio total: ${(i.price * i.quantity)}
+                Precio total: ${(i.price * i.quantity)} 
                 <br/>
                 `
             }
@@ -113,8 +116,18 @@ export const getContentBuyNotification = async (role: 'entrepreneur' | 'client',
             </p>
 
             <p style="color: #333333; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
+                <strong>Informacion del Cliente:</strong>
+                Nombre del cliente: ${user.name}
+                Correo del cliente: ${user.email}
+                Numero del cliente: ${user.phone}
+            </p>
+
+            <p style="color: #333333; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
                 <strong>Informacion de la compra</strong>
                 ${infoBuy}
+
+                <br/>
+                ${typeItem == "producto" ? `Precio total de la compra: ${totalPrice}` : ""} 
             </p>
             
             ${content.showCancel ? `
@@ -141,8 +154,8 @@ export const getContentBuyNotification = async (role: 'entrepreneur' | 'client',
             ${content.showRefund ? `
                 <p style="color: #333333; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
                     <strong>Reembolso</strong>
-                    Se te ha reembolsado el 20% del precio de la compra
-                    Cantidad Reembolsada: $${""} COP
+                    Se ha reembolsado el 20% del precio de la compra
+                    Cantidad Reembolsada: $${totalPrice * 0.2} COP
                 </p>
             ` : ''}
             
