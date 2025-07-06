@@ -1,10 +1,10 @@
 import db from '@/config/db';
 
-export const createFactura = async (total: number, estado: string, usuario_id: number, id: number
+export const createFactura = async (total: number, estado: string, usuario_id: number, paymentId: number
 ) => {
     const [result]: any = await db.query(
         `INSERT INTO factura (total, estado, usuario_id, paymentId) VALUES (?, ?, ?, ?)`,
-        [total, estado, usuario_id,id]
+        [total, estado, usuario_id, paymentId]
     );
     return result.insertId;
 };
