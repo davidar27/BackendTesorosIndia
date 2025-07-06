@@ -8,7 +8,7 @@ import { findProductEntrepreneurRepository } from "@/repositories/User/findProdu
 import { getPackageExperiencesRepository } from "@/repositories/Package/getPackageExperiencesRepository";
 import { getExperienceByIdRepository } from "@/repositories/Experience/getExperienceByIdRepository";
 
-export const getContentBuyNotification = async (role: 'entrepreneur' | 'client', type: 'Cancelacion' | 'Compra', bill_id: number, entrepreneur_id: number): Promise<string> => {
+export const getContentBuyNotification = async (role: 'entrepreneur' | 'client', type: 'Cancelacion' | 'Compra', bill_id: number, entrepreneur_id?: number): Promise<string> => {
     const BACKEND_URL = process.env.BACKEND_URL
     const cancelRoute = `${BACKEND_URL}/pagos/cancelar`;
 
@@ -83,10 +83,10 @@ export const getContentBuyNotification = async (role: 'entrepreneur' | 'client',
             Experiencias del paquete:
             <br/>
             ${experiences.map(async (e: any) => {
-                if(role == "client"){
+                if (role == "client") {
                     return `Nombre de la experiencia: ${e.name} <br/>`
                 }
-                if(entrepreneur_id == e.entrepreneur_id){
+                if (entrepreneur_id == e.entrepreneur_id) {
                     return `Nombre de la experiencia: ${e.name} <br/>`
                 }
             })}
