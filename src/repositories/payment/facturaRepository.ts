@@ -23,7 +23,7 @@ export const createFacturaDetalle = async (
 
 export const findFacturaByPaymentId = async (paymentId: number) => {
     const [rows]: any = await db.query(
-        `SELECT id FROM factura WHERE paymentId = ?`,
+        `SELECT factura_id FROM factura WHERE paymentId = ?`,
         [paymentId]
     );
     return rows.length > 0 ? rows[0].id : null;

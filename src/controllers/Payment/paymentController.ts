@@ -82,7 +82,7 @@ export const paymentController = async (req: Request, res: Response) => {
                 transaction_amount,
                 Number(metadata.user_id),
                 metadata.items,
-                id
+                paymentId
             );
             console.log('¡Guardado exitoso en la base de datos!');
         }
