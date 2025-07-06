@@ -1,4 +1,5 @@
 import db from '@/config/db';
+import { calculatePriceWithTax } from '@/helpers/price/calculatePriceWithTax';
 
 export async function getInfoProductRepository(producto_id: number) {
     const sql = `
@@ -31,5 +32,10 @@ export async function getInfoProductRepository(producto_id: number) {
     `;
     const [rows]: any = await db.execute(sql, [producto_id]);
     if (rows.length === 0) return;
-    return rows[0];
+    const row = rows[0];
+    const price = Number(row.price);
+    return {
+        ...row,
+        priceWithTax: calculatePriceWithTax(price),
+    };
 } 
