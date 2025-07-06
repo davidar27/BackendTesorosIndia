@@ -4,6 +4,7 @@ export const getPackageExperiencesRepository = async (id: number) => {
     const sql = `
         SELECT
             e.experiencia_id AS experience_id,
+            e.emprendedor_id AS entrepreneur_id,
             e.nombre AS name,
             s.servicio_id AS package_id
         FROM experiencia e
