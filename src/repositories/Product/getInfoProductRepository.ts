@@ -8,9 +8,12 @@ export async function getInfoProductRepository(producto_id: number) {
             s.precio AS price,
             s.imagen AS image,
             s.stock,
+            s.descripcion as description,
             COALESCE(ROUND(AVG(v.puntuacion), 2), 0) as rating,
             GROUP_CONCAT(DISTINCT c.nombre SEPARATOR ';') AS category,
-            s.experiencia_id as experience_id
+            s.experiencia_id as experience_id,
+            e.nombre as name_experience,
+            e.ubicacion as location
         FROM servicio s
         LEFT JOIN valoracion v ON s.servicio_id = v.producto_id
         LEFT JOIN servicio_categoria sc ON sc.servicio_id = s.servicio_id
@@ -22,7 +25,8 @@ export async function getInfoProductRepository(producto_id: number) {
             s.precio, 
             s.imagen,
             c.nombre,
-            s.servicio_id
+            s.servicio_id,
+            e.nombre
         ORDER BY s.nombre ASC;
     `;
     const [rows]: any = await db.execute(sql, [producto_id]);

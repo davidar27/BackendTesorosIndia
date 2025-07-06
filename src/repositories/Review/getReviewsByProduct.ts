@@ -8,7 +8,7 @@ export const getReviewsByProduct = async (product_id: number) => {
             u.usuario_id AS user_id,
             u.nombre AS user_name,
             u.imagen AS user_image,
-            v.fecha_creacion AS review_date,
+            DATE_FORMAT(CONVERT_TZ(v.fecha_creacion, '+00:00', '-05:00'), '%d/%m/%Y') AS review_date,
             v.puntuacion as rating,
             v.parent_id AS parent_review,
             v.comentario AS review
