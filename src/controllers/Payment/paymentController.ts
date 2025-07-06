@@ -14,7 +14,7 @@ export const paymentController = async (req: Request, res: Response) => {
         const paymentId = req.body?.data?.id || req.query['data.id'];
 
         if (!paymentId || type !== 'payment') {
-            console.log('ℹ️ Webhook ignorado: tipo o ID faltante');
+            // console.log('ℹ️ Webhook ignorado: tipo o ID faltante');
             return res.status(200).send('Evento ignorado');
         }
 
@@ -23,7 +23,7 @@ export const paymentController = async (req: Request, res: Response) => {
 
 
 
-
+        
         const {
             id,
             status,
@@ -36,6 +36,7 @@ export const paymentController = async (req: Request, res: Response) => {
             external_reference,
             metadata,
         } = payment;
+
 
 
         // console.log('✅ Datos de pago recibidos:');
@@ -67,16 +68,20 @@ export const paymentController = async (req: Request, res: Response) => {
         // }
 
         if (status === 'approved') {
-            console.log('Intentando guardar en la base de datos...');
+            // console.log('Intentando guardar en la base de datos...');
             if (typeof transaction_amount !== 'number') {
                 throw new Error('transaction_amount is missing or invalid');
+            }
+            if (typeof id !== 'number') {
+                throw new Error('payment id is missing or invalid');
             }
             await registrarFacturaConDetalles(
                 transaction_amount,
                 Number(metadata.user_id),
-                metadata.items
+                metadata.items,
+                paymentId
             );
-            console.log('¡Guardado exitoso en la base de datos!');
+            // console.log('¡Guardado exitoso en la base de datos!');
         }
 
         return res.status(200).send('OK');
