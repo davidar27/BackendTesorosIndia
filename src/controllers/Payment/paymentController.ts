@@ -23,7 +23,8 @@ export const paymentController = async (req: Request, res: Response) => {
 
 
 
-
+        console.log("PaymentId 1", paymentId);
+        
         const {
             id,
             status,
@@ -36,6 +37,9 @@ export const paymentController = async (req: Request, res: Response) => {
             external_reference,
             metadata,
         } = payment;
+
+        console.log("PaymentId 2", paymentId);
+        console.log("PaymentId 3", id);
 
 
         console.log('✅ Datos de pago recibidos:');
