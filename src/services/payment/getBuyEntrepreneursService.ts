@@ -4,7 +4,8 @@ import { getProductEntrepreneurRepository } from "@/repositories/Product/getProd
 
 export async function getBuyEntrepreneursService(bill_id: number) {
     const itemsBill = await getItemsBillRepository(bill_id)
-    if (itemsBill.length > 1) {
+    const itemType = itemsBill[0].type
+    if (itemType == "producto") {
         return itemsBill.map(async (i: any) => {
             return await getProductEntrepreneurRepository(i.item_id)
         });

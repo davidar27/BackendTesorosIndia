@@ -6,7 +6,6 @@ import { getBillByIDRepository } from "@/repositories/payment/getBillByIDReposit
 import { getItemsBillRepository } from "@/repositories/payment/getItemsBillRepository";
 import { findProductEntrepreneurRepository } from "@/repositories/User/findProductEntrepreneurRepository";
 import { getPackageExperiencesRepository } from "@/repositories/Package/getPackageExperiencesRepository";
-import { getExperienceByIdRepository } from "@/repositories/Experience/getExperienceByIdRepository";
 
 export const getContentBuyNotification = async (role: 'entrepreneur' | 'client', type: 'Cancelacion' | 'Compra', bill_id: number, entrepreneur_id?: number): Promise<string> => {
     const BACKEND_URL = process.env.BACKEND_URL
@@ -120,6 +119,7 @@ export const getContentBuyNotification = async (role: 'entrepreneur' | 'client',
                 Nombre del cliente: ${user.name}
                 Correo del cliente: ${user.email}
                 Numero del cliente: ${user.phone}
+                ${typeItem == "producto" ? `Direccion del cliente: ${user.address}` : ""}
             </p>
 
             <p style="color: #333333; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
