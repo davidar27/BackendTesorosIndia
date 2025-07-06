@@ -8,7 +8,7 @@ import { getInfoReserveRepository } from "@/repositories/Reserve/getInfoReserveR
 export const getContentReserveNotification = async (role: 'entrepreneur' | 'client', type: 'Cancelacion' | 'Reembolso' | 'Reserva', reserve: Reserve, entrepreneur: any): Promise<string> => {
     const BACKEND_URL = process.env.BACKEND_URL
     const cancelRoute = `${BACKEND_URL}/reservas/cancelar`;
-    const infoReserve = await getInfoReserveRepository(reserve.room_id as number)
+    const [infoReserve] = await getInfoReserveRepository(reserve.room_id as number)
     const user: any = await findUserByIdRepository(reserve.user_id as number);
     const payload = createTokenPayload({ userId: user?.userId as number, email: user?.email, experience_id: user?.experience_id, image: user?.image, name: user?.name, role: user?.role }, user.token_version);
     const userToken = generateToken(payload, ACCESS_TOKEN_SECRET, TOKEN_EXPIRATION.VERIFICATION);
