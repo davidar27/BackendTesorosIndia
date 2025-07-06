@@ -5,10 +5,10 @@ import { registrarFacturaConDetalles } from '@/services/payment/facturaService';
 
 export const paymentController = async (req: Request, res: Response) => {
     try {
-        // console.log('--- Webhook recibido ---');
-        // console.log('Método:', req.method);
-        // console.log('Headers:', req.headers);
-        // console.log('Body:', JSON.stringify(req.body, null, 2));
+        console.log('--- Webhook recibido ---');
+        console.log('Método:', req.method);
+        console.log('Headers:', req.headers);
+        console.log('Body:', JSON.stringify(req.body, null, 2));
 
         const type = req.body.type || req.query.type;
         const paymentId = req.body?.data?.id || req.query['data.id'];
@@ -38,33 +38,33 @@ export const paymentController = async (req: Request, res: Response) => {
         } = payment;
 
 
-        // console.log('✅ Datos de pago recibidos:');
-        // console.log('🔹 ID de pago:', id);
-        // console.log('🔹 Estado:', status);
-        // console.log('🔹 Detalle del estado:', status_detail);
-        // console.log('🔹 Monto:', transaction_amount);
-        // console.log('🔹 Método de pago:', payment_method_id);
-        // console.log('🔹 Fecha de creación:', date_created);
-        // console.log('🔹 Referencia externa:', external_reference);
-        // console.log('🔹 URL del comprobante:', transaction_details?.external_resource_url ?? 'No disponible');
+        console.log('✅ Datos de pago recibidos:');
+        console.log('🔹 ID de pago:', id);
+        console.log('🔹 Estado:', status);
+        console.log('🔹 Detalle del estado:', status_detail);
+        console.log('🔹 Monto:', transaction_amount);
+        console.log('🔹 Método de pago:', payment_method_id);
+        console.log('🔹 Fecha de creación:', date_created);
+        console.log('🔹 Referencia externa:', external_reference);
+        console.log('🔹 URL del comprobante:', transaction_details?.external_resource_url ?? 'No disponible');
 
-        // console.log('👤 Pagador:');
+        console.log('👤 Pagador:');
 
-        // console.log('🧾 Metadata enviada:');
-        // console.dir(metadata, { depth: null });
+        console.log('🧾 Metadata enviada:');
+        console.dir(metadata, { depth: null });
 
-        // // Mostrar los servicios comprados
-        // if (metadata?.items?.length) {
-        //     console.log('📦 Servicios comprados:');
-        //     metadata.items.forEach((item: any, index: number) => {
-        //         console.log(`  🔸 Servicio ${index + 1}:`);
-        //         console.log(`     - ID: ${item.servicio_id}`);
-        //         console.log(`     - Cantidad: ${item.cantidad}`);
-        //         console.log(`     - Precio unitario: $${item.precio_unitario}`);
-        //     });
-        // } else {
-        //     console.log('❗ No se encontraron servicios en metadata.items');
-        // }
+        // Mostrar los servicios comprados
+        if (metadata?.items?.length) {
+            console.log('📦 Servicios comprados:');
+            metadata.items.forEach((item: any, index: number) => {
+                console.log(`  🔸 Servicio ${index + 1}:`);
+                console.log(`     - ID: ${item.servicio_id}`);
+                console.log(`     - Cantidad: ${item.cantidad}`);
+                console.log(`     - Precio unitario: $${item.precio_unitario}`);
+            });
+        } else {
+            console.log('❗ No se encontraron servicios en metadata.items');
+        }
 
         if (status === 'approved') {
             console.log('Intentando guardar en la base de datos...');
