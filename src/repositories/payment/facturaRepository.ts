@@ -1,10 +1,10 @@
 import db from '@/config/db';
 
-export const createFactura = async (total: number, estado: string, usuario_id: number, paymentId: number
+export const createFactura = async (total: number, estado: string, usuario_id: number, id: number
 ) => {
     const [result]: any = await db.query(
         `INSERT INTO factura (total, estado, usuario_id, paymentId) VALUES (?, ?, ?, ?)`,
-        [total, estado, usuario_id,paymentId]
+        [total, estado, usuario_id,id]
     );
     return result.insertId;
 };
@@ -21,10 +21,10 @@ export const createFacturaDetalle = async (
     );
 };
 
-export const findFacturaByPaymentId = async (paymentId: number) => {
+export const findFacturaByPaymentId = async (id: number) => {
     const [rows]: any = await db.query(
         `SELECT id FROM factura WHERE paymentId = ?`,
-        [paymentId]
+        [id]
     );
     return rows.length > 0 ? rows[0].id : null;
 };
