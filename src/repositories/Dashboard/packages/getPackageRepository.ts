@@ -11,7 +11,7 @@ export const getPackageRepository = async (id: number) => {
             s.capacidad AS capacity,
             s.imagen AS image,
             s.estado AS status,
-            DATE_FORMAT(s.fecha_registro, '%d/%m/%Y') AS joinDate,
+            DATE_FORMAT(CONVERT_TZ(s.fecha_registro, '+00:00', '-05:00'), '%d/%m/%Y') AS joinDate,
             s.fechas_no_disponibles AS unavailableDates
             FROM servicio s
         WHERE s.tipo = 'paquete' AND s.servicio_id = ?

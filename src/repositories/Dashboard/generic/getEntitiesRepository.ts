@@ -53,7 +53,7 @@ export const getEntitiesRepository = async (entityType: string): Promise<any[]> 
             ${config.imageColumn ? `${config.table}.${config.imageColumn} AS image,` : ''}
             ${config.extraFields || ''}
             ${config.extraFields ? ',' : ''}
-            DATE_FORMAT(${config.table}.fecha_registro, '%d/%m/%Y') AS joinDate,
+            DATE_FORMAT(CONVERT_TZ(${config.table}.fecha_registro, '+00:00', '-05:00'), '%d/%m/%Y') AS joinDate,
             ${config.table}.estado AS status
         FROM ${config.table}
         ${config.extraJoins || ''}
