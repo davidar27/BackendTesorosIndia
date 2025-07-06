@@ -12,10 +12,11 @@ export const createFacturaDetalle = async (
     factura_id: number,
     servicio_id: number,
     cantidad: number,
-    precio_unitario: number
+    precio_unitario: number,
+    paymentId: number
 ) => {
     await db.query(
-        `INSERT INTO factura_detalle (factura_id, servicio_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)`,
-        [factura_id, servicio_id, cantidad, precio_unitario]
+        `INSERT INTO factura_detalle (factura_id, servicio_id, cantidad, precio_unitario, paymentId) VALUES (?, ?, ?, ?, ?)`,
+        [factura_id, servicio_id, cantidad, precio_unitario, paymentId]
     );
 };
