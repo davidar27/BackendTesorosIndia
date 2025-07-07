@@ -3,9 +3,7 @@ import { Review } from '@/models/Review/Review';
 
 export const addReviewRepository = async (reviewsData: Review) => {
     const { rating, user_id, entity_id, review, type, parent_id } = reviewsData;
-    
-    console.log('addReviewRepository - Datos recibidos:', { rating, user_id, entity_id, review, type, parent_id });
-    
+        
     if (!type || !['experiencia', 'producto'].includes(type)) {
         throw new Error("Tipo de entidad inválido. Debe ser 'experiencia' o 'producto'");
     }
@@ -50,12 +48,8 @@ export const addReviewRepository = async (reviewsData: Review) => {
         parent_id || null
     ];
     
-    console.log('addReviewRepository - Query de inserción:', query);
-    console.log('addReviewRepository - Valores a insertar:', values);
-    
     try {
         const [result]: any = await db.execute(query, values);
-        console.log('addReviewRepository - Resultado de inserción:', result);
         return result;
     } catch (error) {
         console.error("Error en addReviewRepository:", error);
