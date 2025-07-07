@@ -49,7 +49,7 @@ export const getContentBuyNotification = async (role: 'entrepreneur' | 'client',
 
     const content: any = getContent();
     let totalPrice = 0;
-    const infoBuy = itemsBill.map(async (i: any) => {
+    const infoBuy = await Promise.all(itemsBill.map(async (i: any) => {
         if (typeItem == "producto") {
             const entrepreneur = await findProductEntrepreneurRepository(i.item_id)
             if (role == "client") {
@@ -94,7 +94,7 @@ export const getContentBuyNotification = async (role: 'entrepreneur' | 'client',
             })}
             `
         }
-    })
+    }))
 
     return `
         <div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 8px;">
