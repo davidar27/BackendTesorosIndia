@@ -10,7 +10,8 @@ export const getInfoExperienceRepository = async (id_experience: number) => {
             e.historia AS history,
             e.imagen as image,
             e.latitud as lat,
-            e.longitud as lng
+            e.longitud as lng,
+            e.estado as status
         FROM experiencia e
         WHERE e.experiencia_id = ?;
     `;
