@@ -5,6 +5,8 @@ export const deleteReviewController = async (req: Request, res: Response) => {
     try {
         const { review_id } = req.params;
         const user_id = req.body.userId;
+
+        
         const result = await deleteReviewService(parseInt(review_id), user_id);
         res.status(200).json(result);
     } catch (error) {
