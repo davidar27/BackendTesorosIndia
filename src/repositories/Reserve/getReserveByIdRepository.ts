@@ -10,7 +10,7 @@ export const getReserveByIdRepository = async (reserve_id: number): Promise<Rese
             estado AS state,
             habitacion_id AS room_id,
             usuario_id AS user_id
-        FROM reserva_paquete
+        FROM reserva_habitacion
         WHERE reserva_id = ?
     `;
     const [rows]: any = await db.execute(sql, [reserve_id]);
