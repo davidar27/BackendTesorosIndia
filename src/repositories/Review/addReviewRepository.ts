@@ -5,7 +5,7 @@ export const addReviewRepository = async (reviewsData: Review) => {
     const { rating, user_id, entity_id, review, type, parent_id } = reviewsData;
     const entityColumn = type === 'producto' ? 'producto_id' : 'experiencia_id';
     const query = `
-        INSERT INTO valoraciones (
+        INSERT INTO valoracion (
             puntuacion, 
             usuario_id, 
             ${entityColumn}, 

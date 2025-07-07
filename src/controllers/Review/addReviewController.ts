@@ -14,6 +14,13 @@ export const addReviewController = async (req: Request, res: Response) => {
             review: review || null,
             parent_id: parent_id || null
         };
+
+        if (!user_id || !type || !entity_id || !rating) {
+            return res.status(401).json({
+                mensaje: "Faltan campos requeridos"
+            });
+        }
+        
         await addReviewService(reviewData);
         res.status(201).json({
             mensaje: "Valoración enviada correctamente",
