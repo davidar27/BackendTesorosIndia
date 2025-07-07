@@ -8,8 +8,8 @@ import { findProductEntrepreneurRepository } from "@/repositories/User/findProdu
 import { getPackageExperiencesRepository } from "@/repositories/Package/getPackageExperiencesRepository";
 
 export const getContentBuyNotification = async (role: 'entrepreneur' | 'client', type: 'Cancelacion' | 'Compra', bill_id: number, entrepreneur_id?: number): Promise<string> => {
-    const BACKEND_URL = process.env.BACKEND_URL
-    const cancelRoute = `${BACKEND_URL}/pagos/cancelar`;
+    const FRONTEND_URL = process.env.FRONTEND_URL
+    const cancelRoute = `${FRONTEND_URL}/cancelar/compra`;
 
     const [bill] = await getBillByIDRepository(bill_id)
     const itemsBill = await getItemsBillRepository(bill_id)

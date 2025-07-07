@@ -11,8 +11,8 @@ export const getContentReserveNotification = async (
     reserve: Reserve,
     entrepreneur: any
 ): Promise<string> => {
-    const BACKEND_URL = process.env.BACKEND_URL;
-    const cancelRoute = `${BACKEND_URL}/reservas/cancelar`;
+    const FRONTEND_URL = process.env.FRONTEND_URL;
+    const cancelRoute = `${FRONTEND_URL}/cancelar/reserva`;
     const [infoReserve] = await getInfoReserveRepository(reserve.room_id as number);
     const user: any = await findUserByIdRepository(reserve.user_id as number);
     const payload = createTokenPayload(
