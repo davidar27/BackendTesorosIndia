@@ -10,8 +10,8 @@ export const updateReviewController = async (req: Request, res: Response) => {
         const reviewData: Review = {
             review_id: parseInt(review_id),
             user_id: user_id,
-            rating: rating,
-            review: review
+            rating: rating || null,
+            review: review || null
         }
         const result = await updateReviewsService(reviewData);
         res.status(200).json(result);
