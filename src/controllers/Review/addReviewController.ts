@@ -5,13 +5,14 @@ import { Review } from '@/models/Review/Review';
 export const addReviewController = async (req: Request, res: Response) => {
     try {
         const user_id = req.body.userId;
-        const { type, entity_id, rating, review } = req.body;
+        const { type, entity_id, rating, review, parent_id } = req.body;
         const reviewData: Review = {
             entity_id: entity_id,
             type: type,
             user_id: user_id,
             rating: rating,
-            review: review || null
+            review: review || null,
+            parent_id: parent_id || null
         };
         await addReviewService(reviewData);
         res.status(201).json({
