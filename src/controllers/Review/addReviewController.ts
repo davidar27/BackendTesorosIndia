@@ -26,7 +26,11 @@ export const addReviewController = async (req: Request, res: Response) => {
             mensaje: "Valoración enviada correctamente",
             review: reviewData
         });
-    } catch (error) {
-        res.status(500).json({ mensaje: "Error al guardar valoración" });
+    } catch (error: any) {
+        console.error("Error en addReviewController:", error);
+        res.status(500).json({ 
+            mensaje: error.message || "Error al guardar valoración",
+            error: error.message
+        });
     }
 };
