@@ -8,10 +8,8 @@ export async function getInfoProductService(product_id: number) {
     const [stats] = await getStatsReviewsProductRepository(product_id)
     const infoProduct = {
         ...info,
-        reviews: {
-            reviews: reviews,
-            stats: stats
-        }
+        reviews: reviews,
+        stats: stats
     }
     return infoProduct
 }
