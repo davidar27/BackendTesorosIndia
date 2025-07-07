@@ -10,12 +10,12 @@ export const addReviewController = async (req: Request, res: Response) => {
             entity_id: entity_id,
             type: type,
             user_id: user_id,
-            rating: rating,
+            rating: rating || null,
             review: review || null,
             parent_id: parent_id || null
         };
 
-        if (!user_id || !type || !entity_id || !rating) {
+        if (!user_id || !type || !entity_id) {
             return res.status(401).json({
                 mensaje: "Faltan campos requeridos"
             });
