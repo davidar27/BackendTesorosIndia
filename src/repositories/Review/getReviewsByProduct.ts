@@ -24,7 +24,7 @@ export const getReviewsByProduct = async (product_id: number): Promise<Review[]>
             v.comentario AS comment
         FROM valoracion v
         JOIN usuario u ON v.usuario_id = u.usuario_id
-        WHERE v.experiencia_id = ?
+        WHERE v.producto_id = ?
         ORDER BY v.fecha_creacion DESC;
     `;
     
