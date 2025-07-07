@@ -124,7 +124,7 @@ export const getContentBuyNotification = async (role: 'entrepreneur' | 'client',
 
             <p style="color: #333333; font-size: 16px; line-height: 1.5; margin-bottom: 25px;">
                 <strong>Informacion de la compra</strong>
-                ${infoBuy}
+                ${infoBuy.join('')}
 
                 <br/>
                 ${typeItem == "producto" ? `Precio total de la compra: ${totalPrice}` : ""} 
