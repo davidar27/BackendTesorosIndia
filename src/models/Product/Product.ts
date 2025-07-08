@@ -1,15 +1,15 @@
 export interface Product {
-    producto_id?: number;
-    nombre: string;
-    descripcion?: string;
-    precio?: number;
+    product_id?: number;
+    name?: string;
+    description?: string;
+    price?: number;
     stock?: number;
-    categoria?: string;
-    categoria_id?: string;
-    emprendedor_id?: string;
-    experiencia_id?: number;
-    fecha_registro?: Date;
-    estado?: string;
-    puntuacion?: number;
-    imagen?: string;
+    category?: string;
+    category_id?: string;
+    entrepreneur_id?: string;
+    experience_id?: number;
+    create_date?: Date;
+    state?: string;
+    location?: string;
+    image?: string;
 }
