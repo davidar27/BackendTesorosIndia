@@ -8,7 +8,7 @@ export const getAllExperienceRepository = async (): Promise<Experience> => {
     e.nombre AS name_experience,
 	e.descripcion AS description,
     e.ubicacion AS location,
-    e.fecha_creacion AS created_at,
+    e.fecha_registro AS created_at,
     e.estado AS status,
     u.nombre AS name_entrepreneur
     FROM experiencia e
