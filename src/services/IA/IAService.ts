@@ -47,7 +47,6 @@ class IAService {
             // 3. Si no hay caché ni respuesta predefinida, usar IA
             if (isAffirmativeResponse(prompt)) {
                 // Si la última respuesta fue la de paquetes_general, muestra los paquetes directamente
-                // Aquí puedes agregar lógica para verificar el contexto anterior si tienes acceso a la sesión
                 const dataRequirement: DataRequirement = {
                     needsExperiences: false,
                     needsProducts: false,
