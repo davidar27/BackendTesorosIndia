@@ -1,4 +1,3 @@
-import { Product } from "@/models/Product/Product";
 import { getCategoriesRepository } from "@/repositories/Category/getCategoriesRepository";
 import { getAllExperienceRepository } from "@/repositories/Experience/getAllExperienceRepository";
 import { getPackagesRepository } from "@/repositories/Package/getPackagesRepository";
@@ -11,7 +10,7 @@ import { AI_MODELS, MODEL_PREFERENCE, globalConfig, Roles } from "./models/AIMod
 import { DataRequirement, ContextData } from "./models/DataRequirements";
 import { predefinedResponses, PredefinedResponseKey } from "./cache/PredefinedResponses";
 import { getCachedResponse, cacheResponse, clearCache, getCacheStats } from "./cache/CacheManager";
-import { detectCommonQuery, extractAndCleanJSON, cleanResponse, formatObject } from "./utils/ResponseFormatter";
+import { detectCommonQuery, extractAndCleanJSON, cleanResponse, formatObject, isAffirmativeResponse } from "./utils/ResponseFormatter";
 import { transformHistoryForGoogleGenAI } from "./utils/HistoryTransformer";
 import { SYSTEM_PROMPT } from "./prompts/SystemPrompts";
 import { createAnalysisPrompt, createUnifiedPrompt } from "./prompts/PromptTemplates";
@@ -46,22 +45,37 @@ class IAService {
             }
 
             // 3. Si no hay caché ni respuesta predefinida, usar IA
+            if (isAffirmativeResponse(prompt)) {
+                // Si la última respuesta fue la de paquetes_general, muestra los paquetes directamente
+                const dataRequirement: DataRequirement = {
+                    needsExperiences: false,
+                    needsProducts: false,
+                    needsPackages: true,
+                    needsSales: false,
+                    responseType: 'PACKAGE' as DataRequirement['responseType']
+                };
+                const contextData = await this.gatherRequiredData(dataRequirement, id_user, role, category_id || 0);
+                const response = await this.generateUnifiedResponse(prompt, history, role, id_user, dataRequirement, contextData);
+                cacheResponse(prompt, role, category_id || 0, response);
+                return response;
+            }
+
             const dataRequirement = await this.analyzeDataRequirements(prompt, role);
             const contextData = await this.gatherRequiredData(dataRequirement, id_user, role, category_id || 0);
             const response = await this.generateUnifiedResponse(prompt, history, role, id_user, dataRequirement, contextData);
-            
+
             // 4. Guardar en caché
             cacheResponse(prompt, role, category_id || 0, response);
-            
+
             return response;
         } catch (error: any) {
             console.error("Error getting AI response:", error);
-            
+
             // Manejo específico para errores de cuota
             if (error.message && error.message.includes('429')) {
                 return predefinedResponses.quota_exceeded;
             }
-            
+
             return predefinedResponses.error_general;
         }
     }
@@ -87,12 +101,12 @@ class IAService {
                 return JSON.parse(cleanedResponse);
             } catch (error: any) {
                 console.error(`Error with model ${model}:`, error.message);
-                
+
                 // Si es error de cuota, continuar con el siguiente modelo
                 if (error.message && error.message.includes('429')) {
                     continue;
                 }
-                
+
                 // Si es otro tipo de error, continuar con el siguiente modelo
                 continue;
             }
@@ -127,23 +141,12 @@ class IAService {
             }
         }
 
-        if (dataRequirement.needsProducts && dataRequirement.responseType === 'PRODUCT') {
-            try {
-                const products: any = await getProductsByCategoryRepository(category_id);
-                console.log(products);
-                
-                contextData.products = await formatObject(products);
-                console.log(contextData);
-                
-            } catch (error) {
-                console.error("Error fetching products:", error);
-                contextData.products = "[]";
-            }
-        }
 
         if (dataRequirement.responseType === 'PRODUCT_CATEGORIES') {
             try {
                 const categories = await getCategoriesRepository();
+                console.log(categories);
+                
                 contextData.productCategories = await formatObject(categories);
             } catch (error) {
                 console.error("Error fetching product categories:", error);
@@ -151,11 +154,28 @@ class IAService {
             }
         }
 
-        if (dataRequirement.needsPackages) {
+
+        if (dataRequirement.needsProducts && dataRequirement.responseType === 'PRODUCT') {
+            try {
+                const products: any = await getProductsByCategoryRepository(category_id);
+                console.log(products);
+
+                contextData.products = await formatObject(products);
+                console.log(contextData);
+
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                contextData.products = "[]";
+            }
+        }
+
+
+
+        if (dataRequirement.needsPackages ) {
             try {
                 const packages: any = await getPackagesRepository();
                 console.log(packages);
-                
+
                 contextData.packages = await formatObject(packages);
             } catch (error) {
                 console.error("Error fetching packages:", error);
@@ -206,12 +226,12 @@ class IAService {
                 return cleanResponse(response.text);
             } catch (error: any) {
                 console.error(`Error with model ${model} for response:`, error.message);
-                
+
                 // Si es error de cuota, continuar con el siguiente modelo
                 if (error.message && error.message.includes('429')) {
                     continue;
                 }
-                
+
                 // Si es otro tipo de error, continuar con el siguiente modelo
                 continue;
             }

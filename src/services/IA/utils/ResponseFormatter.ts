@@ -43,3 +43,9 @@ export function cleanResponse(response: string): string {
 export async function formatObject(object: any): Promise<string> {
     return JSON.stringify(object, null, 2);
 } 
+
+export function isAffirmativeResponse(prompt: string): boolean {
+    const affirmatives = ["sí", "si", "ok", "dale", "quiero ver", "claro", "muéstrame", "mostrar", "ver", "por favor"];
+    const lower = prompt.trim().toLowerCase();
+    return affirmatives.some(a => lower === a || lower.startsWith(a + " "));
+} 

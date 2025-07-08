@@ -29,7 +29,7 @@ export async function createProductController(req: Request, res: Response): Prom
 
         const result = await createProductService(product);
         if (result) {
-            res.status(201).json("Producto creado");
+            res.status(201).json(result);
             return
         }
         res.status(400).json("El producto no se ha podido crear");
