@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/categorias/:categoryId', getProductsByCategoryController);
 router.get('/buscar', searchProductsController);
-router.get('/:id', getProductByIdController);
+// router.get('/:id', getProductByIdController);
 router.get('/', getAllProductsController);
 router.get('/informacion/:product_id', getInfoProductController)
 
