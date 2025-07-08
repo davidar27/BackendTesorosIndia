@@ -68,11 +68,6 @@ export const updateGenericController = async (req: Request, res: Response): Prom
         if (config.allowedFields) {
             Object.entries(req.body).forEach(([key, value]) => {
                 if (config.allowedFields?.includes(key) && value !== undefined && value !== null) {
-                    if (key === config.imageField && typeof value === 'string') {
-                        if (!value.startsWith('/images/')) {
-                            value = `/images/${value}`;
-                        }
-                    }
                     updateData[key] = typeof value === 'string' ? value.trim() : value;
                 }
             });
@@ -89,12 +84,7 @@ export const updateGenericController = async (req: Request, res: Response): Prom
                         console.error('Error deleting previous image:', error);
                     }
                 }
-
-                if (!imageUrl.startsWith('/images/')) {
-                    updateData[config.imageField] = `/images/${imageUrl}`;
-                } else {
-                    updateData[config.imageField] = imageUrl;
-                }
+                updateData[config.imageField] = imageUrl;
             }
         }
 

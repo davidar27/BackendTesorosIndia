@@ -69,11 +69,6 @@ export const createGenericController = async (req: Request, res: Response): Prom
         if (config.allowedFields) {
             Object.entries(req.body).forEach(([key, value]) => {
                 if (config.allowedFields?.includes(key) && value !== undefined) {
-                    if (key === config.imageField && typeof value === 'string') {
-                        if (!value.startsWith('/images/')) {
-                            value = `/images/${value}`;
-                        }
-                    }
                     createData[key] = typeof value === 'string' ? value.trim() : value;
                 }
             });
@@ -83,11 +78,7 @@ export const createGenericController = async (req: Request, res: Response): Prom
             const imageUrl = await uploadToAzureService(req.file);
 
             if (imageUrl) {
-                if (!imageUrl.startsWith('/images/')) {
-                    createData[config.imageField] = `/images/${imageUrl}`;
-                } else {
-                    createData[config.imageField] = imageUrl;
-                }
+                createData[config.imageField] = imageUrl;
             }
         }
 
