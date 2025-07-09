@@ -9,14 +9,18 @@ import { createProductController } from '@/controllers/Product/createProductCont
 import { uploadSingleFile } from '@/config/multerConfig';
 import { deleteProductController } from '@/controllers/Product/deleteProductController';
 import { updateProductController } from '@/controllers/Product/updateProductController';
+import { updateProductStatusController } from '@/controllers/Product/updateProductStatusController';
 const router = express.Router();
 
 router.get('/categorias/:categoryId', getProductsByCategoryController);
 router.get('/buscar', searchProductsController);
 router.get('/', getAllProductsController);
 router.get('/informacion/:product_id', getInfoProductController)
+
 router.post('/:experience_id', uploadSingleFile, authMiddlewareToken, checkRole("emprendedor"), createProductController)
-router.delete('/:product_id', authMiddlewareToken, checkRole("emprendedor"), deleteProductController)
+
+router.put('/estado/:product_id', authMiddlewareToken, checkRole("emprendedor"), updateProductStatusController)
+
 router.put('/:experience_id/:product_id', uploadSingleFile, authMiddlewareToken, checkRole("emprendedor"), updateProductController)
 
 export default router;

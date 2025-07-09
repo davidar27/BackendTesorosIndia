@@ -43,6 +43,8 @@
     "@azure/storage-blob": "^12.27.0",
     "@getbrevo/brevo": "^2.2.0",
     "@google/genai": "^1.8.0",
+    "@tensorflow-models/toxicity": "^1.2.2",
+    "@tensorflow/tfjs": "^4.22.0",
     "@types/express": "^4.17.15",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
