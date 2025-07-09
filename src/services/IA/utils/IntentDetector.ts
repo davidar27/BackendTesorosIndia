@@ -17,6 +17,14 @@ export class IntentDetector {
         categories: [
             'categorías', 'categoría', 'tipos', 'tipo', 'clases de', 'qué hay', 'qué tienen', 'opciones',
             'variedades', 'variedad', 'clasificación', 'clasificar'
+        ],
+        top_products_by_experience: [
+            'productos más vendidos', 'top productos', 'productos que más se venden', 'top 3 productos', 'productos más populares',
+            'qué productos vendo más', 'productos más vendidos experiencia', 'productos más vendidos de mi experiencia', 'productos más vendidos en la experiencia', 'top productos experiencia'
+        ],
+        total_income_by_experience: [
+            'cuánto dinero he generado', 'total de ingresos', 'cuánto he vendido', 'ingresos generados', 'cuánto dinero he ganado',
+            'total ingresos experiencia', 'ingresos experiencia', 'dinero generado experiencia', 'ganancias experiencia', 'ventas totales experiencia'
         ]
     };
 
@@ -105,13 +113,67 @@ export class IntentDetector {
             };
         }
         
-        if (lowerPrompt === 'categorías' || lowerPrompt === 'categoria' || lowerPrompt === 'categorias') {
+        if (lowerPrompt === 'categorías' || lowerPrompt.includes('categoria') || lowerPrompt.includes('categorias')) {
             return {
                 type: 'categories',
                 confidence: 0.95,
                 redirectTo: 'show_categories',
                 message: "¡Claro! Te muestro las categorías.",
                 buttonText: "Ver categorías"
+            };
+        }
+        
+        // Detección directa para top productos más vendidos por experiencia
+        if (
+            lowerPrompt.includes('productos más vendidos') ||
+            lowerPrompt.includes('top productos') ||
+            lowerPrompt.includes('top 3 productos') ||
+            lowerPrompt.includes('productos que más se venden')
+        ) {
+            return {
+                type: 'top_products_by_experience',
+                confidence: 0.95,
+                redirectTo: 'show_top_products_by_experience',
+                message: 'Aquí tienes el top de productos más vendidos de tu experiencia.',
+                buttonText: 'Ver top productos'
+            };
+        }
+        // Detección directa para total de ingresos por experiencia
+        if (
+            lowerPrompt.includes('cuánto dinero he generado') ||
+            lowerPrompt.includes('total de ingresos') ||
+            lowerPrompt.includes('ingresos generados') ||
+            lowerPrompt.includes('cuánto he vendido') ||
+            lowerPrompt.includes('cuánto dinero he ganado')
+        ) {
+            return {
+                type: 'total_income_by_experience',
+                confidence: 0.95,
+                redirectTo: 'show_total_income_by_experience',
+                message: 'Aquí tienes el total de ingresos generados por tu experiencia.',
+                buttonText: 'Ver ingresos'
+            };
+        }
+        
+        // Detección directa para recomendaciones generales
+        if (
+            lowerPrompt.includes('qué me recomiendas') ||
+            lowerPrompt.includes('que me recomiendas') ||
+            lowerPrompt.includes('qué me puedes recomendar') ||
+            lowerPrompt.includes('que me puedes recomendar') ||
+            lowerPrompt.includes('qué recomiendas de este sitio') ||
+            lowerPrompt.includes('que recomiendas de este sitio') ||
+            lowerPrompt.includes('recomiéndame') ||
+            lowerPrompt.includes('recomiendame') ||
+            lowerPrompt.includes('que recomiendas')
+
+        ) {
+            return {
+                type: 'experiences',
+                confidence: 0.95,
+                redirectTo: 'show_experiences',
+                message: 'Presiona el boton para ver las experiencias',
+                buttonText: 'Ver experiencias'
             };
         }
         
@@ -226,6 +288,8 @@ export class IntentDetector {
             products: 'show_categories',
             experiences: 'show_experiences',
             categories: 'show_categories',
+            top_products_by_experience: 'show_top_products_by_experience',
+            total_income_by_experience: 'show_total_income_by_experience',
             none: 'none'
         };
 
@@ -257,6 +321,16 @@ export class IntentDetector {
                 high: "¡Claro! Te muestro todas nuestras categorías de productos.",
                 medium: "Puedo mostrarte las categorías disponibles.",
                 low: "Para ver categorías, puedo mostrarte nuestras opciones."
+            },
+            top_products_by_experience: {
+                high: "Aquí tienes el top de productos más vendidos de tu experiencia.",
+                medium: "Te muestro los productos más vendidos de tu experiencia.",
+                low: "Estos son los productos más vendidos de tu experiencia."
+            },
+            total_income_by_experience: {
+                high: "Aquí tienes el total de ingresos generados por tu experiencia.",
+                medium: "Te muestro los ingresos generados por tu experiencia.",
+                low: "Estos son los ingresos de tu experiencia."
             }
         };
 
@@ -272,6 +346,8 @@ export class IntentDetector {
             products: "Ver categorías",
             experiences: "Ver experiencias",
             categories: "Ver categorías",
+            top_products_by_experience: "Ver top productos",
+            total_income_by_experience: "Ver ingresos",
             none: ""
         };
 

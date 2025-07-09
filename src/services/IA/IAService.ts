@@ -10,6 +10,11 @@ import { detectCommonQuery, cleanResponse, isAffirmativeResponse } from "./utils
 import { transformHistoryForGoogleGenAI } from "./utils/HistoryTransformer";
 import { SYSTEM_PROMPT } from "./prompts/SystemPrompts";
 import { IntentDetector } from "./utils/IntentDetector";
+import { RowDataPacket } from 'mysql2';
+// Importar los servicios de experiencia
+import { getTopProductsByExperienceService } from '../Experience/getTopProductsByExperienceService';
+import { getTotalIncomeByExperienceService } from '../Experience/getTotalIncomeByExperienceService';
+import { findByIdUserService } from '../User/findByIdUserService';
 
 dotenv.config();
 
@@ -23,7 +28,7 @@ const configWithSystemPrompt = {
 };
 
 class IAService {
-    static async getResponse(prompt: string, history: any[], role: Roles = "observador", id_user: number = 0, category_id?: number): Promise<AIResponse> {
+    static async getResponse(prompt: string, history: any[], role: Roles = "observador", id_user: number = 0, category_id?: number, experiencia_id?: number): Promise<AIResponse> {
         try {
             // Obtener contexto del historial para detectar intención
             const context = this.getContextFromHistory(history);
@@ -32,42 +37,92 @@ class IAService {
             const cachedResponse = getCachedResponse(prompt, role, category_id || 0);
             if (cachedResponse) {
                 console.log("Using cached response");
-                return this.createAIResponse(cachedResponse, this.detectIntentFromPrompt(prompt, context));
+                let intent = this.detectIntentFromPrompt(prompt, context);
+                // Si el rol no es emprendedor y la intención es confidencial, limpiar botones y mensaje
+                if (role !== 'emprendedor' && (intent.type === 'total_income_by_experience' || intent.type === 'top_products_by_experience')) {
+                    intent = { ...intent, message: '', buttonText: '' };
+                }
+                return this.createAIResponse(cachedResponse, intent);
             }
 
             // 2. Verificar respuestas predefinidas 
             const commonQuery = detectCommonQuery(prompt);
             if (commonQuery && (commonQuery === 'greeting' || commonQuery === 'no_idea') && predefinedResponses[commonQuery as PredefinedResponseKey]) {
                 const predefinedResponse = predefinedResponses[commonQuery as PredefinedResponseKey];
+                let intent = this.detectIntentFromPrompt(prompt, context);
+                if (role !== 'emprendedor' && (intent.type === 'total_income_by_experience' || intent.type === 'top_products_by_experience')) {
+                    intent = { ...intent, message: '', buttonText: '' };
+                }
                 cacheResponse(prompt, role, category_id || 0, predefinedResponse);
-                return this.createAIResponse(predefinedResponse, this.detectIntentFromPrompt(prompt, context));
+                return this.createAIResponse(predefinedResponse, intent);
             }
 
             // 3. Verificar respuestas afirmativas simples
             if (isAffirmativeResponse(prompt)) {
-                // Para respuestas afirmativas, solo devolver mensaje simple con intención
-                const intent = this.detectIntentFromPrompt(prompt, context);
+                let intent = this.detectIntentFromPrompt(prompt, context);
+                if (role !== 'emprendedor' && (intent.type === 'total_income_by_experience' || intent.type === 'top_products_by_experience')) {
+                    intent = { ...intent, message: '', buttonText: '' };
+                }
                 const response = "¡Perfecto! Te ayudo con eso.";
                 cacheResponse(prompt, role, category_id || 0, response);
                 return this.createAIResponse(response, intent);
             }
 
-            // 4. Si no hay caché ni respuesta predefinida, usar IA solo para análisis
-            const intent = this.detectIntentFromPrompt(prompt, context);
+            // 4. Detectar intención
+            let intent = this.detectIntentFromPrompt(prompt, context);
+
+            // Si el rol no es emprendedor y la intención es confidencial, limpiar botones y mensaje
+            if (role !== 'emprendedor' && (intent.type === 'total_income_by_experience' || intent.type === 'top_products_by_experience')) {
+                intent = { ...intent, redirectTo:'show_packages', message: 'Mejor mira nuestros paquetes :)', buttonText: 'Mirar Paquetes' };
+            }
+
+            // Si es emprendedor y la intención requiere experiencia_id, obtenerlo si no se pasa
+            let experienciaIdFinal = experiencia_id;
+            if (role === 'emprendedor' && !experienciaIdFinal && id_user) {
+                const user = await findByIdUserService(id_user);
+                experienciaIdFinal = user?.experience_id;
+            }
+
+            // 4.1. Si es emprendedor y la intención es top_products_by_experience
+            if (role === 'emprendedor' && intent.type === 'top_products_by_experience' && experienciaIdFinal) {
+                const productos = await getTopProductsByExperienceService(experienciaIdFinal);
+                let response = 'Top 3 productos más vendidos:';
+                if (!Array.isArray(productos) || productos.length === 0) {
+                    response = 'No hay ventas registradas para esta experiencia.';
+                }
+                cacheResponse(prompt, role, category_id || 0, response);
+                return this.createAIResponse(response, intent, productos);
+            }
+
+            // 4.2. Si es emprendedor y la intención es total_income_by_experience
+            if (role === 'emprendedor' && intent.type === 'total_income_by_experience' && experienciaIdFinal) {
+                const ingresos = await getTotalIncomeByExperienceService(experienciaIdFinal);
+                let response = 'Total de ingresos generados:';
+                const rows = ingresos as RowDataPacket[];
+                if (!Array.isArray(rows) || rows.length === 0 || rows[0].total_income === null) {
+                    response = 'No hay ingresos registrados para esta experiencia.';
+                }
+                cacheResponse(prompt, role, category_id || 0, response);
+                return this.createAIResponse(response, intent, rows);
+            }
+
+            // Si el rol no es emprendedor y la intención es confidencial, responder con mensaje de confidencialidad
+            if (role !== 'emprendedor' && (intent.type === 'total_income_by_experience' || intent.type === 'top_products_by_experience')) {
+                const response = '¡Hola!  Esa información es confidencial y solo está disponible para los emprendedores registrados en Tesoros de la India.  Contacta a nuestro equipo de soporte para más detalles.';
+                return this.createAIResponse(response, intent);
+            }
+
+            // 5. Si no hay caché ni respuesta predefinida, usar IA solo para análisis
             const response = await this.generateSimpleResponse(prompt, history, role, id_user);
-            
-            // 5. Guardar en caché
+            // 6. Guardar en caché
             cacheResponse(prompt, role, category_id || 0, response);
-            
             return this.createAIResponse(response, intent);
         } catch (error: any) {
             console.error("Error getting AI response:", error);
-            
             // Manejo específico para errores de cuota
             if (error.message && error.message.includes('429')) {
                 return this.createAIResponse(predefinedResponses.quota_exceeded, this.createNoIntent());
             }
-            
             return this.createAIResponse(predefinedResponses.error_general, this.createNoIntent());
         }
     }
@@ -86,10 +141,18 @@ class IAService {
         };
     }
 
-    private static createAIResponse(text: string, intent: IntentData): AIResponse {
+    private static createAIResponse(text: string, intent: IntentData, data?: any): AIResponse {
+        // Si hay data, inclúyela en la respuesta
+        if (data !== undefined) {
+            return {
+                text,
+                intent,
+                data
+            } as any;
+        }
         return {
-            text: text,
-            intent: intent
+            text,
+            intent
         };
     }
 
