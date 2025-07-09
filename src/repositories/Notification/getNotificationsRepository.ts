@@ -11,6 +11,7 @@ export const getNotificationsRepository = async (user_id: number) => {
             n.estado AS status
         FROM notificacion n
         WHERE n.usuario_id = ?
+        ORDER BY n.fecha_envio DESC
     `;
     const [rows]: any = await db.execute(sql, [user_id]);
     return rows;
