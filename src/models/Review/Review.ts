@@ -6,6 +6,6 @@ export interface Review {
     user_id: number;
     rating: number;
     review?: string;
-    breaks_rules?: boolean;
+    breaks_rules?: number;
     create_date?: Date;
 }
