@@ -20,6 +20,8 @@ import notificationRoutes from '@/routes/Notification/notificationRoutes';
 import hostelRoutes from '@/routes/Hostel/hostelRoutes';
 import reserveRoutes from '@/routes/Reserve/reserveRoutes';
 import IARoutes from '@/routes/IA/IARoutes';
+import moderationRoutes from '@/routes/ContentModeration/moderationRoutes';
+import { toxicityService } from '@/services/ContentModeration/toxicityService';
 
 dotenv.config();
 
@@ -54,10 +56,17 @@ app.use('/hostales', hostelRoutes);
 app.use('/reservas', reserveRoutes);
 app.use('/IA', IARoutes);
 app.use('/images', imageRoutes);
+app.use('/moderacion', moderationRoutes);
 
 const PORT = 3000;
-app.listen(PORT, () => {
+
+const initializeModeration = async () => {
+    await toxicityService.loadModel();
+};
+
+app.listen(PORT, async () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  await initializeModeration();
 });
 
 

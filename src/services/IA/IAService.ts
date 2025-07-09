@@ -38,7 +38,6 @@ class IAService {
             if (cachedResponse) {
                 console.log("Using cached response");
                 let intent = this.detectIntentFromPrompt(prompt, context);
-                // Si el rol no es emprendedor y la intención es confidencial, limpiar botones y mensaje
                 if (role !== 'emprendedor' && (intent.type === 'total_income_by_experience' || intent.type === 'top_products_by_experience')) {
                     intent = { ...intent, message: '', buttonText: '' };
                 }
