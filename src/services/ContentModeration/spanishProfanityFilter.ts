@@ -200,7 +200,21 @@ const SPANISH_PROFANITY_LIST = [
     'es un parcero', 'es una parcero',
     'que parcero de producto', 'que parcero de experiencia',
     'que parcero tan asqueroso', 'que parcero tan horrible',
-    'que parcero tan mierda', 'que parcero tan terrible'
+    'que parcero tan mierda', 'que parcero tan terrible',
+
+    // Más jerga colombiana específica
+    'piroba', 'pirobas', 'pirobo', 'pirobos',
+    'hpta', 'hptas', 'hpto', 'hptos',
+    'verga', 'vergas',
+    'cachón', 'cachona', 'cachones', 'cachonas',
+    'cachaco', 'cachaca', 'cachacos', 'cachacas',
+    'costeño', 'costeña', 'costeños', 'costeñas',
+    'paisa', 'paisas',
+    'rolo', 'rola', 'rolos', 'rolas',
+    'santandereano', 'santandereana', 'santandereanos', 'santandereanas',
+    'boyacense', 'boyacenses',
+    'tolimense', 'tolimenses',
+    'vallecaucano', 'vallecaucana', 'vallecaucanos', 'vallecaucanas'
 ];
 
 // Lista de frases y expresiones prohibidas
@@ -427,7 +441,258 @@ const SPANISH_PROFANITY_PHRASES = [
     'que maricón de producto', 'que maricón de experiencia',
     'que mk de producto', 'que mk de experiencia',
     'que parce de producto', 'que parce de experiencia',
-    'que parcero de producto', 'que parcero de experiencia'
+    'que parcero de producto', 'que parcero de experiencia',
+
+    // Más jerga colombiana específica
+    'piroba', 'pirobas', 'pirobo', 'pirobos',
+    'hpta', 'hptas', 'hpto', 'hptos',
+    'hijo de las mil putas', 'hija de las mil putas',
+    'hijos de las mil putas', 'hijas de las mil putas',
+    'hijo de la gran puta', 'hija de la gran puta',
+    'hijos de la gran puta', 'hijas de la gran puta',
+    'hijo de la madre', 'hija de la madre',
+    'hijos de la madre', 'hijas de la madre',
+    'hijo de la mierda', 'hija de la mierda',
+    'hijos de la mierda', 'hijas de la mierda',
+    'hijo de la verga', 'hija de la verga',
+    'hijos de la verga', 'hijas de la verga',
+    'hijo de la gonorrea', 'hija de la gonorrea',
+    'hijos de la gonorrea', 'hijas de la gonorrea',
+    'hijo de la marica', 'hija de la marica',
+    'hijos de la marica', 'hijas de la marica',
+    'hijo de la maricón', 'hija de la maricón',
+    'hijos de la maricón', 'hijas de la maricón',
+    'hijo de la mk', 'hija de la mk',
+    'hijos de la mk', 'hijas de la mk',
+    'hijo de la piroba', 'hija de la piroba',
+    'hijos de la piroba', 'hijas de la piroba',
+    'hijo de la hpta', 'hija de la hpta',
+    'hijos de la hpta', 'hijas de la hpta',
+    'hijo de la hpto', 'hija de la hpto',
+    'hijos de la hpto', 'hijas de la hpto',
+
+    // Expresiones con "verga"
+    'verga', 'vergas',
+    'que verga', 'qué verga',
+    'que verga tan', 'qué verga tan',
+    'que verga de', 'qué verga de',
+    'es una verga', 'es un verga',
+    'que verga tan asquerosa', 'que verga tan horrible',
+    'que verga tan mierda', 'que verga tan terrible',
+    'que verga de producto', 'que verga de experiencia',
+    'que verga de servicio', 'que verga de lugar',
+
+    // Expresiones con "piroba"
+    'que piroba', 'qué piroba',
+    'que pirobo', 'qué pirobo',
+    'que piroba tan', 'qué piroba tan',
+    'que pirobo tan', 'qué pirobo tan',
+    'que piroba de', 'qué piroba de',
+    'que pirobo de', 'qué pirobo de',
+    'es una piroba', 'es un pirobo',
+    'que piroba tan asquerosa', 'que piroba tan horrible',
+    'que piroba tan mierda', 'que piroba tan terrible',
+    'que pirobo tan asqueroso', 'que pirobo tan horrible',
+    'que pirobo tan mierda', 'que pirobo tan terrible',
+    'que piroba de producto', 'que piroba de experiencia',
+    'que pirobo de producto', 'que pirobo de experiencia',
+
+    // Expresiones con "hpta/hpto"
+    'que hpta', 'qué hpta',
+    'que hpto', 'qué hpto',
+    'que hpta tan', 'qué hpta tan',
+    'que hpto tan', 'qué hpto tan',
+    'que hpta de', 'qué hpta de',
+    'que hpto de', 'qué hpto de',
+    'es una hpta', 'es un hpto',
+    'que hpta tan asquerosa', 'que hpta tan horrible',
+    'que hpta tan mierda', 'que hpta tan terrible',
+    'que hpto tan asqueroso', 'que hpto tan horrible',
+    'que hpto tan mierda', 'que hpto tan terrible',
+    'que hpta de producto', 'que hpta de experiencia',
+    'que hpto de producto', 'que hpto de experiencia',
+
+    // Expresiones con "hijo de las mil putas"
+    'que hijo de las mil putas', 'qué hijo de las mil putas',
+    'que hija de las mil putas', 'qué hija de las mil putas',
+    'que hijo de la gran puta', 'qué hijo de la gran puta',
+    'que hija de la gran puta', 'qué hija de la gran puta',
+    'que hijo de la madre', 'qué hijo de la madre',
+    'que hija de la madre', 'qué hija de la madre',
+    'que hijo de la mierda', 'qué hijo de la mierda',
+    'que hija de la mierda', 'qué hija de la mierda',
+    'que hijo de la verga', 'qué hijo de la verga',
+    'que hija de la verga', 'qué hija de la verga',
+    'que hijo de la gonorrea', 'qué hijo de la gonorrea',
+    'que hija de la gonorrea', 'qué hija de la gonorrea',
+    'que hijo de la marica', 'qué hijo de la marica',
+    'que hija de la marica', 'qué hija de la marica',
+    'que hijo de la maricón', 'qué hijo de la maricón',
+    'que hija de la maricón', 'qué hija de la maricón',
+    'que hijo de la mk', 'qué hijo de la mk',
+    'que hija de la mk', 'qué hija de la mk',
+    'que hijo de la piroba', 'qué hijo de la piroba',
+    'que hija de la piroba', 'qué hija de la piroba',
+    'que hijo de la hpta', 'qué hijo de la hpta',
+    'que hija de la hpta', 'qué hija de la hpta',
+    'que hijo de la hpto', 'qué hijo de la hpto',
+    'que hija de la hpto', 'qué hija de la hpto',
+
+    // Más jerga colombiana
+    'cachón', 'cachona', 'cachones', 'cachonas',
+    'que cachón', 'qué cachón',
+    'que cachona', 'qué cachona',
+    'que cachón tan', 'qué cachón tan',
+    'que cachona tan', 'qué cachona tan',
+    'que cachón de', 'qué cachón de',
+    'que cachona de', 'qué cachona de',
+    'es un cachón', 'es una cachona',
+    'que cachón tan asqueroso', 'que cachón tan horrible',
+    'que cachón tan mierda', 'que cachón tan terrible',
+    'que cachona tan asquerosa', 'que cachona tan horrible',
+    'que cachona tan mierda', 'que cachona tan terrible',
+    'que cachón de producto', 'que cachón de experiencia',
+    'que cachona de producto', 'que cachona de experiencia',
+
+    'cachaco', 'cachaca', 'cachacos', 'cachacas',
+    'que cachaco', 'qué cachaco',
+    'que cachaca', 'qué cachaca',
+    'que cachaco tan', 'qué cachaco tan',
+    'que cachaca tan', 'qué cachaca tan',
+    'que cachaco de', 'qué cachaco de',
+    'que cachaca de', 'qué cachaca de',
+    'es un cachaco', 'es una cachaca',
+    'que cachaco tan asqueroso', 'que cachaco tan horrible',
+    'que cachaco tan mierda', 'que cachaco tan terrible',
+    'que cachaca tan asquerosa', 'que cachaca tan horrible',
+    'que cachaca tan mierda', 'que cachaca tan terrible',
+    'que cachaco de producto', 'que cachaco de experiencia',
+    'que cachaca de producto', 'que cachaca de experiencia',
+
+    'costeño', 'costeña', 'costeños', 'costeñas',
+    'que costeño', 'qué costeño',
+    'que costeña', 'qué costeña',
+    'que costeño tan', 'qué costeño tan',
+    'que costeña tan', 'qué costeña tan',
+    'que costeño de', 'qué costeño de',
+    'que costeña de', 'qué costeña de',
+    'es un costeño', 'es una costeña',
+    'que costeño tan asqueroso', 'que costeño tan horrible',
+    'que costeño tan mierda', 'que costeño tan terrible',
+    'que costeña tan asquerosa', 'que costeña tan horrible',
+    'que costeña tan mierda', 'que costeña tan terrible',
+    'que costeño de producto', 'que costeño de experiencia',
+    'que costeña de producto', 'que costeña de experiencia',
+
+    'paisa', 'paisas',
+    'que paisa', 'qué paisa',
+    'que paisa tan', 'qué paisa tan',
+    'que paisa de', 'qué paisa de',
+    'es un paisa', 'es una paisa',
+    'que paisa tan asqueroso', 'que paisa tan horrible',
+    'que paisa tan mierda', 'que paisa tan terrible',
+    'que paisa de producto', 'que paisa de experiencia',
+
+    'rolo', 'rola', 'rolos', 'rolas',
+    'que rolo', 'qué rolo',
+    'que rola', 'qué rola',
+    'que rolo tan', 'qué rolo tan',
+    'que rola tan', 'qué rola tan',
+    'que rolo de', 'qué rolo de',
+    'que rola de', 'qué rola de',
+    'es un rolo', 'es una rola',
+    'que rolo tan asqueroso', 'que rolo tan horrible',
+    'que rolo tan mierda', 'que rolo tan terrible',
+    'que rola tan asquerosa', 'que rola tan horrible',
+    'que rola tan mierda', 'que rola tan terrible',
+    'que rolo de producto', 'que rolo de experiencia',
+    'que rola de producto', 'que rola de experiencia',
+
+    'santandereano', 'santandereana', 'santandereanos', 'santandereanas',
+    'que santandereano', 'qué santandereano',
+    'que santandereana', 'qué santandereana',
+    'que santandereano tan', 'qué santandereano tan',
+    'que santandereana tan', 'qué santandereana tan',
+    'que santandereano de', 'qué santandereano de',
+    'que santandereana de', 'qué santandereana de',
+    'es un santandereano', 'es una santandereana',
+    'que santandereano tan asqueroso', 'que santandereano tan horrible',
+    'que santandereano tan mierda', 'que santandereano tan terrible',
+    'que santandereana tan asquerosa', 'que santandereana tan horrible',
+    'que santandereana tan mierda', 'que santandereana tan terrible',
+    'que santandereano de producto', 'que santandereano de experiencia',
+    'que santandereana de producto', 'que santandereana de experiencia',
+
+    'boyacense', 'boyacenses',
+    'que boyacense', 'qué boyacense',
+    'que boyacense tan', 'qué boyacense tan',
+    'que boyacense de', 'qué boyacense de',
+    'es un boyacense', 'es una boyacense',
+    'que boyacense tan asqueroso', 'que boyacense tan horrible',
+    'que boyacense tan mierda', 'que boyacense tan terrible',
+    'que boyacense de producto', 'que boyacense de experiencia',
+
+    'tolimense', 'tolimenses',
+    'que tolimense', 'qué tolimense',
+    'que tolimense tan', 'qué tolimense tan',
+    'que tolimense de', 'qué tolimense de',
+    'es un tolimense', 'es una tolimense',
+    'que tolimense tan asqueroso', 'que tolimense tan horrible',
+    'que tolimense tan mierda', 'que tolimense tan terrible',
+    'que tolimense de producto', 'que tolimense de experiencia',
+
+    'vallecaucano', 'vallecaucana', 'vallecaucanos', 'vallecaucanas',
+    'que vallecaucano', 'qué vallecaucano',
+    'que vallecaucana', 'qué vallecaucana',
+    'que vallecaucano tan', 'qué vallecaucano tan',
+    'que vallecaucana tan', 'qué vallecaucana tan',
+    'que vallecaucano de', 'qué vallecaucano de',
+    'que vallecaucana de', 'qué vallecaucana de',
+    'es un vallecaucano', 'es una vallecaucana',
+    'que vallecaucano tan asqueroso', 'que vallecaucano tan horrible',
+    'que vallecaucano tan mierda', 'que vallecaucano tan terrible',
+    'que vallecaucana tan asquerosa', 'que vallecaucana tan horrible',
+    'que vallecaucana tan mierda', 'que vallecaucana tan terrible',
+    'que vallecaucano de producto', 'que vallecaucano de experiencia',
+    'que vallecaucana de producto', 'que vallecaucana de experiencia',
+
+    // Expresiones con "hpta" y variaciones
+    'hpta de las mil putas', 'hpto de las mil putas',
+    'hpta de la gran puta', 'hpto de la gran puta',
+    'hpta de la madre', 'hpto de la madre',
+    'hpta de la mierda', 'hpto de la mierda',
+    'hpta de la verga', 'hpto de la verga',
+    'hpta de la gonorrea', 'hpto de la gonorrea',
+    'hpta de la marica', 'hpto de la marica',
+    'hpta de la maricón', 'hpto de la maricón',
+    'hpta de la mk', 'hpto de la mk',
+    'hpta de la piroba', 'hpto de la piroba',
+
+    // Expresiones con "piroba" y variaciones
+    'piroba de las mil putas', 'pirobo de las mil putas',
+    'piroba de la gran puta', 'pirobo de la gran puta',
+    'piroba de la madre', 'pirobo de la madre',
+    'piroba de la mierda', 'pirobo de la mierda',
+    'piroba de la verga', 'pirobo de la verga',
+    'piroba de la gonorrea', 'pirobo de la gonorrea',
+    'piroba de la marica', 'pirobo de la marica',
+    'piroba de la maricón', 'pirobo de la maricón',
+    'piroba de la mk', 'pirobo de la mk',
+    'piroba de la hpta', 'pirobo de la hpta',
+    'piroba de la hpto', 'pirobo de la hpto',
+
+    // Expresiones con "verga" y variaciones
+    'verga de las mil putas', 'vergas de las mil putas',
+    'verga de la gran puta', 'vergas de la gran puta',
+    'verga de la madre', 'vergas de la madre',
+    'verga de la mierda', 'vergas de la mierda',
+    'verga de la gonorrea', 'vergas de la gonorrea',
+    'verga de la marica', 'vergas de la marica',
+    'verga de la maricón', 'vergas de la maricón',
+    'verga de la mk', 'vergas de la mk',
+    'verga de la piroba', 'vergas de la piroba',
+    'verga de la hpta', 'vergas de la hpta',
+    'verga de la hpto', 'vergas de la hpto'
 ];
 
 // Función para normalizar texto (quitar acentos, convertir a minúsculas, etc.)
@@ -491,34 +756,54 @@ export function checkSpanishProfanity(text: string): {
         word.includes('marica') ||
         word.includes('maricón') ||
         word.includes('huevon') ||
-        word.includes('huevón') ||
-        word.includes('güevón') ||
-        word.includes('guevon')
-    )) {
-        severity = 'high';
-    } else if (foundWords.some(word =>
-        word.includes('pendejo') ||
-        word.includes('cabrón') ||
-        word.includes('idiota') ||
-        word.includes('estúpido') ||
-        word.includes('asqueroso') ||
-        word.includes('repugnante') ||
-        word.includes('horrible') ||
-        word.includes('terrible') ||
-        word.includes('pésimo') ||
-        word.includes('malísimo') ||
-        word.includes('chimba') ||
-        word.includes('chimbo') ||
-        word.includes('vaina') ||
-        word.includes('berraquera') ||
-        word.includes('mamera') ||
-        word.includes('pereza') ||
-        word.includes('mk') ||
-        word.includes('parce') ||
-        word.includes('parcero')
-    )) {
-        severity = 'medium';
-    }
+            word.includes('huevón') ||
+    word.includes('güevón') ||
+    word.includes('guevon') ||
+    word.includes('piroba') ||
+    word.includes('pirobo') ||
+    word.includes('hpta') ||
+    word.includes('hpto') ||
+    word.includes('verga') ||
+    word.includes('cachón') ||
+    word.includes('cachona') ||
+    word.includes('cachaco') ||
+    word.includes('cachaca') ||
+    word.includes('costeño') ||
+    word.includes('costeña') ||
+    word.includes('paisa') ||
+    word.includes('rolo') ||
+    word.includes('rola') ||
+    word.includes('santandereano') ||
+    word.includes('santandereana') ||
+    word.includes('boyacense') ||
+    word.includes('tolimense') ||
+    word.includes('vallecaucano') ||
+    word.includes('vallecaucana')
+  )) {
+    severity = 'high';
+  } else if (foundWords.some(word => 
+    word.includes('pendejo') || 
+    word.includes('cabrón') || 
+    word.includes('idiota') ||
+    word.includes('estúpido') ||
+    word.includes('asqueroso') ||
+    word.includes('repugnante') ||
+    word.includes('horrible') ||
+    word.includes('terrible') ||
+    word.includes('pésimo') ||
+    word.includes('malísimo') ||
+    word.includes('chimba') ||
+    word.includes('chimbo') ||
+    word.includes('vaina') ||
+    word.includes('berraquera') ||
+    word.includes('mamera') ||
+    word.includes('pereza') ||
+    word.includes('mk') ||
+    word.includes('parce') ||
+    word.includes('parcero')
+  )) {
+    severity = 'medium';
+  }
 
     return {
         hasProfanity,
@@ -656,11 +941,101 @@ export function getReplacementSuggestions(text: string): string {
         'qué güevón': 'qué persona',
         'que guevon': 'que persona',
         'qué guevon': 'qué persona',
-        'que malparido': 'que persona',
-        'qué malparido': 'qué persona',
-        'que malparida': 'que persona',
-        'qué malparida': 'qué persona'
-    };
+            'que malparido': 'que persona',
+    'qué malparido': 'qué persona',
+    'que malparida': 'que persona',
+    'qué malparida': 'qué persona',
+    
+    // Más jerga colombiana
+    'piroba': 'persona',
+    'pirobo': 'persona',
+    'hpta': 'persona',
+    'hpto': 'persona',
+    'verga': 'cosa',
+    'cachón': 'persona',
+    'cachona': 'persona',
+    'cachaco': 'persona',
+    'cachaca': 'persona',
+    'costeño': 'persona',
+    'costeña': 'persona',
+    'paisa': 'persona',
+    'rolo': 'persona',
+    'rola': 'persona',
+    'santandereano': 'persona',
+    'santandereana': 'persona',
+    'boyacense': 'persona',
+    'tolimense': 'persona',
+    'vallecaucano': 'persona',
+    'vallecaucana': 'persona',
+    
+    // Frases con nuevas palabras
+    'que piroba': 'que persona',
+    'qué piroba': 'qué persona',
+    'que pirobo': 'que persona',
+    'qué pirobo': 'qué persona',
+    'que hpta': 'que persona',
+    'qué hpta': 'qué persona',
+    'que hpto': 'que persona',
+    'qué hpto': 'qué persona',
+    'que verga': 'que cosa',
+    'qué verga': 'qué cosa',
+    'que cachón': 'que persona',
+    'qué cachón': 'qué persona',
+    'que cachona': 'que persona',
+    'qué cachona': 'qué persona',
+    'que cachaco': 'que persona',
+    'qué cachaco': 'qué persona',
+    'que cachaca': 'que persona',
+    'qué cachaca': 'qué persona',
+    'que costeño': 'que persona',
+    'qué costeño': 'qué persona',
+    'que costeña': 'que persona',
+    'qué costeña': 'qué persona',
+    'que paisa': 'que persona',
+    'qué paisa': 'qué persona',
+    'que rolo': 'que persona',
+    'qué rolo': 'qué persona',
+    'que rola': 'que persona',
+    'qué rola': 'qué persona',
+    'que santandereano': 'que persona',
+    'qué santandereano': 'qué persona',
+    'que santandereana': 'que persona',
+    'qué santandereana': 'qué persona',
+    'que boyacense': 'que persona',
+    'qué boyacense': 'qué persona',
+    'que tolimense': 'que persona',
+    'qué tolimense': 'qué persona',
+    'que vallecaucano': 'que persona',
+    'qué vallecaucano': 'qué persona',
+    'que vallecaucana': 'que persona',
+    'qué vallecaucana': 'qué persona',
+    
+    // Frases con "hijo de las mil putas" y variaciones
+    'hijo de las mil putas': 'persona',
+    'hija de las mil putas': 'persona',
+    'hijo de la gran puta': 'persona',
+    'hija de la gran puta': 'persona',
+    'hijo de la madre': 'persona',
+    'hija de la madre': 'persona',
+    'hijo de la mierda': 'persona',
+    'hija de la mierda': 'persona',
+    'hijo de la verga': 'persona',
+    'hija de la verga': 'persona',
+    'hijo de la gonorrea': 'persona',
+    'hija de la gonorrea': 'persona',
+    'hijo de la marica': 'persona',
+    'hija de la marica': 'persona',
+    'hijo de la maricón': 'persona',
+    'hija de la maricón': 'persona',
+    'hijo de la mk': 'persona',
+    'hija de la mk': 'persona',
+    'hijo de la piroba': 'persona',
+    'hija de la piroba': 'persona',
+    'hijo de la hpta': 'persona',
+    'hija de la hpta': 'persona',
+    'hijo de la hpto': 'persona',
+    'hija de la hpto': 'persona'
+  };
 
     for (const [bad, good] of Object.entries(replacements)) {
         const regex = new RegExp(bad, 'gi');
