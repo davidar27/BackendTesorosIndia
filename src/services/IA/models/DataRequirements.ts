@@ -13,4 +13,22 @@ export type ContextData = {
     productCategories?: string;
     packages?: string;
     sales?: string;
+};
+
+// Nuevos tipos para detección de intención
+export type IntentType = 'packages' | 'products' | 'experiences' | 'categories' | 'none';
+
+export type IntentRedirectTo = 'show_packages' | 'show_categories' | 'show_experiences' | 'show_products' | 'none';
+
+export type IntentData = {
+    type: IntentType;
+    confidence: number;
+    redirectTo: IntentRedirectTo;
+    message: string;
+    buttonText: string;
+};
+
+export type AIResponse = {
+    text: string;
+    intent: IntentData;
 }; 

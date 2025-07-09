@@ -6,6 +6,10 @@ export function detectCommonQuery(prompt: string): string | null {
         return 'greeting';
     }
     
+    if (lowerPrompt.includes('no se') || lowerPrompt.includes('no sé') || lowerPrompt.includes('no se que')) {
+        return 'no_idea';
+    }
+    
     if (lowerPrompt.includes('productos') && !lowerPrompt.includes('categoría') && !lowerPrompt.includes('específico')) {
         return 'products_general';
     }
@@ -42,7 +46,7 @@ export function cleanResponse(response: string): string {
 
 export async function formatObject(object: any): Promise<string> {
     return JSON.stringify(object, null, 2);
-} 
+}
 
 export function isAffirmativeResponse(prompt: string): boolean {
     const affirmatives = ["sí", "si", "ok", "dale", "quiero ver", "claro", "muéstrame", "mostrar", "ver", "por favor"];
