@@ -2,7 +2,6 @@ import db from '@/config/db';
 import { Product } from '@/models/Product/Product';
 
 export async function createProductRepository(product: Product): Promise<number> {
-    console.log(product);
     
     const checkSql = `SELECT servicio_id FROM servicio WHERE nombre = ? AND experiencia_id = ? AND tipo = 'producto'`;
     const checkValues = [product.name, product.experience_id];

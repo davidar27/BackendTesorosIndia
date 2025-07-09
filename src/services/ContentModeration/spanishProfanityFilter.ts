@@ -46,7 +46,161 @@ const SPANISH_PROFANITY_LIST = [
     'p3nd3j0', 'p3nd3j4',
     'm4m0n', 'm4m0n4',
     'h1j0 d3 put4',
-    'h1j4 d3 put4'
+    'h1j4 d3 put4',
+
+    // Abreviaturas y jerga colombiana
+    'pta', 'ptas', 'pto', 'ptos',
+    'mrd', 'mrda', 'mrdas',
+    'cn', 'cno', 'cnos',
+    'pndj', 'pndja', 'pndjs', 'pndjas',
+    'cbrn', 'cbrna', 'cbrns', 'cbrnas',
+    'idta', 'idtas',
+    'stpd', 'stpda', 'stpds', 'stpdas',
+    'mbcl', 'mbcls',
+    'tnt', 'tnta', 'tnts', 'tntas',
+    'glplls', 'glplls',
+    'mmn', 'mmna', 'mmns', 'mmnas',
+    'sqrs', 'sqrsa', 'sqrss', 'sqrsas',
+    'rpgnt', 'rpgnts',
+    'hrbl', 'hrbls',
+    'trbl', 'trbls',
+    'psm', 'psma', 'psms', 'psmas',
+    'mlsm', 'mlsma', 'mlsms', 'mlsmas',
+
+    // Jerga colombiana específica
+    'gonorrea', 'gonorreas',
+    'hpta', 'hptas', 'hpto', 'hptos',
+    'malparido', 'malparida', 'malparidos', 'malparidas',
+    'hijueputa', 'hijueputas',
+    'huevon', 'huevona', 'huevones', 'huevonas',
+    'huevón', 'huevóna', 'huevónes', 'huevónas',
+    'marica', 'maricas', 'maricón', 'maricones',
+    'marik', 'mariks',
+    'mk', 'mks',
+    'parce', 'parcero', 'parceros',
+    'parcerito', 'parceritos',
+    'chimba', 'chimbas',
+    'chimbo', 'chimbos',
+    'chimba de', 'chimbo de',
+    'que chimba', 'qué chimba',
+    'que chimbo', 'qué chimbo',
+    'que chimba de', 'qué chimba de',
+    'que chimbo de', 'qué chimbo de',
+    'que chimba tan', 'qué chimba tan',
+    'que chimbo tan', 'qué chimbo tan',
+    'que chimba de producto', 'que chimba de experiencia',
+    'que chimbo de producto', 'que chimbo de experiencia',
+    'que chimba tan asquerosa', 'que chimbo tan asqueroso',
+    'que chimba tan mierda', 'que chimbo tan mierda',
+    'que chimba tan horrible', 'que chimbo tan horrible',
+    'que chimba tan terrible', 'que chimbo tan terrible',
+    'que chimba tan pésimo', 'que chimbo tan pésimo',
+    'que chimba tan malísimo', 'que chimbo tan malísimo',
+
+    // Expresiones colombianas negativas
+    'que vaina', 'qué vaina',
+    'que vaina tan', 'qué vaina tan',
+    'que vaina de', 'qué vaina de',
+    'que vaina tan asquerosa', 'que vaina tan horrible',
+    'que vaina tan mierda', 'que vaina tan terrible',
+    'que vaina tan pésimo', 'que vaina tan malísimo',
+    'es una vaina', 'es un vaina',
+    'que vaina de producto', 'que vaina de experiencia',
+    'que vaina de servicio', 'que vaina de lugar',
+
+    'que berraquera', 'qué berraquera',
+    'que berraquera tan', 'qué berraquera tan',
+    'que berraquera de', 'qué berraquera de',
+    'que berraquera tan asquerosa', 'que berraquera tan horrible',
+    'que berraquera tan mierda', 'que berraquera tan terrible',
+    'es una berraquera', 'es un berraquera',
+
+    'que mamera', 'qué mamera',
+    'que mamera tan', 'qué mamera tan',
+    'que mamera de', 'qué mamera de',
+    'que mamera tan asquerosa', 'que mamera tan horrible',
+    'que mamera tan mierda', 'que mamera tan terrible',
+    'es una mamera', 'es un mamera',
+
+    'que pereza', 'qué pereza',
+    'que pereza tan', 'qué pereza tan',
+    'que pereza de', 'qué pereza de',
+    'que pereza tan asquerosa', 'que pereza tan horrible',
+    'que pereza tan mierda', 'que pereza tan terrible',
+    'es una pereza', 'es un pereza',
+
+    // Expresiones con "güevón" (variación colombiana)
+    'güevón', 'güevóna', 'güevónes', 'güevónas',
+    'guevon', 'guevona', 'guevones', 'guevonas',
+    'que güevón', 'qué güevón',
+    'que guevon', 'qué guevon',
+    'que güevón tan', 'qué güevón tan',
+    'que guevon tan', 'qué guevon tan',
+    'que güevón de', 'qué güevón de',
+    'que guevon de', 'qué guevon de',
+    'es un güevón', 'es una güevóna',
+    'es un guevon', 'es una guevona',
+
+    // Expresiones con "malparido" (muy común en Colombia)
+    'que malparido', 'qué malparido',
+    'que malparida', 'qué malparida',
+    'que malparido tan', 'qué malparido tan',
+    'que malparida tan', 'qué malparida tan',
+    'que malparido de', 'qué malparido de',
+    'que malparida de', 'qué malparida de',
+    'es un malparido', 'es una malparida',
+    'que malparido de producto', 'que malparido de experiencia',
+    'que malparida de producto', 'que malparida de experiencia',
+
+    // Expresiones con "gonorrea" (muy colombiana)
+    'que gonorrea', 'qué gonorrea',
+    'que gonorrea tan', 'qué gonorrea tan',
+    'que gonorrea de', 'qué gonorrea de',
+    'es una gonorrea', 'es un gonorrea',
+    'que gonorrea de producto', 'que gonorrea de experiencia',
+    'que gonorrea tan asquerosa', 'que gonorrea tan horrible',
+    'que gonorrea tan mierda', 'que gonorrea tan terrible',
+
+    // Expresiones con "marica" (común en Colombia)
+    'que marica', 'qué marica',
+    'que maricas', 'qué maricas',
+    'que maricón', 'qué maricón',
+    'que maricones', 'qué maricones',
+    'que marica tan', 'qué marica tan',
+    'que maricón tan', 'qué maricón tan',
+    'que marica de', 'qué marica de',
+    'que maricón de', 'qué maricón de',
+    'es un marica', 'es una marica',
+    'es un maricón', 'es una maricón',
+    'que marica de producto', 'que marica de experiencia',
+    'que maricón de producto', 'que maricón de experiencia',
+
+    // Expresiones con "mk" (abreviatura de marica)
+    'que mk', 'qué mk',
+    'que mk tan', 'qué mk tan',
+    'que mk de', 'qué mk de',
+    'es un mk', 'es una mk',
+    'que mk de producto', 'que mk de experiencia',
+    'que mk tan asqueroso', 'que mk tan horrible',
+    'que mk tan mierda', 'que mk tan terrible',
+
+    // Expresiones con "parce" (colombiano pero puede ser negativo)
+    'que parce', 'qué parce',
+    'que parce tan', 'qué parce tan',
+    'que parce de', 'qué parce de',
+    'es un parce', 'es una parce',
+    'que parce de producto', 'que parce de experiencia',
+    'que parce tan asqueroso', 'que parce tan horrible',
+    'que parce tan mierda', 'que parce tan terrible',
+
+    // Expresiones con "parcero" (variación de parce)
+    'que parcero', 'qué parcero',
+    'que parcero tan', 'qué parcero tan',
+    'que parcero de', 'qué parcero de',
+    'es un parcero', 'es una parcero',
+    'que parcero de producto', 'que parcero de experiencia',
+    'que parcero tan asqueroso', 'que parcero tan horrible',
+    'que parcero tan mierda', 'que parcero tan terrible'
 ];
 
 // Lista de frases y expresiones prohibidas
@@ -204,7 +358,76 @@ const SPANISH_PROFANITY_PHRASES = [
     'que estafa', 'qué estafa',
     'es un engaño', 'es una mentira',
     'que engaño', 'qué engaño',
-    'que mentira', 'qué mentira'
+    'que mentira', 'qué mentira',
+
+    // Frases colombianas específicas
+    'que chimba tan asquerosa', 'que chimba tan horrible',
+    'que chimba tan mierda', 'que chimba tan terrible',
+    'que chimba tan pésimo', 'que chimba tan malísimo',
+    'que chimbo tan asqueroso', 'que chimbo tan horrible',
+    'que chimbo tan mierda', 'que chimbo tan terrible',
+    'que chimbo tan pésimo', 'que chimbo tan malísimo',
+
+    'que vaina tan asquerosa', 'que vaina tan horrible',
+    'que vaina tan mierda', 'que vaina tan terrible',
+    'que vaina tan pésimo', 'que vaina tan malísimo',
+
+    'que berraquera tan asquerosa', 'que berraquera tan horrible',
+    'que berraquera tan mierda', 'que berraquera tan terrible',
+    'que berraquera tan pésimo', 'que berraquera tan malísimo',
+
+    'que mamera tan asquerosa', 'que mamera tan horrible',
+    'que mamera tan mierda', 'que mamera tan terrible',
+    'que mamera tan pésimo', 'que mamera tan malísimo',
+
+    'que pereza tan asquerosa', 'que pereza tan horrible',
+    'que pereza tan mierda', 'que pereza tan terrible',
+    'que pereza tan pésimo', 'que pereza tan malísimo',
+
+    // Frases con jerga colombiana
+    'que güevón tan asqueroso', 'que güevón tan horrible',
+    'que güevón tan mierda', 'que güevón tan terrible',
+    'que guevon tan asqueroso', 'que guevon tan horrible',
+    'que guevon tan mierda', 'que guevon tan terrible',
+
+    'que malparido tan asqueroso', 'que malparido tan horrible',
+    'que malparido tan mierda', 'que malparido tan terrible',
+    'que malparida tan asquerosa', 'que malparida tan horrible',
+    'que malparida tan mierda', 'que malparida tan terrible',
+
+    'que gonorrea tan asquerosa', 'que gonorrea tan horrible',
+    'que gonorrea tan mierda', 'que gonorrea tan terrible',
+
+    'que marica tan asqueroso', 'que marica tan horrible',
+    'que marica tan mierda', 'que marica tan terrible',
+    'que maricón tan asqueroso', 'que maricón tan horrible',
+    'que maricón tan mierda', 'que maricón tan terrible',
+
+    'que mk tan asqueroso', 'que mk tan horrible',
+    'que mk tan mierda', 'que mk tan terrible',
+
+    'que parce tan asqueroso', 'que parce tan horrible',
+    'que parce tan mierda', 'que parce tan terrible',
+    'que parcero tan asqueroso', 'que parcero tan horrible',
+    'que parcero tan mierda', 'que parcero tan terrible',
+
+    // Frases con productos/experiencias en jerga colombiana
+    'que chimba de producto', 'que chimba de experiencia',
+    'que chimbo de producto', 'que chimbo de experiencia',
+    'que vaina de producto', 'que vaina de experiencia',
+    'que berraquera de producto', 'que berraquera de experiencia',
+    'que mamera de producto', 'que mamera de experiencia',
+    'que pereza de producto', 'que pereza de experiencia',
+    'que güevón de producto', 'que güevón de experiencia',
+    'que guevon de producto', 'que guevon de experiencia',
+    'que malparido de producto', 'que malparido de experiencia',
+    'que malparida de producto', 'que malparida de experiencia',
+    'que gonorrea de producto', 'que gonorrea de experiencia',
+    'que marica de producto', 'que marica de experiencia',
+    'que maricón de producto', 'que maricón de experiencia',
+    'que mk de producto', 'que mk de experiencia',
+    'que parce de producto', 'que parce de experiencia',
+    'que parcero de producto', 'que parcero de experiencia'
 ];
 
 // Función para normalizar texto (quitar acentos, convertir a minúsculas, etc.)
@@ -261,7 +484,16 @@ export function checkSpanishProfanity(text: string): {
         word.includes('follar') ||
         word.includes('coger') ||
         word.includes('hijo de puta') ||
-        word.includes('hija de puta')
+        word.includes('hija de puta') ||
+        word.includes('malparido') ||
+        word.includes('malparida') ||
+        word.includes('gonorrea') ||
+        word.includes('marica') ||
+        word.includes('maricón') ||
+        word.includes('huevon') ||
+        word.includes('huevón') ||
+        word.includes('güevón') ||
+        word.includes('guevon')
     )) {
         severity = 'high';
     } else if (foundWords.some(word =>
@@ -274,7 +506,16 @@ export function checkSpanishProfanity(text: string): {
         word.includes('horrible') ||
         word.includes('terrible') ||
         word.includes('pésimo') ||
-        word.includes('malísimo')
+        word.includes('malísimo') ||
+        word.includes('chimba') ||
+        word.includes('chimbo') ||
+        word.includes('vaina') ||
+        word.includes('berraquera') ||
+        word.includes('mamera') ||
+        word.includes('pereza') ||
+        word.includes('mk') ||
+        word.includes('parce') ||
+        word.includes('parcero')
     )) {
         severity = 'medium';
     }
@@ -298,6 +539,7 @@ export function getReplacementSuggestions(text: string): string {
         'puto': 'persona',
         'mierda': 'basura',
         'coño': 'vaya',
+        'basura': 'pta',
 
         // Insultos
         'pendejo': 'tonto',
@@ -359,7 +601,65 @@ export function getReplacementSuggestions(text: string): string {
         'es un fraude': 'no es bueno',
         'es una estafa': 'no es bueno',
         'es un engaño': 'no es bueno',
-        'es una mentira': 'no es cierto'
+        'es una mentira': 'no es cierto',
+
+        // Jerga colombiana
+        'chimba': 'bueno',
+        'chimbo': 'bueno',
+        'vaina': 'cosa',
+        'berraquera': 'cosa',
+        'mamera': 'molestia',
+        'pereza': 'molestia',
+        'gonorrea': 'persona',
+        'marica': 'persona',
+        'maricón': 'persona',
+        'mk': 'persona',
+        'parce': 'amigo',
+        'parcero': 'amigo',
+        'huevon': 'persona',
+        'huevón': 'persona',
+        'güevón': 'persona',
+        'guevon': 'persona',
+        'malparido': 'persona',
+        'malparida': 'persona',
+
+        // Frases colombianas
+        'que chimba': 'que bueno',
+        'qué chimba': 'qué bueno',
+        'que chimbo': 'que bueno',
+        'qué chimbo': 'qué bueno',
+        'que vaina': 'que cosa',
+        'qué vaina': 'qué cosa',
+        'que berraquera': 'que cosa',
+        'qué berraquera': 'qué cosa',
+        'que mamera': 'que molestia',
+        'qué mamera': 'qué molestia',
+        'que pereza': 'que molestia',
+        'qué pereza': 'qué molestia',
+        'que gonorrea': 'que persona',
+        'qué gonorrea': 'qué persona',
+        'que marica': 'que persona',
+        'qué marica': 'qué persona',
+        'que maricón': 'que persona',
+        'qué maricón': 'qué persona',
+        'que mk': 'que persona',
+        'qué mk': 'qué persona',
+        'que parce': 'que amigo',
+        'qué parce': 'qué amigo',
+        'que parcero': 'que amigo',
+        'qué parcero': 'qué amigo',
+        'que huevon': 'que persona',
+        'qué huevon': 'qué persona',
+        'que huevón': 'que persona',
+        'qué huevón': 'qué persona',
+        'que güevón': 'que persona',
+        'qué güevón': 'qué persona',
+        'que guevon': 'que persona',
+        'qué guevon': 'qué persona',
+        'que malparido': 'que persona',
+        'qué malparido': 'qué persona',
+        'que malparida': 'que persona',
+        'qué malparida': 'qué persona'
     };
 
     for (const [bad, good] of Object.entries(replacements)) {

@@ -36,7 +36,6 @@ class IAService {
             // 1. Verificar caché primero
             const cachedResponse = getCachedResponse(prompt, role, category_id || 0);
             if (cachedResponse) {
-                console.log("Using cached response");
                 let intent = this.detectIntentFromPrompt(prompt, context);
                 if (role !== 'emprendedor' && (intent.type === 'total_income_by_experience' || intent.type === 'top_products_by_experience')) {
                     intent = { ...intent, message: '', buttonText: '' };
@@ -188,7 +187,6 @@ class IAService {
 
         for (const model of MODEL_PREFERENCE) {
             try {
-                console.log(`Trying model for simple response: ${model}`);
                 const chat = ai.chats.create({
                     model: model,
                     history: transformedHistory,
