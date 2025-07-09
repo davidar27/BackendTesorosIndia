@@ -16,9 +16,9 @@ export type ContextData = {
 };
 
 // Nuevos tipos para detección de intención
-export type IntentType = 'packages' | 'products' | 'experiences' | 'categories' | 'none';
+export type IntentType = 'packages' | 'products' | 'experiences' | 'categories' | 'top_products_by_experience' | 'total_income_by_experience' | 'none';
 
-export type IntentRedirectTo = 'show_packages' | 'show_categories' | 'show_experiences' | 'show_products' | 'none';
+export type IntentRedirectTo = 'show_packages' | 'show_categories' | 'show_experiences' | 'show_products' | 'show_top_products_by_experience' | 'show_total_income_by_experience' | 'none';
 
 export type IntentData = {
     type: IntentType;

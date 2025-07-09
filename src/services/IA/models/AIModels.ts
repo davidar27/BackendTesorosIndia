@@ -37,4 +37,4 @@ export const globalConfig: GenerateContentConfig = {
     ],
 };
 
-export type Roles = "cliente" | "emprendedor" | "administrador" | "observador"; 
+export type Roles = 'observador' | 'emprendedor'; 
