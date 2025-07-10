@@ -1,8 +1,6 @@
 import db from '@/config/db';
 
 export const getNotificationsRepository = async (userId: number) => {
-    console.log(userId);
-
     const sql = `
         SELECT 
             n.notificacion_id AS notification_id,
