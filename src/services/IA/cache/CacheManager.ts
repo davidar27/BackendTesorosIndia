@@ -42,7 +42,6 @@ export function cacheResponse(prompt: string, role: string, category_id: number,
 // Método para limpiar caché manualmente
 export function clearCache(): void {
     responseCache.clear();
-    console.log("Cache cleared manually");
 }
 
 // Método para obtener estadísticas del caché

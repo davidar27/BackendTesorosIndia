@@ -34,17 +34,11 @@ export async function updateProductRepository(product_id: number, product: Produ
         throw new Error("No hay campos para actualizar");
     }
 
-    console.log(values)
-    console.log(fields)
-    console.log("producot" + product_id)
-    console.log("expero" + product.experience_id)
-
 
 
     const sql = `UPDATE servicio SET ${fields.join(", ")} WHERE servicio_id = ? AND experiencia_id = ? AND tipo = 'producto'`;
     values.push(product_id);
     values.push(product.experience_id);
-    console.log(sql)
 
     const [result]: any = await db.execute(sql, values);
     if (result.affectedRows == 0) {

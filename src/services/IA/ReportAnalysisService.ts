@@ -32,7 +32,6 @@ class ReportAnalysisService {
       
       for (const model of MODEL_PREFERENCE) {
         try {
-          console.log(`Analyzing report with model: ${model}`);
           
           const chat = ai.chats.create({
             model: model,
@@ -44,20 +43,6 @@ class ReportAnalysisService {
           });
 
           const result = this.parseAnalysisResponse(response.text);
-          
-          // Log the analysis result
-          console.log('=== REPORT ANALYSIS RESULT ===');
-          console.log(`Comment: "${reportData.comment_text}"`);
-          console.log(`Report Type: ${reportData.report_type}`);
-          console.log(`Reason: ${reportData.reason}`);
-          console.log(`Is Offensive: ${result.isOffensive}`);
-          console.log(`Matches Report Type: ${result.matchesReportType}`);
-          console.log(`Confidence: ${result.confidence}`);
-          console.log(`Analysis: ${result.analysis}`);
-          console.log(`Detected Categories: ${result.detectedCategories.join(', ')}`);
-          console.log(`Recommendation: ${result.recommendation}`);
-          console.log('==============================');
-
           return result;
         } catch (error: any) {
           console.error(`Error with model ${model} for report analysis:`, error.message);
