@@ -21,6 +21,6 @@ router.post('/:experience_id', uploadSingleFile, authMiddlewareToken, checkRole(
 
 router.put('/estado/:product_id', authMiddlewareToken, checkRole("emprendedor"), updateProductStatusController)
 
-router.put('/:experience_id/:product_id', uploadSingleFile, authMiddlewareToken, checkRole("emprendedor"), updateProductController)
+router.put('/:product_id/:experience_id', uploadSingleFile, authMiddlewareToken, checkRole("emprendedor"), updateProductController)
 
 export default router;
