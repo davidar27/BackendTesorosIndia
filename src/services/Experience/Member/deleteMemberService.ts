@@ -3,8 +3,8 @@ import { deleteMemberRepository } from "@/repositories/Experience/Member/deleteM
 import { getMemberRepository } from "@/repositories/Experience/Member/getMemberRepository";
 import { deleteFromAzureService } from "@/services/Azure/deleteFromAzureService";
 
-export const deleteMemberService = async (member_id: number) => {
-    const member: Member = await getMemberRepository(member_id)
+export const deleteMemberService = async (memberId: number) => {
+    const member = await getMemberRepository(memberId)    
     await deleteFromAzureService(member.image as string)
-    await deleteMemberRepository(member_id);
+    await deleteMemberRepository(memberId);
 }; 

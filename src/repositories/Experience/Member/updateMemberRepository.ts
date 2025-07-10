@@ -19,9 +19,25 @@ export const updateMemberRepository = async (member: Member) => {
         member.profession,
         member.image,
         member.age,
-        member.member_id
+        member.memberId
     ];
 
     const [result]: any = await db.execute(sql, values);
-    return result;
+
+    // Get the updated member with its data
+    const updatedMemberSql = `
+        SELECT 
+        integrante_id as memberId, 
+        nombre as name, 
+        descripcion as description, 
+        profesion as profession, 
+        edad as age, 
+        experiencia_id as experience_id, 
+        imagen as image
+        FROM integrantes 
+        WHERE integrante_id = ?
+    `;
+    const [updatedMember]: any = await db.execute(updatedMemberSql, [member.memberId]);
+
+    return updatedMember[0];
 };

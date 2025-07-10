@@ -21,33 +21,36 @@ import updateStatusExperienceController from "@/controllers/Experience/updateSta
 
 const router = express.Router();
 
-// Rutas públicas de experiencias
+// ===== RUTAS PÚBLICAS =====
+
+// Rutas estáticas (sin parámetros) - deben ir ANTES de las rutas con parámetros
 router.get('/mapa', getLocationExperiencesController);
-
-// Ruta de búsqueda de experiencias
 router.get('/buscar', searchExperiencesController);
+router.get('/nombre', getAllNamesExperienceController);
+router.get('/', getAllExperienceController);
 
+// Rutas con parámetros
+router.get('/categorias/:categoryId', getExperiencesByCategoryController);
 router.get('/informacion/:experience_id', getInfoExperienceController);
 router.get('/miembros/:experience_id', getExperienceMembersController);
 router.get('/productos/:experience_id', getProductsExperienceController);
 router.get('/valoraciones/:experience_id', getReviewsExperienceController);
 
-router.get('/nombre', getAllNamesExperienceController);
-router.get('/categorias/:categoryId', getExperiencesByCategoryController);
+// ===== RUTAS PRIVADAS =====
 
-// Rutas privadas de experiencias
+// Rutas estáticas privadas
 router.get('/mi-experiencia', authMiddlewareToken, checkRole('emprendedor'), getMyExperienceController);
 
-// actualizar experiencia
+// Rutas con parámetros privadas
 router.put("/actualizar-informacion/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), updateInfoExperienceController);
 router.put("/estado/:experience_id", authMiddlewareToken, checkRole('emprendedor'), updateStatusExperienceController);
-// rutas de integrantes
-router.post("/miembros/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), addMemberController);
-router.put("/miembros/:member_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), updateMemberController);
-router.delete("/miembros/:member_id", authMiddlewareToken, checkRole('emprendedor'), deleteMemberController);
-
 router.delete("/eliminar/:id", authMiddlewareToken, checkRole('emprendedor'), deleteExperienceController);
 
-router.get('/', getAllExperienceController);
+// ===== RUTAS DE INTEGRANTES =====
+
+// Rutas de integrantes con parámetros
+router.post("/miembros/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), addMemberController);
+router.put("/miembros/:memberId", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), updateMemberController);
+router.delete("/miembros/:memberId", authMiddlewareToken, checkRole('emprendedor'), deleteMemberController);
 
 export default router;

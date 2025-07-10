@@ -7,11 +7,11 @@ export const addMemberController = async (req: Request, res: Response): Promise<
     try {
         const { experience_id } = req.params
         const { age, description, profession, name } = req.body
-        let imageUrl: string | undefined;
+        let image: string | undefined;
         if (req.file) {
             const uploadedUrl = await uploadToAzureService(req.file);
             if (uploadedUrl) {
-                imageUrl = uploadedUrl;
+                image = uploadedUrl;
             }
         }
         const member: Member = {
@@ -20,10 +20,13 @@ export const addMemberController = async (req: Request, res: Response): Promise<
             experience_id: parseInt(experience_id),
             name: name,
             profession: profession,
-            image: imageUrl
+            image: image
         }
-        await addMemberService(member);
-        res.status(200).json("Integrante agregado con exito.");
+        const createdMember = await addMemberService(member);
+        res.status(201).json({
+            message: "Integrante agregado exitosamente",
+            member: createdMember
+        });
     } catch (error: any) {
         res.status(500).json({
             error: error.message || "Error al agregar integrantes"

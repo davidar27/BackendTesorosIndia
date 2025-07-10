@@ -3,6 +3,7 @@ import db from '@/config/db';
 export const getExperienceMembersRepository = async (experience_id: number) => {
     const sql = `
         SELECT
+            i.integrante_id as memberId,
             i.nombre AS name,
             i.profesion AS profession,
             i.edad AS age,

@@ -10,5 +10,19 @@ export const addMemberRepository = async (member: Member) => {
     `;
     const values = [member.name, member.description, member.profession, member.age, member.experience_id, member.image];
     const [result]: any = await db.execute(sql, values);
-    return result;
+    
+    const createdMemberSql = `
+        SELECT integrante_id as memberId, 
+        nombre as name, 
+        descripcion as description, 
+        profesion as profession, 
+        edad as age, 
+        experiencia_id as experience_id, 
+        imagen as image
+        FROM integrantes 
+        WHERE integrante_id = ?
+    `;
+    const [createdMember]: any = await db.execute(createdMemberSql, [result.insertId]);
+    
+    return createdMember[0];
 };

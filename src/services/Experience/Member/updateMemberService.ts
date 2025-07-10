@@ -4,7 +4,7 @@ import { updateMemberRepository } from "@/repositories/Experience/Member/updateM
 import { deleteFromAzureService } from "@/services/Azure/deleteFromAzureService";
 
 export const updateMemberService = async (member: Member) => {
-    const gettedMember: Member = await getMemberRepository(member.member_id as number)
+    const gettedMember: Member = await getMemberRepository(member.memberId as number)
     await deleteFromAzureService(gettedMember.image as string)
     return await updateMemberRepository(member);
 }; 
