@@ -47,7 +47,7 @@ export const analyzeReportController = async (req: AnalyzeReportRequest, res: Re
     // Realizar el análisis con IA
     const analysisResult = await ReportAnalysisService.analyzeReport(reportData);
 
-    let result = "El mensaje no tiene los suficientes reportes para ser eliminada"
+    let result = "El reporte no es valido"
     if (analysisResult.isOffensive || analysisResult.matchesReportType) {
       result = await reportedReviewService(review_id, reportingUser)
     }
