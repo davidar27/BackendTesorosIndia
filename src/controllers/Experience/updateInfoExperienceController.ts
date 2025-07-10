@@ -26,7 +26,7 @@ export const updateInfoExperienceController = async (req: Request, res: Response
 
         const updatedExperience = {
             experience_id: parseInt(experience_id),
-            name: experience_id || experience.name,
+            name: name || experience.name,
             description: description || experience.description,
             story: story || experience.story,
             lat: lat || experience.lat,

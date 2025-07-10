@@ -1,11 +1,12 @@
 import db from '@/config/db';
 
 export const updateInfoExperienceRepository = async (ExperienceData: any) => {
-    const { experience_id, description, location, story, image, entrepreneur_id, lat, lng } = ExperienceData;
+    const { experience_id, name, description, location, story, image, entrepreneur_id, lat, lng } = ExperienceData;
 
     const query = `
         UPDATE experiencia 
         SET
+            nombre = ?,
             descripcion = ?, 
             ubicacion = ?, 
             historia = ?, 
@@ -16,6 +17,7 @@ export const updateInfoExperienceRepository = async (ExperienceData: any) => {
     `;
 
     const values = [
+        name,
         description,
         location,
         story,
