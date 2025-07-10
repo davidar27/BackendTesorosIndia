@@ -5,6 +5,7 @@ import { reportedReviewService } from '@/services/Review/reportedReviewService';
 interface AnalyzeReportRequest extends Request {
   body: {
     user_id: string;
+    userId: number;
     review_id: number;
     comment_text: string;
     comment_author: string;
@@ -17,6 +18,7 @@ export const analyzeReportController = async (req: AnalyzeReportRequest, res: Re
   try {
     const {
       user_id,
+      userId: reportingUser,
       review_id,
       comment_text,
       comment_author,
@@ -45,8 +47,9 @@ export const analyzeReportController = async (req: AnalyzeReportRequest, res: Re
     // Realizar el análisis con IA
     const analysisResult = await ReportAnalysisService.analyzeReport(reportData);
 
+    let result = "El mensaje no tiene los suficientes reportes para ser eliminada"
     if (analysisResult.isOffensive || analysisResult.matchesReportType) {
-      await reportedReviewService(review_id)
+      result = await reportedReviewService(review_id, reportingUser)
     }
 
     // Responder con el resultado del análisis
@@ -56,7 +59,8 @@ export const analyzeReportController = async (req: AnalyzeReportRequest, res: Re
       data: {
         report: reportData,
         analysis: analysisResult
-      }
+      },
+      decission: result
     });
 
   } catch (error: any) {
