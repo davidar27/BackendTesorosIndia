@@ -5,7 +5,7 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/", authMiddlewareToken, getNotificationsController);
-router.patch("/", authMiddlewareToken, setViewNotificationsController);
+router.get("/:userId", authMiddlewareToken, getNotificationsController);
+router.patch("/:userId/marcar", authMiddlewareToken, setViewNotificationsController);
 
 export default router;
