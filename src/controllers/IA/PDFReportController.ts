@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import PDFReportService, { PDFReportRequest } from '../../services/IA/PDFReportService';
 import { authMiddlewareToken } from '../../middleware/Auth/authMiddlewareToken';
 import { checkRole } from '../../middleware/Auth/checkRole';
+import IAService from '../../services/IA/IAService';
+import PDFGeneratorService from '../../services/IA/PDFGeneratorService';
+import { findByIdUserService } from '@/services/User/findByIdUserService';
 
 interface PDFReportControllerRequest extends Request {
     body: {
@@ -15,7 +18,7 @@ interface PDFReportControllerRequest extends Request {
     };
     user?: {
         userId: number;
-        role: string;
+        role: "emprendedor" | "cliente" | "administrador";
     };
 }
 
@@ -135,5 +138,37 @@ export const getAvailableReportTypesController = async (req: Request, res: Respo
             message: 'Error interno del servidor',
             error: error.message
         });
+    }
+};
+
+export const downloadEntrepreneurPDFController = async (req: Request, res: Response) => {
+    try {
+        // Obtén el ID del usuario autenticado
+        const userId = req.query.userId ? Number(req.query.userId) : undefined;;
+        console.log(userId)
+
+        const userIdNum = Number(userId);
+
+        if (!userId || isNaN(userIdNum)) {
+            return res.status(400).json({ error: 'Parámetro userId inválido' });
+        }
+
+
+        const user = await findByIdUserService(userIdNum);
+        if (!user || !user.experience_id) {
+            return res.status(404).json({ error: 'Usuario no encontrado o sin experiencia asociada' });
+        }
+
+        // Genera el informe y el PDF
+        const { pdfReportData } = await IAService.generateEntrepreneurPDFReport(userId, user.experience_id);
+        const pdfBuffer = await PDFGeneratorService.generatePDFFile(pdfReportData);
+
+        // Configura headers para descarga
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=\"informe_experiencia.pdf\"');
+        res.send(pdfBuffer);
+    } catch (error: any) {
+        console.error('Error al generar o enviar el PDF:', error);
+        res.status(500).json({ success: false, message: 'Error al generar el PDF', error: error.message });
     }
 }; 

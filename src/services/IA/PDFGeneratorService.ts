@@ -1,14 +1,10 @@
 import { ReportData } from './PDFReportService';
 import PDFReportService from './PDFReportService';
+import { Buffer } from 'buffer';
 
 // Nota: Para usar este servicio, necesitarías instalar puppeteer:
-// npm install puppeteer
 
 class PDFGeneratorService {
-    /**
-     * Genera un archivo PDF real a partir de los datos del informe
-     * Requiere: npm install puppeteer
-     */
     static async generatePDFFile(reportData: ReportData): Promise<Buffer> {
         try {
             // Importar puppeteer dinámicamente para evitar errores si no está instalado
@@ -19,7 +15,7 @@ class PDFGeneratorService {
             
             // Lanzar navegador
             const browser = await puppeteer.launch({
-                headless: 'new',
+                headless: true,
                 args: ['--no-sandbox', '--disable-setuid-sandbox']
             });
             
@@ -44,7 +40,7 @@ class PDFGeneratorService {
             
             await browser.close();
             
-            return pdfBuffer;
+            return Buffer.from(pdfBuffer);
             
         } catch (error) {
             console.error('Error generando PDF:', error);
@@ -96,12 +92,12 @@ class PDFGeneratorService {
             
             return new Promise((resolve, reject) => {
                 const options = {
-                    format: 'A4',
+                    format: "A4" as const,
                     border: {
-                        top: '20mm',
-                        right: '20mm',
-                        bottom: '20mm',
-                        left: '20mm'
+                        top: '10mm',
+                        right: '10mm',
+                        bottom: '10mm',
+                        left: '10mm'
                     }
                 };
                 

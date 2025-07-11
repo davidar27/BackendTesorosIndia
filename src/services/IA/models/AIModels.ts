@@ -37,4 +37,10 @@ export const globalConfig: GenerateContentConfig = {
     ],
 };
 
-export type Roles = 'observador' | 'emprendedor'; 
+export type Roles = 'observador' | 'emprendedor';
+
+// Tipo simple para la respuesta de IA
+export type AIResponse = {
+    text: string;
+    data?: any;
+}; 

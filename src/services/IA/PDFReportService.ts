@@ -12,6 +12,11 @@ export interface ReportData {
         sales?: any[];
         topProducts?: any[];
         experiences?: any[];
+        incomeByExperience?: any[];
+        topProductsByExperience?: any[];
+        roomReservationsByExperience?: any[];
+        packagesSoldByExperience?: any[];
+        invoiceHistoryByExperience?: any[];
         [key: string]: any;
     };
     metadata: {
@@ -197,180 +202,568 @@ class PDFReportService {
             }).format(amount);
         };
 
-        const formatDate = (date: Date) => {
-            return date.toLocaleDateString('es-CO', {
+        const formatDate = (date: Date | string) => {
+            const d = typeof date === 'string' ? new Date(date) : date;
+            return d.toLocaleDateString('es-CO', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
             });
         };
 
-        // Generar contenido específico según el tipo de informe
-        let mainContent = '';
-        
-        switch (reportData.metadata.reportType) {
-            case 'sales':
-                mainContent = this.generateSalesContent(reportData, formatCurrency);
-                break;
-            case 'products':
-                mainContent = this.generateProductsContent(reportData, formatCurrency);
-                break;
-            case 'experiences':
-                mainContent = this.generateExperiencesContent(reportData);
-                break;
-            default:
-                mainContent = this.generateGenericContent(reportData);
+        // Secciones del informe
+        let sections = '';
+
+        // 1. Ingresos por experiencia
+        if (Array.isArray(reportData.data.incomeByExperience) && reportData.data.incomeByExperience.length > 0) {
+            sections += `
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">💰</div>
+            <h2 class="section-title">Ingresos por Experiencia</h2>
+        </div>
+        <div class="table-container">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Experiencia</th>
+                        <th>Total Ingresos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${reportData.data.incomeByExperience.slice(0, 10).map((row: any, index: number) => `
+                        <tr class="table-row" style="animation-delay: ${index * 0.1}s">
+                            <td class="experience-name">${row.experiencia}</td>
+                            <td class="income-amount">${formatCurrency(row.total_ingresos)}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    `;
         }
 
+
+        // 2. Productos más vendidos por experiencia
+        if (Array.isArray(reportData.data.topProductsByExperience) && reportData.data.topProductsByExperience.length > 0) {
+            sections += `
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">🏆</div>
+            <h2 class="section-title">Top 5 Productos Más Vendidos</h2>
+        </div>
+        <div class="table-container">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Vendidos</th>
+                        <th>Categorías</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${reportData.data.topProductsByExperience.slice(0, 5).map((row: any, index: number) => `
+                        <tr class="table-row" style="animation-delay: ${index * 0.1}s">
+                            <td class="product-name">
+                                <span class="rank-badge">#${index + 1}</span>
+                                ${row.producto}
+                            </td>
+                            <td class="price-amount">${formatCurrency(row.precio)}</td>
+                            <td class="sold-count">
+                                <span class="sold-badge">${row.total_vendidos}</span>
+                            </td>
+                            <td class="categories-list">${row.categorias}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    `;
+        }
+
+        // 3. Reservas de habitaciones por experiencia
+        if (Array.isArray(reportData.data.roomReservationsByExperience) && reportData.data.roomReservationsByExperience.length > 0) {
+            sections += `
+            <div class="section">
+                <div class="section-title">🛏️ Reservas de Habitaciones</div>
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Habitación</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${reportData.data.roomReservationsByExperience.slice(0, 10).map((row: any) => `
+                            <tr>
+                                <td>${formatDate(row.fecha_reserva)}</td>
+                                <td>${row.cliente}</td>
+                                <td>${row.habitacion}</td>
+                                <td>${row.estado}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            `;
+        }
+
+        // 4. Paquetes vendidos por experiencia
+        if (Array.isArray(reportData.data.packagesSoldByExperience) && reportData.data.packagesSoldByExperience.length > 0) {
+            sections += `
+            <div class="section">
+                <div class="section-title">🎒 Paquetes Vendidos</div>
+                <table class="simple-table">
+                    <thead>
+                        <tr>
+                            <th>Paquete</th>
+                            <th>Veces Vendido</th>
+                            <th>Ingresos Generados</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${reportData.data.packagesSoldByExperience.slice(0, 10).map((row: any) => `
+                            <tr>
+                                <td>${row.paquete}</td>
+                                <td>${row.veces_vendido}</td>
+                                <td>${formatCurrency(row.ingresos_generados)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            `;
+        }
+
+
+        // 5. Historial de facturas por cliente y experiencia
+        if (Array.isArray(reportData.data.invoiceHistoryByExperience) && reportData.data.invoiceHistoryByExperience.length > 0) {
+            sections += `
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon">🧾</div>
+            <h2 class="section-title">Historial de Facturas</h2>
+        </div>
+        <div class="table-container">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Experiencia</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${reportData.data.invoiceHistoryByExperience.slice(0, 10).map((row: any, index: number) => `
+                        <tr class="table-row" style="animation-delay: ${index * 0.1}s">
+                            <td class="date-cell">${formatDate(row.fecha)}</td>
+                            <td class="client-name">${row.cliente}</td>
+                            <td class="experience-name">${row.experiencia}</td>
+                            <td class="total-amount">${formatCurrency(row.total)}</td>
+                            <td class="status-cell">
+                                <span class="status-badge status-${row.estado.toLowerCase().replace(' ', '-')}">${row.estado}</span>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    `;
+        }
+
+        // Si no hay datos, mostrar mensaje amigable
+        if (!sections) {
+            sections = `<div class="section"><p>No hay datos suficientes para mostrar el informe.</p></div>`;
+        }
+
+
         return `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>${reportData.title}</title>
-            <style>
-                body { 
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-                    margin: 0; 
-                    padding: 20px; 
-                    background-color: #f5f5f5;
-                    color: #333;
-                }
-                .container { 
-                    max-width: 800px; 
-                    margin: 0 auto; 
-                    background: white; 
-                    padding: 30px; 
-                    border-radius: 10px;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                }
-                .header { 
-                    text-align: center; 
-                    margin-bottom: 30px; 
-                    border-bottom: 3px solid #00a63d;
-                    padding-bottom: 20px;
-                }
-                .logo { max-width: 150px; margin-bottom: 15px; }
-                .title { 
-                    color: #00a63d; 
-                    font-size: 28px; 
-                    margin: 10px 0; 
-                    font-weight: 600;
-                }
-                .subtitle {
-                    color: #666;
-                    font-size: 16px;
-                    margin: 5px 0;
-                }
-                .summary-box {
-                    background: linear-gradient(135deg, #00a63d, #008f35);
-                    color: white;
-                    padding: 20px;
-                    border-radius: 8px;
-                    margin: 20px 0;
-                    text-align: center;
-                }
-                .summary-title {
-                    font-size: 18px;
-                    font-weight: 600;
-                    margin-bottom: 10px;
-                }
-                .summary-value {
-                    font-size: 32px;
-                    font-weight: bold;
-                    margin: 5px 0;
-                }
-                .section {
-                    margin: 25px 0;
-                    padding: 20px;
-                    background: #f8f9fa;
-                    border-radius: 8px;
-                    border-left: 4px solid #00a63d;
-                }
-                .section-title {
-                    color: #00a63d;
-                    font-size: 20px;
-                    font-weight: 600;
-                    margin-bottom: 15px;
-                }
-                .highlight-box {
-                    background: #e8f5e8;
-                    border: 1px solid #00a63d;
-                    border-radius: 6px;
-                    padding: 15px;
-                    margin: 15px 0;
-                }
-                .highlight-title {
-                    color: #00a63d;
-                    font-weight: 600;
-                    margin-bottom: 8px;
-                }
-                .simple-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin: 15px 0;
-                    background: white;
-                    border-radius: 6px;
-                    overflow: hidden;
-                    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-                }
-                .simple-table th {
-                    background: #00a63d;
-                    color: white;
-                    padding: 12px;
-                    text-align: left;
-                    font-weight: 600;
-                }
-                .simple-table td {
-                    padding: 12px;
-                    border-bottom: 1px solid #eee;
-                }
-                .simple-table tr:hover {
-                    background: #f8f9fa;
-                }
-                .footer {
-                    text-align: center;
-                    margin-top: 30px;
-                    padding-top: 20px;
-                    border-top: 1px solid #eee;
-                    color: #666;
-                    font-size: 14px;
-                }
-                .metric {
-                    display: inline-block;
-                    margin: 10px 20px;
-                    text-align: center;
-                }
-                .metric-value {
-                    font-size: 24px;
-                    font-weight: bold;
-                    color: #00a63d;
-                }
-                .metric-label {
-                    font-size: 14px;
-                    color: #666;
-                    margin-top: 5px;
-                }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <img src="https://i.postimg.cc/YSQp2Kmn/logotesorosindia.png" alt="Logo Tesoros de la India" class="logo">
-                    <h1 class="title">${reportData.title}</h1>
-                    <p class="subtitle">Generado el ${formatDate(reportData.metadata.generatedAt)}</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${reportData.title}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { 
+            max-width: 100%; 
+            margin: 0 auto; 
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, #00a63d 0%, #00c851 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+        
+        .logo { 
+            max-width: 350px; 
+            margin-bottom: 2px;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.86);
+            padding: 5px;
+        }
+        
+        .title { 
+            font-size: 32px; 
+            font-weight: 700;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid rgba(0, 166, 61, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            padding: 25px 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-bottom: 3px solid #00a63d;
+        }
+        
+        .section-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            background: linear-gradient(135deg, #00a63d, #00c851);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 0;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            background: white;
+        }
+        
+        .modern-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        .modern-table th {
+            background: linear-gradient(135deg, #00a63d 0%, #00c851 100%);
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 3px solid #007a2d;
+        }
+        
+        .table-row {
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modern-table td {
+            padding: 16px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        
+        .modern-table tr:hover {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            transform: scale(1.01);
+        }
+        
+        .experience-name {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .income-amount,
+        .price-amount,
+        .total-amount {
+            font-weight: 700;
+            color: #00a63d;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .rank-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #744210;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 8px;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+        
+        .sold-badge {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #1565c0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            border: 1px solid #64b5f6;
+        }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-completado,
+        .status-pagado {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-pendiente {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .status-cancelado {
+            background: linear-gradient(135deg, #f8d7da 0%, #f1c0c3 100%);
+            color: #721c24;
+            border: 1px solid #f1c0c3;
+        }
+        
+        .categories-list {
+            font-size: 12px;
+            color: #6c757d;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .date-cell {
+            font-family: 'Courier New', monospace;
+            color: #495057;
+            font-size: 13px;
+        }
+        
+        .client-name {
+            font-weight: 500;
+            color: #2d3748;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .footer-icon {
+            font-size: 18px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .section-header {
+                padding: 20px 15px;
+            }
+            
+            .modern-table {
+                font-size: 12px;
+            }
+            
+            .modern-table th,
+            .modern-table td {
+                padding: 12px 8px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                background: white;
+            }
+            
+            .section:hover {
+                transform: none;
+            }
+            
+            .table-row {
+                animation: none;
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://i.postimg.cc/YSQp2Kmn/logotesorosindia.png" alt="Logo Tesoros de la India" class="logo">
+            <h1 class="title">${reportData.title}</h1>
+            <p class="subtitle">Generado el ${formatDate(reportData.metadata.generatedAt)}</p>
+        </div>
+        
+        <div class="content">
+            ${sections}
+        </div>
+        
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-item">
+                    <span class="footer-icon">📊</span>
+                    <span>Informe generado automáticamente por Tesorito</span>
                 </div>
-                
-                ${mainContent}
-                
-                <div class="footer">
-                    <p>📊 Informe generado automáticamente por Tesoros de la India</p>
-                    <p>💡 Para más detalles, consulta tu panel de control</p>
+                <div class="footer-item">
+                    <span class="footer-icon">🌟</span>
+                    <span>Tesoros de la India</span>
                 </div>
             </div>
-        </body>
-        </html>
-        `;
+        </div>
+    </div>
+</body>
+</html>
+`;
     }
 
     /**
@@ -379,7 +772,7 @@ class PDFReportService {
     private static generateSalesContent(reportData: ReportData, formatCurrency: (amount: number) => string): string {
         const sales = reportData.data.sales || [];
         const topProducts = reportData.data.topProducts || [];
-        
+
         let totalIncome = 0;
         if (sales.length > 0 && sales[0].total_income) {
             totalIncome = sales[0].total_income;
@@ -498,4 +891,3 @@ class PDFReportService {
 }
 
 export default PDFReportService;
-export type { PDFReportRequest }; 

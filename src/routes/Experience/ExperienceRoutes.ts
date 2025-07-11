@@ -18,6 +18,7 @@ import { addMemberController } from "@/controllers/Experience/Members/addMemberC
 import { updateMemberController } from "@/controllers/Experience/Members/updateMemberController";
 import { deleteMemberController } from "@/controllers/Experience/Members/deleteMemberController";
 import updateStatusExperienceController from "@/controllers/Experience/updateStatusExperienceController";
+import { getTotalIncomeByExperienceController } from "@/controllers/Experience/getTotalIncomeByExperienceController";
 
 const router = express.Router();
 
@@ -42,6 +43,7 @@ router.get('/valoraciones/:experience_id', getReviewsExperienceController);
 router.get('/mi-experiencia', authMiddlewareToken, checkRole('emprendedor'), getMyExperienceController);
 
 // Rutas con parámetros privadas
+router.get('/ingresos/:userId', getTotalIncomeByExperienceController);
 router.put("/actualizar-informacion/:experience_id", uploadSingleFile, authMiddlewareToken, checkRole('emprendedor'), updateInfoExperienceController);
 router.put("/estado/:experience_id", authMiddlewareToken, checkRole('emprendedor'), updateStatusExperienceController);
 router.delete("/eliminar/:id", authMiddlewareToken, checkRole('emprendedor'), deleteExperienceController);
